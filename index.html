@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>CODIA | Software &amp; Desarrollo de Soluciones</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#00429b",
+                        "inverse-primary": "#b0c6ff",
+                        "surface-container-high": "#e7e7f2",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#c5d4ff",
+                        "primary-fixed-dim": "#b0c6ff",
+                        "on-surface": "#191b23",
+                        "tertiary": "#404e66",
+                        "error-container": "#ffdad6",
+                        "on-surface-variant": "#424654",
+                        "primary": "#0048a8",
+                        "surface-container-low": "#f2f3fd",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#d9e2ff",
+                        "on-error": "#ffffff",
+                        "surface-container": "#ededf7",
+                        "surface-dim": "#d9d9e3",
+                        "surface-tint": "#0058cb",
+                        "inverse-on-surface": "#eff0fa",
+                        "background": "#faf8ff",
+                        "on-background": "#191b23",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#58667f",
+                        "secondary": "#4f5e83",
+                        "secondary-fixed": "#d9e2ff",
+                        "on-secondary-fixed-variant": "#37466a",
+                        "surface": "#faf8ff",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#d6e3ff",
+                        "on-tertiary-fixed": "#0d1c31",
+                        "surface-container-highest": "#e1e2ec",
+                        "outline": "#737785",
+                        "tertiary-fixed-dim": "#b9c7e3",
+                        "on-tertiary-fixed-variant": "#3a475e",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#dae3ff",
+                        "primary-container": "#135fd3",
+                        "outline-variant": "#c2c6d6",
+                        "on-primary-fixed": "#001945",
+                        "surface-bright": "#faf8ff",
+                        "on-secondary-fixed": "#091a3c",
+                        "surface-variant": "#e1e2ec",
+                        "secondary-fixed-dim": "#b7c6f1",
+                        "on-secondary-container": "#4c5b80",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#d7e4ff",
+                        "inverse-surface": "#2e3038"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "32px",
+                        "stack-sm": "8px",
+                        "section-gap": "128px",
+                        "container-max": "1440px",
+                        "unit": "8px",
+                        "stack-md": "16px",
+                        "stack-lg": "24px",
+                        "margin-page": "64px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Manrope"],
+                        "label-bold": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Manrope"],
+                        "body-md": ["Inter"],
+                        "headline-sm": ["Manrope"],
+                        "display-xl": ["Manrope"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "label-bold": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-sm": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "display-xl": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-background font-body-md antialiased">
+    <!-- TopNavBar -->
+    <nav
+        class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-blue-100 dark:border-slate-800 shadow-sm h-20">
+        <div class="max-w-[1440px] mx-auto flex justify-between items-center px-8 h-full">
+            <div class="h-12 overflow-hidden">
+                <img src="assets/codia_logo.png" alt="CODIA Logo" class="h-full w-auto object-contain">
+            </div>
+            <div class="hidden md:flex items-center space-x-8 font-['Manrope'] font-medium tracking-tight">
+                <a class="text-blue-700 dark:text-blue-400 border-b-2 border-blue-700 pb-1" href="#">Inicio</a>
+                <a class="text-slate-600 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-400 transition-colors"
+                    href="#servicios">Servicios</a>
+                <a class="text-slate-600 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-400 transition-colors"
+                    href="#portafolio">Portafolio</a>
+                <a class="text-slate-600 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-400 transition-colors"
+                    href="#propuestas">Propuestas</a>
+                <a class="text-slate-600 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-400 transition-colors"
+                    href="#proceso">Proceso</a>
+                <a class="text-slate-600 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-400 transition-colors"
+                    href="#contacto">Contacto</a>
+            </div>
+            <button
+                class="bg-primary-container text-on-primary px-6 py-3 font-label-bold rounded-lg hover:opacity-80 transition-all active:scale-95 transform">
+                Solicitar propuesta
+            </button>
+        </div>
+    </nav>
+    <!-- Hero Section -->
+    <section class="pt-40 pb-section-gap px-8 max-w-[1440px] mx-auto overflow-hidden">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+            <div class="space-y-stack-lg">
+                <span
+                    class="inline-block px-4 py-1.5 bg-primary-fixed text-on-primary-fixed-variant font-label-bold text-xs rounded-full uppercase tracking-widest">
+                    Software &amp; desarrollo de soluciones
+                </span>
+                <h1 class="font-display-xl text-display-xl text-on-surface">
+                    Creamos soluciones digitales para negocios que quieren <span
+                        class="text-primary-container">crecer.</span>
+                </h1>
+                <p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+                    Desde landing pages de alto impacto hasta sistemas complejos de automatización e inteligencia
+                    artificial. Arquitectura de software diseñada para la excelencia técnica.
+                </p>
+                <div class="flex flex-wrap gap-4 pt-4">
+                    <button
+                        class="bg-primary-container text-on-primary px-8 py-4 font-label-bold rounded-lg hover:opacity-90 transition-all flex items-center gap-2">
+                        Comenzar Proyecto <span class="material-symbols-outlined"
+                            data-icon="arrow_forward">arrow_forward</span>
+                    </button>
+                    <button
+                        class="border border-outline-variant text-on-surface px-8 py-4 font-label-bold rounded-lg hover:bg-surface-container-low transition-all">
+                        Ver Portafolio
+                    </button>
+                </div>
+            </div>
+            <div class="relative flex items-center justify-center min-h-[400px]">
+                <!-- Large Animated Logo Container -->
+                <div id="hero-logo-container"
+                    class="relative w-full max-w-lg aspect-square flex items-center justify-center p-8">
+                    <!-- SVG Network Background (will be animated) -->
+                    <svg id="network-svg" class="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 100 100">
+                        <!-- Points and lines will be injected or animated here -->
+                    </svg>
+
+                    <!-- Main Logo Symbol -->
+                    <div id="main-logo-symbol" class="relative z-10 transform scale-150">
+                        <img src="assets/codia_logo.png" alt="CODIA Logo" class="w-full h-auto drop-shadow-2xl">
+                    </div>
+
+                    <!-- Floating tech elements -->
+                    <div class="tech-dot absolute top-10 left-10 w-3 h-3 bg-primary-container rounded-full"></div>
+                    <div class="tech-dot absolute bottom-20 right-10 w-2 h-2 bg-secondary rounded-full"></div>
+                    <div class="tech-dot absolute top-1/2 left-0 w-4 h-4 bg-primary-fixed rounded-full opacity-50">
+                    </div>
+                </div>
+
+                <!-- Decorative element -->
+                <div
+                    class="absolute -top-12 -right-12 w-64 h-64 bg-primary-fixed rounded-full blur-[80px] opacity-40 -z-10 animate-pulse">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Validation Section -->
+    <section class="bg-surface-container-low py-24 px-8">
+        <div class="max-w-[1440px] mx-auto">
+            <h2 class="font-headline-md text-headline-md text-center mb-16 text-on-surface">
+                Tecnología pensada para proyectos reales
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="p-8 bg-white border border-blue-100 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div
+                        class="w-12 h-12 bg-primary-fixed text-primary flex items-center justify-center rounded-lg mb-6">
+                        <span class="material-symbols-outlined" data-icon="settings_suggest">settings_suggest</span>
+                    </div>
+                    <h3 class="font-headline-sm text-headline-sm mb-4">Soluciones personalizadas</h3>
+                    <p class="text-on-surface-variant">Arquitectura a medida que se adapta exactamente a los procesos y
+                        necesidades de su negocio.</p>
+                </div>
+                <div class="p-8 bg-white border border-blue-100 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div
+                        class="w-12 h-12 bg-primary-fixed text-primary flex items-center justify-center rounded-lg mb-6">
+                        <span class="material-symbols-outlined" data-icon="verified_user">verified_user</span>
+                    </div>
+                    <h3 class="font-headline-sm text-headline-sm mb-4">Enfoque profesional</h3>
+                    <p class="text-on-surface-variant">Metodologías ágiles y estándares corporativos para garantizar
+                        entregas puntuales y robustas.</p>
+                </div>
+                <div class="p-8 bg-white border border-blue-100 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div
+                        class="w-12 h-12 bg-primary-fixed text-primary flex items-center justify-center rounded-lg mb-6">
+                        <span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+                    </div>
+                    <h3 class="font-headline-sm text-headline-sm mb-4">Automatización e IA</h3>
+                    <p class="text-on-surface-variant">Integramos modelos inteligentes para optimizar tareas repetitivas
+                        y potenciar la productividad.</p>
+                </div>
+                <div class="p-8 bg-white border border-blue-100 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div
+                        class="w-12 h-12 bg-primary-fixed text-primary flex items-center justify-center rounded-lg mb-6">
+                        <span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+                    </div>
+                    <h3 class="font-headline-sm text-headline-sm mb-4">Desarrollo escalable</h3>
+                    <p class="text-on-surface-variant">Código limpio y estructuras modulares preparadas para crecer
+                        junto con su volumen de usuarios.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Services Section (Editorial Layout) -->
+    <section class="py-section-gap px-8 max-w-[1440px] mx-auto" id="servicios">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+            <div class="max-w-2xl">
+                <span class="font-label-bold text-primary-container tracking-widest uppercase">Especialidades</span>
+                <h2 class="font-display-lg text-display-lg mt-4">Nuestras soluciones</h2>
+            </div>
+            <p class="font-body-lg text-on-surface-variant max-w-sm border-l-2 border-primary-container pl-6">
+                Transformamos desafíos complejos en interfaces simples y flujos de trabajo eficientes.
+            </p>
+        </div>
+        <div class="grid grid-cols-12 gap-8">
+            <!-- Featured Service -->
+            <div
+                class="col-span-12 lg:col-span-7 bg-inverse-surface rounded-xl overflow-hidden text-white flex flex-col md:flex-row">
+                <div class="p-12 flex-1">
+                    <h3 class="text-3xl font-bold mb-4">Sistemas Web Enterprise</h3>
+                    <p class="text-slate-400 mb-8 font-body-lg">
+                        Plataformas de gestión robustas, intranets y aplicaciones SaaS con arquitecturas en la nube
+                        escalables.
+                    </p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3"><span
+                                class="material-symbols-outlined text-primary-container"
+                                data-icon="check_circle">check_circle</span> React &amp; Next.js Ecosystem</li>
+                        <li class="flex items-center gap-3"><span
+                                class="material-symbols-outlined text-primary-container"
+                                data-icon="check_circle">check_circle</span> Cloud Infrastructure (AWS/GCP)</li>
+                        <li class="flex items-center gap-3"><span
+                                class="material-symbols-outlined text-primary-container"
+                                data-icon="check_circle">check_circle</span> Security-first Development</li>
+                    </ul>
+                    <a class="inline-flex items-center gap-2 font-label-bold text-primary-fixed hover:gap-4 transition-all"
+                        href="#">
+                        Explorar técnica <span class="material-symbols-outlined"
+                            data-icon="trending_flat">trending_flat</span>
+                    </a>
+                </div>
+                <div class="flex-1 min-h-[300px] relative">
+                    <img alt="Code development"
+                        class="absolute inset-0 w-full h-full object-cover grayscale opacity-50 hover:grayscale-0 transition-all duration-700"
+                        data-alt="Detailed code view on a high-resolution screen with syntax highlighting in a dark room with blue ambient lighting"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDejhfZkbxtdLgIecDmrE0-mt3uZI8faErnHawbLGyu2puDsC45XP1kStS8h85u4Y03Wvx1xXag4vDvXxhrldRZw4AcEjC-1yfsUDEB4nnb80Gs02MQ6Tnr2nVxrFEKGqzehcJj6_jX0ZUXv-zMtZRAr8O0y1mtsFZTtFrAmI7TRhanEVsfpw8ZYF2Ggzvju3TREUazV3gNZWTN9jAQpCi8m8PL4rYcZuJjErf_mc3r8_h5qLGjJxqWXkVJWf_0jTRKB3Eg8JSkDJUl" />
+                </div>
+            </div>
+            <div class="col-span-12 md:col-span-6 lg:col-span-5 bg-white border border-outline-variant p-10 rounded-xl">
+                <div class="w-14 h-14 bg-surface-container flex items-center justify-center rounded-xl mb-6">
+                    <span class="material-symbols-outlined text-primary" data-icon="rocket_launch">rocket_launch</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">Landing Pages de Alto Impacto</h3>
+                <p class="text-on-surface-variant mb-6">Diseño editorial orientado a la conversión. Velocidad de carga
+                    extrema y optimización SEO técnica.</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-surface-container text-xs font-bold rounded">Conversion focused</span>
+                    <span class="px-3 py-1 bg-surface-container text-xs font-bold rounded">Fast Performance</span>
+                </div>
+            </div>
+            <div class="col-span-12 md:col-span-6 lg:col-span-4 bg-white border border-outline-variant p-10 rounded-xl">
+                <h3 class="text-xl font-bold mb-4">Automatización e IA</h3>
+                <p class="text-on-surface-variant mb-6">Integración de LLMs, chatbots personalizados y flujos de trabajo
+                    automáticos (n8n, Zapier).</p>
+                <span class="material-symbols-outlined text-4xl text-primary" data-icon="smart_toy">smart_toy</span>
+            </div>
+            <div class="col-span-12 md:col-span-6 lg:col-span-4 bg-white border border-outline-variant p-10 rounded-xl">
+                <h3 class="text-xl font-bold mb-4">Integraciones &amp; APIs</h3>
+                <p class="text-on-surface-variant mb-6">Conectamos sus herramientas existentes para centralizar la
+                    información y evitar silos de datos.</p>
+                <span class="material-symbols-outlined text-4xl text-primary" data-icon="hub">hub</span>
+            </div>
+            <div class="col-span-12 md:col-span-6 lg:col-span-4 bg-primary-container text-white p-10 rounded-xl">
+                <h3 class="text-xl font-bold mb-4">Soluciones a Medida</h3>
+                <p class="opacity-90 mb-6">¿Tiene un desafío único? Diseñamos la arquitectura desde cero para
+                    resolverlo.</p>
+                <button class="font-label-bold flex items-center gap-2 hover:translate-x-2 transition-transform">
+                    Solicitar consulta <span class="material-symbols-outlined"
+                        data-icon="arrow_right_alt">arrow_right_alt</span>
+                </button>
+            </div>
+        </div>
+    </section>
+    <!-- Portfolio Section -->
+    <section class="bg-surface-container-highest py-section-gap px-8" id="portafolio">
+        <div class="max-w-[1440px] mx-auto">
+            <div class="text-center mb-20">
+                <h2 class="font-display-lg text-display-lg mb-4">Proyectos que podemos desarrollar</h2>
+                <p class="text-on-surface-variant font-body-lg">Explora nuestras capacidades a través de casos
+                    conceptuales de éxito.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Case Study 1 -->
+                <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden rounded-xl mb-6 aspect-video bg-white">
+                        <img alt="Retail System"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            data-alt="Modern retail management system on a laptop screen with elegant glassmorphism elements and inventory data"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIY7I_hw6Zxjk3c04BTDNZE3DXvSzb_9NMJgPhaRld3KZjTIHMW5kGBaxzuJdRCq2aYwafaf0ia_Oaz4VzZ_FngNx8Idffl_gtUR4GxF_m4e3yA5BA2uaZbqbqmg9XuHh5AXgORlcawZJcDD7b1OEmpUM4nw6PQBbK8UC1YFGa7RWTPAZ4vgwITJaMdPBq4T0-33w3zx1nd12BnC-OgBUvO2bTwlZNyHR0K-MznawEMe_456kRh_-DOG8-Kmo1hdZ80B_2VUTVe7cM" />
+                        <div
+                            class="absolute inset-0 bg-primary-container/20 opacity-0 group-hover:opacity-100 transition-opacity">
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-2">OmniChannel Electronics Store</h3>
+                            <p class="text-on-surface-variant">E-commerce avanzado con control de stock en tiempo real e
+                                IA de recomendación.</p>
+                        </div>
+                        <span class="material-symbols-outlined text-primary text-3xl"
+                            data-icon="north_east">north_east</span>
+                    </div>
+                </div>
+                <!-- Case Study 2 -->
+                <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden rounded-xl mb-6 aspect-video bg-white">
+                        <img alt="Healthcare System"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            data-alt="Digital healthcare platform for an optics clinic with calendar views and patient records on a tablet"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9FINCj7gNVIJ9UBuCX-lVo9EOpHO_fTVecaqnaGy2pX3W4fhptefQvaemyZhg7u-Y8RJXwQLzAB50BEzmtyisTVr3diOrZuAEiE9GtacF7BVIbTqmFKFK2rCyL5qAVTkSoyood6cHTeM5SS2L7N-oWULoakl6ztt_9st43KvMrl5pWXVGxVJZpr_q81GdqdSt4o_xwGrF9w-OIRQKZJY9N1wbGVxqCNtww419BB88AmTLoP_UCNsrLQfHpo8KdPmMTR4azLg9qd-M" />
+                        <div
+                            class="absolute inset-0 bg-primary-container/20 opacity-0 group-hover:opacity-100 transition-opacity">
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-2">Optics Booking &amp; Patient CRM</h3>
+                            <p class="text-on-surface-variant">Sistema de agendamiento y seguimiento clínico
+                                personalizado para ópticas.</p>
+                        </div>
+                        <span class="material-symbols-outlined text-primary text-3xl"
+                            data-icon="north_east">north_east</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Proposals Section -->
+    <section class="py-section-gap px-8 max-w-[1440px] mx-auto text-center" id="propuestas">
+        <span class="font-label-bold text-primary-container tracking-widest uppercase">Inversión Inteligente</span>
+        <h2 class="font-display-lg text-display-lg mt-4 mb-16">Cada proyecto requiere una propuesta diferente</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Plan 1 -->
+            <div
+                class="border border-outline-variant p-10 rounded-xl flex flex-col text-left hover:border-primary-container transition-colors">
+                <h3 class="text-2xl font-bold mb-2">Presencia Digital</h3>
+                <p class="text-on-surface-variant mb-8 text-sm">Ideal para lanzamientos y marcas personales que buscan
+                    autoridad.</p>
+                <div class="mt-auto space-y-4">
+                    <div class="flex items-center gap-3"><span class="material-symbols-outlined text-primary"
+                            data-icon="done">done</span> High-End Landing Page</div>
+                    <div class="flex items-center gap-3"><span class="material-symbols-outlined text-primary"
+                            data-icon="done">done</span> Performance &amp; SEO</div>
+                    <div class="flex items-center gap-3"><span class="material-symbols-outlined text-primary"
+                            data-icon="done">done</span> Lead Generation Ops</div>
+                </div>
+                <button
+                    class="mt-10 w-full py-3 border border-primary text-primary font-label-bold rounded-lg hover:bg-primary-fixed transition-colors">Ver
+                    Detalles</button>
+            </div>
+            <!-- Plan 2 -->
+            <div
+                class="bg-inverse-surface text-white p-10 rounded-xl flex flex-col text-left transform md:scale-105 shadow-xl relative overflow-hidden">
+                <div
+                    class="absolute top-0 right-0 bg-primary-container text-xs font-black px-6 py-2 rounded-bl-xl uppercase tracking-tighter">
+                    Más Solicitado</div>
+                <h3 class="text-2xl font-bold mb-2">Solución Comercial</h3>
+                <p class="text-slate-400 mb-8 text-sm">Sistemas web orientados a optimizar ventas y gestión de clientes.
+                </p>
+                <div class="mt-auto space-y-4">
+                    <div class="flex items-center gap-3"><span class="material-symbols-outlined text-primary-container"
+                            data-icon="done" style="font-variation-settings: 'FILL' 1;">done</span> Dashboard de Gestión
+                    </div>
+                    <div class="flex items-center gap-3"><span class="material-symbols-outlined text-primary-container"
+                            data-icon="done" style="font-variation-settings: 'FILL' 1;">done</span> Integraciones
+                        CRM/ERP</div>
+                    <div class="flex items-center gap-3"><span class="material-symbols-outlined text-primary-container"
+                            data-icon="done" style="font-variation-settings: 'FILL' 1;">done</span> Automatización
+                        Comercial</div>
+                </div>
+                <button
+                    class="mt-10 w-full py-3 bg-primary-container text-white font-label-bold rounded-lg hover:opacity-90 transition-opacity">Contactar</button>
+            </div>
+            <!-- Plan 3 -->
+            <div
+                class="border border-outline-variant p-10 rounded-xl flex flex-col text-left hover:border-primary-container transition-colors">
+                <h3 class="text-2xl font-bold mb-2">Solución Avanzada</h3>
+                <p class="text-on-surface-variant mb-8 text-sm">Software corporativo con IA y arquitecturas
+                    distribuidas.</p>
+                <div class="mt-auto space-y-4">
+                    <div class="flex items-center gap-3"><span class="material-symbols-outlined text-primary"
+                            data-icon="done">done</span> Arquitectura de IA</div>
+                    <div class="flex items-center gap-3"><span class="material-symbols-outlined text-primary"
+                            data-icon="done">done</span> Big Data Pipelines</div>
+                    <div class="flex items-center gap-3"><span class="material-symbols-outlined text-primary"
+                            data-icon="done">done</span> Soporte 24/7 Priority</div>
+                </div>
+                <button
+                    class="mt-10 w-full py-3 border border-primary text-primary font-label-bold rounded-lg hover:bg-primary-fixed transition-colors">Hablar
+                    con Experto</button>
+            </div>
+        </div>
+    </section>
+    <!-- Process Section -->
+    <section class="bg-on-surface text-white py-section-gap px-8" id="proceso">
+        <div class="max-w-[1440px] mx-auto">
+            <div class="grid lg:grid-cols-2 gap-20 items-center">
+                <div>
+                    <h2 class="font-display-lg text-display-lg mb-8">Nuestra metodología de ejecución</h2>
+                    <p class="text-slate-400 font-body-lg mb-12">Un camino estructurado garantiza que cada línea de
+                        código aporte valor real a su visión de negocio.</p>
+                    <img alt="Team Process" class="rounded-xl opacity-80 border border-slate-700"
+                        data-alt="Professional collaborative environment where engineers are discussing architectural diagrams on a glass wall with blue markers"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuD67xC0if7UjxFE3M5NTr-DBCWN8yl97Qq5sUFOpa32noQMaxF2EOtTsbGn2CinuVbsqP879Drl9Jgw1WpZfWONc7Pmv0lE-bstBKUbq-5BdjA8bBlvCJgK0n4N9C5TPwXqzdOpZKzNLE_GVN2wj6o0zeJ1oAHp_veIpNtzudH5nuJ8pMuHwrv3yn47muHadadt2DUuQ1CiIiyWunT68KKk4jVz46U6x4-_xXq_1IzXnsjhcoQ2eufIR2UcX3Ye6MxHJwp9QknjorSM" />
+                </div>
+                <div class="space-y-12">
+                    <div class="flex gap-8 group">
+                        <div
+                            class="text-4xl font-black text-primary-container opacity-40 group-hover:opacity-100 transition-opacity">
+                            01</div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">Escuchamos</h4>
+                            <p class="text-slate-400">Entendemos sus objetivos, sus dolores y su visión a largo plazo
+                                para trazar la ruta correcta.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-8 group">
+                        <div
+                            class="text-4xl font-black text-primary-container opacity-40 group-hover:opacity-100 transition-opacity">
+                            02</div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">Analizamos</h4>
+                            <p class="text-slate-400">Evaluamos la tecnología óptima y la viabilidad técnica para
+                                asegurar la escalabilidad futura.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-8 group">
+                        <div
+                            class="text-4xl font-black text-primary-container opacity-40 group-hover:opacity-100 transition-opacity">
+                            03</div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">Diseñamos</h4>
+                            <p class="text-slate-400">Creamos interfaces intuitivas y arquitecturas de datos que
+                                priorizan la experiencia de usuario.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-8 group">
+                        <div
+                            class="text-4xl font-black text-primary-container opacity-40 group-hover:opacity-100 transition-opacity">
+                            04</div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">Desarrollamos</h4>
+                            <p class="text-slate-400">Escritura de código limpio, seguro y testeado siguiendo estándares
+                                internacionales.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-8 group">
+                        <div
+                            class="text-4xl font-black text-primary-container opacity-40 group-hover:opacity-100 transition-opacity">
+                            05</div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">Ajustamos</h4>
+                            <p class="text-slate-400">Ciclos de retroalimentación para pulir cada detalle y asegurar la
+                                satisfacción total.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-8 group">
+                        <div
+                            class="text-4xl font-black text-primary-container opacity-40 group-hover:opacity-100 transition-opacity">
+                            06</div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">Entregamos</h4>
+                            <p class="text-slate-400">Despliegue final, capacitación y soporte para el inicio de su
+                                nueva era digital.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section -->
+    <section class="py-section-gap px-8 max-w-[1440px] mx-auto" id="contacto">
+        <div class="bg-white border border-blue-100 rounded-3xl overflow-hidden shadow-2xl flex flex-col lg:flex-row">
+            <div class="lg:w-1/3 bg-primary-container p-16 text-white flex flex-col justify-between">
+                <div>
+                    <h2 class="text-4xl font-bold mb-6">Hablemos de tu proyecto</h2>
+                    <p class="opacity-80 mb-12">Estamos listos para transformar su visión técnica en una realidad
+                        comercial potente.</p>
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <span class="material-symbols-outlined" data-icon="mail">mail</span>
+                            <span>victorcado29@gmail.com</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="material-symbols-outlined" data-icon="phone_in_talk">phone_in_talk</span>
+                            <span>+52 999 996 8380</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="material-symbols-outlined" data-icon="location_on">location_on</span>
+                            <span>Mérida, Yucatán, México</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-12">
+                    <p class="text-sm opacity-60">Soluciones digitales para negocios que quieren crecer.</p>
+                </div>
+            </div>
+            <div class="lg:w-2/3 p-16">
+                <form class="space-y-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <label class="block font-label-bold text-xs uppercase mb-2 text-on-surface-variant">Nombre
+                                Completo</label>
+                            <input
+                                class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-4 focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all"
+                                placeholder="Ej: Juan Pérez" type="text" />
+                        </div>
+                        <div>
+                            <label class="block font-label-bold text-xs uppercase mb-2 text-on-surface-variant">Correo
+                                Electrónico</label>
+                            <input
+                                class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-4 focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all"
+                                placeholder="juan@empresa.com" type="email" />
+                        </div>
+                    </div>
+                    <div>
+                        <label
+                            class="block font-label-bold text-xs uppercase mb-2 text-on-surface-variant">Teléfono</label>
+                        <input
+                            class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-4 focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all"
+                            placeholder="+54 ..." type="tel" />
+                    </div>
+                    <div>
+                        <label class="block font-label-bold text-xs uppercase mb-2 text-on-surface-variant">Descripción
+                            del Proyecto</label>
+                        <textarea
+                            class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-4 focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all"
+                            placeholder="Cuéntenos brevemente qué necesita desarrollar..." rows="4"></textarea>
+                    </div>
+                    <button
+                        class="bg-primary-container text-on-primary px-10 py-4 font-label-bold rounded-lg hover:opacity-90 transition-all shadow-lg"
+                        type="submit">
+                        Enviar solicitud
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-slate-50 dark:bg-slate-950 w-full py-16 px-8 border-t border-blue-100 dark:border-slate-800">
+        <div
+            class="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 font-['Manrope'] text-sm leading-relaxed">
+            <div class="col-span-1 md:col-span-1">
+                <img src="assets/codia_logo.png" alt="CODIA Logo" class="h-10 w-auto mb-6 grayscale hover:grayscale-0 transition-all">
+                <p class="text-slate-500 dark:text-slate-400 mb-6 font-['Manrope']">
+                    Soluciones digitales para negocios que quieren crecer. Technical mastery for corporate evolution.
+                </p>
+            </div>
+            <div>
+                <h5 class="font-bold text-slate-900 dark:text-white mb-6">Explorar</h5>
+                <ul class="space-y-4">
+                    <li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
+                            href="#">Servicios</a></li>
+                    <li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
+                            href="#">Portafolio</a></li>
+                    <li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
+                            href="#">Proceso</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-bold text-slate-900 dark:text-white mb-6">Compañía</h5>
+                <ul class="space-y-4">
+                    <li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
+                            href="#">Privacy Policy</a></li>
+                    <li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
+                            href="#">Terms of Service</a></li>
+                    <li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
+                            href="#">LinkedIn</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-bold text-slate-900 dark:text-white mb-6">Soporte</h5>
+                <ul class="space-y-4">
+                    <li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
+                            href="#">Contact</a></li>
+                    <li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
+                            href="#">Status</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-[1440px] mx-auto mt-16 pt-8 border-t border-slate-200 dark:border-slate-800 text-center">
+            <p class="text-slate-500 dark:text-slate-400">© 2024 CODIA Software Architecture. Built for technical
+                mastery.</p>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="anime.js"></script>
+</body>
+
+</html>
