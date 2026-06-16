@@ -13,9 +13,6 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -133,7 +130,7 @@
                 <img src="assets/codia_movil.png" alt="CODIA Logo" class="h-full w-auto object-contain">
             </div>
             <div class="hidden md:flex items-center space-x-8 font-['Manrope'] font-medium tracking-tight">
-                <a class="text-blue-700 dark:text-blue-400 border-b-2 border-blue-700 pb-1" href="#">Inicio</a>
+                <a class="text-blue-700 dark:text-blue-400 border-b-2 border-blue-700 pb-1 transition-colors" href="#inicio">Inicio</a>
                 <a class="text-slate-600 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-400 transition-colors"
                     href="#servicios">Servicios</a>
                 <a class="text-slate-600 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-400 transition-colors"
@@ -145,14 +142,15 @@
                 <a class="text-slate-600 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-400 transition-colors"
                     href="#contacto">Contacto</a>
             </div>
-            <button
-                class="bg-primary-container text-on-primary px-6 py-3 font-label-bold rounded-lg hover:opacity-80 transition-all active:scale-95 transform">
+            <a
+                href="#contacto"
+                class="bg-primary-container text-on-primary px-6 py-3 font-label-bold rounded-lg hover:opacity-80 transition-all active:scale-95 transform text-center">
                 Solicitar propuesta
-            </button>
+            </a>
         </div>
     </nav>
     <!-- Hero Section -->
-    <section class="pt-40 pb-section-gap px-8 max-w-[1440px] mx-auto overflow-hidden">
+    <section id="inicio" class="pt-40 pb-section-gap px-8 max-w-[1440px] mx-auto overflow-hidden">
         <div class="grid lg:grid-cols-2 gap-16 items-center">
             <div class="space-y-stack-lg">
                 <span
@@ -160,21 +158,21 @@
                     Soluciones digitales para todos
                 </span>
                 <h1 class="font-display-xl text-display-xl text-on-surface">
-                    Creamos soluciones digitales adaptadas a las necesidades de <span
-                        class="text-primary-container">cada negocio.</span>
+                    Impulsamos la <span class="text-primary-container">evolución digital</span> de tu negocio con soluciones a medida.
                 </h1>
                 <p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
-                    Desarrollamos herramientas pensadas para negocios, emprendedores y empresas de cualquier área. Analizamos tu proyecto de forma personal para crear soluciones modernas que te ayuden a crecer.
+                    No solo creamos sitios web, construimos activos digitales que profesionalizan tu imagen y optimizan tu operación diaria para que puedas escalar sin límites.
                 </p>
                 <p class="text-on-surface-variant italic border-l-4 border-primary-container pl-4">
-                    No trabajamos con soluciones genéricas. Cada propuesta se construye según lo que realmente necesita cada proyecto.
+                    Diseñamos herramientas estratégicas, no plantillas genéricas. Cada solución se construye sobre la base de tus objetivos reales.
                 </p>
                 <div class="flex flex-wrap gap-4 pt-4">
-                    <button
-                        class="bg-primary-container text-on-primary px-8 py-4 font-label-bold rounded-lg hover:opacity-90 transition-all flex items-center gap-2">
+                    <a
+                        href="#contacto"
+                        class="bg-primary-container text-on-primary px-8 py-4 font-label-bold rounded-lg hover:opacity-90 transition-all flex items-center gap-2 hover:scale-105 active:scale-95 transform">
                         Solicitar propuesta personalizada <span class="material-symbols-outlined"
                             data-icon="arrow_forward">arrow_forward</span>
-                    </button>
+                    </a>
                     <button
                         class="border border-outline-variant text-on-surface px-8 py-4 font-label-bold rounded-lg hover:bg-surface-container-low transition-all">
                         Ver Portafolio
@@ -191,7 +189,7 @@
                     </svg>
 
                     <!-- Main Logo Symbol -->
-                    <div id="main-logo-symbol" class="relative z-10 transform scale-150">
+                    <div id="main-logo-symbol" class="relative z-10 transform scale-110">
                         <img src="assets/image.png" alt="CODIA Logo" class="w-full h-auto drop-shadow-2xl">
                     </div>
 
@@ -270,9 +268,9 @@
             <div
                 class="col-span-12 lg:col-span-7 bg-inverse-surface rounded-xl overflow-hidden text-white flex flex-col md:flex-row">
                 <div class="p-12 flex-1">
-                    <h3 class="text-3xl font-bold mb-4">Sistemas de gestión y control</h3>
+                    <h3 class="text-3xl font-bold mb-4">Control Total de tu Operación</h3>
                     <p class="text-slate-400 mb-8 font-body-lg">
-                        Creamos plataformas personalizadas para organizar tus ventas, clientes o procesos internos, sin importar que seas un comercio, una clínica o una oficina de servicios.
+                        Creamos plataformas personalizadas que automatizan tus procesos internos, permitiéndote gestionar ventas y clientes sin importar el sector, para que te enfoques en crecer y no en administrar.
                     </p>
                     <ul class="space-y-3 mb-8">
                         <li class="flex items-center gap-3"><span
@@ -302,27 +300,26 @@
                 <div class="w-14 h-14 bg-surface-container flex items-center justify-center rounded-xl mb-6">
                     <span class="material-symbols-outlined text-primary" data-icon="rocket_launch">rocket_launch</span>
                 </div>
-                <h3 class="text-2xl font-bold mb-4">Landing Pages de Alto Impacto</h3>
-                <p class="text-on-surface-variant mb-6">Diseño editorial orientado a la conversión. Velocidad de carga
-                    extrema y optimización SEO técnica.</p>
+                <h3 class="text-2xl font-bold mb-4">Captación de Clientes de Alto Impacto</h3>
+                <p class="text-on-surface-variant mb-6">Diseño editorial orientado a la conversión. Creamos sitios web ultra-rápidos que transmiten confianza y convierten visitantes en ventas reales.</p>
                 <div class="flex flex-wrap gap-2">
                     <span class="px-3 py-1 bg-surface-container text-xs font-bold rounded">Conversion focused</span>
                     <span class="px-3 py-1 bg-surface-container text-xs font-bold rounded">Fast Performance</span>
                 </div>
             </div>
             <div class="col-span-12 md:col-span-6 lg:col-span-4 bg-white border border-outline-variant p-10 rounded-xl">
-                <h3 class="text-xl font-bold mb-4">Catálogos digitales</h3>
-                <p class="text-on-surface-variant mb-6">Muestra tus productos de forma profesional y organizada para facilitar la compra.</p>
+                <h3 class="text-xl font-bold mb-4">Vitrina Digital Profesional</h3>
+                <p class="text-on-surface-variant mb-6">Catálogos organizados y elegantes que facilitan la decisión de compra de tus clientes y elevan la imagen de tu marca.</p>
                 <span class="material-symbols-outlined text-4xl text-primary" data-icon="menu_book">menu_book</span>
             </div>
             <div class="col-span-12 md:col-span-6 lg:col-span-4 bg-white border border-outline-variant p-10 rounded-xl">
-                <h3 class="text-xl font-bold mb-4">Automatización de procesos</h3>
-                <p class="text-on-surface-variant mb-6">Ahorra tiempo y recursos automatizando tareas repetitivas en tu negocio.</p>
+                <h3 class="text-xl font-bold mb-4">Eficiencia Inteligente</h3>
+                <p class="text-on-surface-variant mb-6">Reducimos tareas repetitivas y eliminamos errores humanos mediante automatizaciones que liberan el tiempo valioso de tu equipo.</p>
                 <span class="material-symbols-outlined text-4xl text-primary" data-icon="settings_input_component">settings_input_component</span>
             </div>
             <div class="col-span-12 md:col-span-6 lg:col-span-4 bg-primary-container text-white p-10 rounded-xl">
-                <h3 class="text-xl font-bold mb-4">Integración de IA</h3>
-                <p class="opacity-90 mb-6">Usamos inteligencia artificial para potenciar la atención al cliente y la eficiencia.</p>
+                <h3 class="text-xl font-bold mb-4">Vanguardia Tecnológica con IA</h3>
+                <p class="opacity-90 mb-6">Implementamos inteligencia artificial para optimizar la atención al cliente y la toma de decisiones basadas en datos reales.</p>
                 <button class="font-label-bold flex items-center gap-2 hover:translate-x-2 transition-transform">
                     Solicitar consulta <span class="material-symbols-outlined"
                         data-icon="arrow_right_alt">arrow_right_alt</span>
@@ -390,48 +387,48 @@
             <!-- Single Premium Proposal Card -->
             <div class="bg-inverse-surface text-white p-12 rounded-3xl shadow-2xl relative overflow-hidden text-left border border-white/10 group hover:border-primary-container transition-all duration-500">
                 <!-- Background Glow -->
-                <div class="absolute -top-24 -right-24 w-48 h-48 bg-primary-container/20 rounded-full blur-[80px]"></div>
-                
+                <div class="absolute -top-24 -right-24 w-64 h-64 bg-primary-container/30 rounded-full blur-[100px] animate-pulse"></div>
+
                 <div class="relative z-10">
                     <h3 class="text-3xl font-bold mb-6 flex items-center gap-3">
                         <span class="material-symbols-outlined text-primary-container" data-icon="stars">stars</span>
-                        Propuesta Integral CODIA
+                        Propuesta Integral CODAI
                     </h3>
                     <p class="text-slate-400 mb-10 text-lg leading-relaxed">
-                        Analizamos tu negocio para diseñar una solución que no solo se vea bien, sino que funcione perfectamente y te ayude a crecer.
+                        Diseñamos la herramienta exacta que tu proyecto necesita para escalar. No vendemos paquetes cerrados, creamos soluciones basadas en la rentabilidad y eficiencia de tu negocio.
                     </p>
-                    
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-8 mb-12">
                         <div class="flex items-center gap-4 group/item">
-                            <div class="w-10 h-10 bg-primary-container/10 rounded-full flex items-center justify-center text-primary-container group-hover/item:bg-primary-container group-hover/item:text-white transition-all">
+                            <div class="w-10 h-10 bg-primary-container/20 rounded-full flex items-center justify-center text-primary-container group-hover/item:bg-primary-container group-hover/item:text-white transition-all">
                                 <span class="material-symbols-outlined" data-icon="speed">speed</span>
                             </div>
-                            <span class="font-medium">Máximo Rendimiento (Performance)</span>
+                            <span class="font-medium">Máximo Rendimiento Técnico</span>
                         </div>
                         <div class="flex items-center gap-4 group/item">
-                            <div class="w-10 h-10 bg-primary-container/10 rounded-full flex items-center justify-center text-primary-container group-hover/item:bg-primary-container group-hover/item:text-white transition-all">
+                            <div class="w-10 h-10 bg-primary-container/20 rounded-full flex items-center justify-center text-primary-container group-hover/item:bg-primary-container group-hover/item:text-white transition-all">
                                 <span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
                             </div>
-                            <span class="font-medium">Soporte Técnico Continuo</span>
+                            <span class="font-medium">Acompañamiento Estratégico</span>
                         </div>
                         <div class="flex items-center gap-4 group/item">
-                            <div class="w-10 h-10 bg-primary-container/10 rounded-full flex items-center justify-center text-primary-container group-hover/item:bg-primary-container group-hover/item:text-white transition-all">
+                            <div class="w-10 h-10 bg-primary-container/20 rounded-full flex items-center justify-center text-primary-container group-hover/item:bg-primary-container group-hover/item:text-white transition-all">
                                 <span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
                             </div>
-                            <span class="font-medium">Diseño Único y Personalizado</span>
+                            <span class="font-medium">Diseño Exclusivo y Moderno</span>
                         </div>
                         <div class="flex items-center gap-4 group/item">
-                            <div class="w-10 h-10 bg-primary-container/10 rounded-full flex items-center justify-center text-primary-container group-hover/item:bg-primary-container group-hover/item:text-white transition-all">
+                            <div class="w-10 h-10 bg-primary-container/20 rounded-full flex items-center justify-center text-primary-container group-hover/item:bg-primary-container group-hover/item:text-white transition-all">
                                 <span class="material-symbols-outlined" data-icon="rocket">rocket</span>
                             </div>
-                            <span class="font-medium">Sistemas Escalables</span>
+                            <span class="font-medium">Escalabilidad Garantizada</span>
                         </div>
                     </div>
-                    
-                    <button class="w-full py-5 bg-primary-container text-white font-black text-lg rounded-2xl hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-primary-container/30">
+
+                    <a href="#contacto" class="block text-center w-full py-5 bg-primary-container text-white font-black text-lg rounded-2xl hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-primary-container/30">
                         Solicitar mi propuesta ahora
-                    </button>
-                    <p class="text-center text-slate-500 mt-6 text-sm">Sin compromisos. Analizamos tu caso en 24-48 horas.</p>
+                    </a>
+                    <p class="text-center text-slate-500 mt-6 text-sm">Respuesta profesional y personalizada en 24-48 horas.</p>
                 </div>
             </div>
         </div>
@@ -453,9 +450,8 @@
                             class="text-4xl font-black text-primary-container opacity-40 group-hover:opacity-100 transition-opacity">
                             01</div>
                         <div>
-                            <h4 class="text-xl font-bold mb-2">Escuchamos</h4>
-                            <p class="text-slate-400">Entendemos sus objetivos, sus dolores y su visión a largo plazo
-                                para trazar la ruta correcta.</p>
+                            <h4 class="text-xl font-bold mb-2">Diagnóstico y Escucha</h4>
+                            <p class="text-slate-400">Analizamos tus necesidades, identificamos los puntos críticos de tu negocio y entendemos tu visión a largo plazo.</p>
                         </div>
                     </div>
                     <div class="flex gap-8 group">
@@ -463,9 +459,8 @@
                             class="text-4xl font-black text-primary-container opacity-40 group-hover:opacity-100 transition-opacity">
                             02</div>
                         <div>
-                            <h4 class="text-xl font-bold mb-2">Analizamos</h4>
-                            <p class="text-slate-400">Evaluamos la tecnología óptima y la viabilidad técnica para
-                                asegurar la escalabilidad futura.</p>
+                            <h4 class="text-xl font-bold mb-2">Análisis Estratégico</h4>
+                            <p class="text-slate-400">Definimos la arquitectura técnica y el modelo de datos óptimo para asegurar que tu solución sea escalable y eficiente.</p>
                         </div>
                     </div>
                     <div class="flex gap-8 group">
@@ -473,9 +468,8 @@
                             class="text-4xl font-black text-primary-container opacity-40 group-hover:opacity-100 transition-opacity">
                             03</div>
                         <div>
-                            <h4 class="text-xl font-bold mb-2">Diseñamos</h4>
-                            <p class="text-slate-400">Creamos interfaces intuitivas y arquitecturas de datos que
-                                priorizan la experiencia de usuario.</p>
+                            <h4 class="text-xl font-bold mb-2">Diseño UX/UI Centrado en el Usuario</h4>
+                            <p class="text-slate-400">Creamos interfaces intuitivas y modernas que priorizan la facilidad de uso y la identidad visual de tu marca.</p>
                         </div>
                     </div>
                     <div class="flex gap-8 group">
@@ -483,9 +477,8 @@
                             class="text-4xl font-black text-primary-container opacity-40 group-hover:opacity-100 transition-opacity">
                             04</div>
                         <div>
-                            <h4 class="text-xl font-bold mb-2">Desarrollamos</h4>
-                            <p class="text-slate-400">Escritura de código limpio, seguro y testeado siguiendo estándares
-                                internacionales.</p>
+                            <h4 class="text-xl font-bold mb-2">Desarrollo Técnico Robusto</h4>
+                            <p class="text-slate-400">Escribimos código limpio, seguro y testeado siguiendo los más altos estándares internacionales de desarrollo.</p>
                         </div>
                     </div>
                     <div class="flex gap-8 group">
@@ -493,9 +486,8 @@
                             class="text-4xl font-black text-primary-container opacity-40 group-hover:opacity-100 transition-opacity">
                             05</div>
                         <div>
-                            <h4 class="text-xl font-bold mb-2">Ajustamos</h4>
-                            <p class="text-slate-400">Ciclos de retroalimentación para pulir cada detalle y asegurar la
-                                satisfacción total.</p>
+                            <h4 class="text-xl font-bold mb-2">Entrega y Lanzamiento</h4>
+                            <p class="text-slate-400">Desplegamos la solución en un entorno productivo, realizamos pruebas finales y capacitamos a tu equipo.</p>
                         </div>
                     </div>
                     <div class="flex gap-8 group">
@@ -503,9 +495,8 @@
                             class="text-4xl font-black text-primary-container opacity-40 group-hover:opacity-100 transition-opacity">
                             06</div>
                         <div>
-                            <h4 class="text-xl font-bold mb-2">Entregamos</h4>
-                            <p class="text-slate-400">Despliegue final, capacitación y soporte para el inicio de su
-                                nueva era digital.</p>
+                            <h4 class="text-xl font-bold mb-2">Soporte y Evolución</h4>
+                            <p class="text-slate-400">Acompañamos el crecimiento de tu sistema con soporte continuo y optimizaciones basadas en datos reales.</p>
                         </div>
                     </div>
                 </div>
@@ -513,12 +504,14 @@
         </div>
     </section>
     <!-- Contact Section -->
-    <section class="py-section-gap px-8 max-w-[1440px] mx-auto" id="contacto">
+    <section class="py-32 px-8 max-w-[1440px] mx-auto" id="contacto">
         <div class="bg-white border border-blue-100 rounded-3xl overflow-hidden shadow-2xl flex flex-col lg:flex-row">
             <div class="lg:w-1/3 bg-primary-container p-16 text-white flex flex-col justify-between">
-                <div>
-                    <h2 class="text-4xl font-bold mb-6">Hablemos de tu proyecto</h2>
-                    <p class="opacity-80 mb-12">Estamos listos para hacer realidad tu idea y ayudarte a que tu negocio crezca.</p>
+                <div class="space-y-8">
+                    <h2 class="text-4xl font-bold leading-tight">Hablemos de tu próximo gran paso</h2>
+                    <p class="opacity-90 text-lg font-body-lg">
+                        Tu proyecto merece una solución profesional. Déjanos los detalles y en menos de 48 horas recibirás una propuesta personalizada basada en tus objetivos.
+                    </p>
                     <div class="space-y-8">
                         <div class="flex items-start gap-4">
                             <span class="material-symbols-outlined mt-1" data-icon="mail">mail</span>
@@ -526,16 +519,14 @@
                                 <a href="mailto:victorcado29@gmail.com" class="hover:underline text-sm md:text-base">victorcado29@gmail.com</a>
                                 <a href="mailto:kevin.36137@gmail.com" class="hover:underline text-sm md:text-base">kevin.36137@gmail.com</a>
                                 <a href="mailto:emoncan27@gmail.com" class="hover:underline text-sm md:text-base">emoncan27@gmail.com</a>
-                                <a href="mailto:aldinalv62@gmail.com" class="hover:underline text-sm md:text-base">aldinalv62@gmail.com</a>
                             </div>
                         </div>
                         <div class="flex items-start gap-4">
                             <span class="material-symbols-outlined mt-1" data-icon="phone_in_talk">phone_in_talk</span>
                             <div class="flex flex-col gap-2">
-                                <a href="tel:+529999968380" class="hover:underline text-sm md:text-base">+52 999 996 8380</a>
+                                <a href="tel:9999968380" class="hover:underline text-sm md:text-base">999 996 8380</a>
                                 <a href="tel:9994644181" class="hover:underline text-sm md:text-base">999 464 4181</a>
                                 <a href="tel:9992588620" class="hover:underline text-sm md:text-base">999 258 8620</a>
-                                <a href="tel:9995405419" class="hover:underline text-sm md:text-base">999 540 5419</a>
                             </div>
                         </div>
                         <div class="flex items-center gap-4">
@@ -548,40 +539,40 @@
                     <p class="text-sm opacity-60">Soluciones digitales para negocios que quieren crecer.</p>
                 </div>
             </div>
-            <div class="lg:w-2/3 p-16">
+            <div class="lg:w-2/3 p-16 bg-surface">
                 <form class="space-y-8">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div>
+                        <div class="space-y-2">
                             <label class="block font-label-bold text-xs uppercase mb-2 text-on-surface-variant">Nombre
                                 Completo</label>
                             <input
-                                class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-4 focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all"
+                                class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-4 focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all outline-none"
                                 placeholder="Ej: Juan Pérez" type="text" />
                         </div>
-                        <div>
+                        <div class="space-y-2">
                             <label class="block font-label-bold text-xs uppercase mb-2 text-on-surface-variant">Correo
                                 Electrónico</label>
                             <input
-                                class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-4 focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all"
+                                class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-4 focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all outline-none"
                                 placeholder="juan@empresa.com" type="email" />
                         </div>
                     </div>
-                    <div>
+                    <div class="space-y-2">
                         <label
                             class="block font-label-bold text-xs uppercase mb-2 text-on-surface-variant">Teléfono</label>
                         <input
-                            class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-4 focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all"
-                            placeholder="+54 ..." type="tel" />
+                            class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-4 focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all outline-none"
+                            placeholder="+52 ..." type="tel" />
                     </div>
-                    <div>
+                    <div class="space-y-2">
                         <label class="block font-label-bold text-xs uppercase mb-2 text-on-surface-variant">Descripción
                             del Proyecto</label>
                         <textarea
-                            class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-4 focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all"
+                            class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-4 focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all outline-none"
                             placeholder="Cuéntenos brevemente qué necesita desarrollar..." rows="4"></textarea>
                     </div>
                     <button
-                        class="bg-primary-container text-on-primary px-10 py-4 font-label-bold rounded-lg hover:opacity-90 transition-all shadow-lg"
+                        class="bg-primary-container text-on-primary px-10 py-4 font-label-bold rounded-lg hover:opacity-90 transition-all shadow-lg hover:scale-105 active:scale-95 transform"
                         type="submit">
                         Enviar solicitud
                     </button>
@@ -590,34 +581,36 @@
         </div>
     </section>
     <!-- Footer -->
-    <footer class="bg-slate-50 dark:bg-slate-950 w-full py-16 px-8 border-t border-blue-100 dark:border-slate-800">
+    <footer class="bg-slate-50 dark:bg-slate-950 w-full py-20 px-8 border-t border-blue-100 dark:border-slate-800">
         <div
             class="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 font-['Manrope'] text-sm leading-relaxed">
             <div class="col-span-1 md:col-span-1">
                 <img src="assets/codia_logo_movil.png" alt="CODIA Logo"
-                    class="h-10 w-auto mb-6 grayscale hover:grayscale-0 transition-all">
-                <p class="text-slate-500 dark:text-slate-400 mb-6 font-['Manrope']">
-                    Soluciones digitales para negocios que quieren crecer. Technical mastery for corporate evolution.
+                    class="h-12 w-auto mb-6 hover:scale-105 transition-all">
+                <p class="text-slate-500 dark:text-slate-400 mb-6 font-['Manrope'] leading-relaxed">
+                    Impulsamos la transformación digital de negocios mediante arquitectura de software de alto nivel y diseño estratégico.
                 </p>
             </div>
             <div>
-                <h5 class="font-bold text-slate-900 dark:text-white mb-6">Explorar</h5>
+                <h5 class="font-bold text-slate-900 dark:text-white mb-6">Navegación</h5>
                 <ul class="space-y-4">
                     <li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
-                            href="#">Servicios</a></li>
+                            href="#servicios">Servicios</a></li>
                     <li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
-                            href="#">Portafolio</a></li>
+                            href="#portafolio">Portafolio</a></li>
                     <li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
-                            href="#">Proceso</a></li>
+                            href="#proceso">Nuestro Proceso</a></li>
+                    <li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
+                            href="#contacto">Contacto</a></li>
                 </ul>
             </div>
             <div>
-                <h5 class="font-bold text-slate-900 dark:text-white mb-6">Compañía</h5>
+                <h5 class="font-bold text-slate-900 dark:text-white mb-6">Legal</h5>
                 <ul class="space-y-4">
                     <li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
-                            href="#">Privacy Policy</a></li>
+                            href="#">Política de Privacidad</a></li>
                     <li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
-                            href="#">Terms of Service</a></li>
+                            href="#">Términos de Servicio</a></li>
                     <li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
                             href="#">LinkedIn</a></li>
                 </ul>
@@ -626,19 +619,69 @@
                 <h5 class="font-bold text-slate-900 dark:text-white mb-6">Soporte</h5>
                 <ul class="space-y-4">
                     <li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
-                            href="#">Contact</a></li>
+                            href="#contacto">Agendar Consulta</a></li>
                     <li><a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors"
-                            href="#">Status</a></li>
+                            href="#">Estado del Servicio</a></li>
                 </ul>
             </div>
         </div>
         <div class="max-w-[1440px] mx-auto mt-16 pt-8 border-t border-slate-200 dark:border-slate-800 text-center">
-            <p class="text-slate-500 dark:text-slate-400">© 2024 CODIA Software Architecture. Built for technical
-                mastery.</p>
+            <p class="text-slate-500 dark:text-slate-400 font-medium">
+                © 2024 CODAI Software Architecture. <span class="text-primary-container">Llevando la arquitectura de software al siguiente nivel de negocio.</span>
+            </p>
         </div>
     </footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="anime.js"></script>
-</body>
+    <script>
+        // Navbar ScrollSpy
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('text-blue-700', 'dark:text-blue-400', 'border-b-2', 'border-blue-700', 'pb-1');
+                link.classList.add('text-slate-600', 'dark:text-slate-400');
+
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('text-blue-700', 'dark:text-blue-400', 'border-b-2', 'border-blue-700', 'pb-1');
+                    link.classList.remove('text-slate-600', 'dark:text-slate-400');
+                }
+            });
+        });
+
+        // Hero Tech-Dots Animations
+        document.addEventListener('DOMContentLoaded', () => {
+            anime({
+                targets: '.tech-dot',
+                translateY: [
+                    { value: -20, duration: 2000 },
+                    { value: 20, duration: 2000 }
+                ],
+                translateX: [
+                    { value: 10, duration: 1500 },
+                    { value: -10, duration: 1500 }
+                ],
+                opacity: [
+                    { value: 0.4, duration: 1000 },
+                    { value: 0.8, duration: 1000 }
+                ],
+                direction: 'alternate',
+                loop: true,
+                easing: 'easeInOutSine',
+                delay: anime.stagger(400)
+            });
+        });
+    </script>
+</body
+
+>
 
 </html>
