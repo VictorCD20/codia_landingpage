@@ -63,11 +63,11 @@ const Card = ({ project, index, progress, range, targetScale }: any) => {
 
         <div className="flex gap-4 sm:gap-6 md:gap-8 flex-1 min-h-0">
           <div className="flex flex-col gap-4 sm:gap-6 md:gap-8 w-[40%] min-h-0">
-            <img src={project.images.left1} alt="Project image 1" className="w-full object-cover rounded-[40px] sm:rounded-[50px] md:rounded-[60px]" style={{ height: 'clamp(130px, 16vw, 230px)' }} />
-            <img src={project.images.left2} alt="Project image 2" className="w-full object-cover rounded-[40px] sm:rounded-[50px] md:rounded-[60px]" style={{ height: 'clamp(160px, 22vw, 340px)' }} />
+            <img src={project.images.left1} alt="Project image 1" className="w-full object-cover object-top rounded-[40px] sm:rounded-[50px] md:rounded-[60px]" style={{ height: 'clamp(130px, 16vw, 230px)' }} />
+            <img src={project.images.left2} alt="Project image 2" className="w-full object-cover object-top rounded-[40px] sm:rounded-[50px] md:rounded-[60px]" style={{ height: 'clamp(160px, 22vw, 340px)' }} />
           </div>
           <div className="w-[60%] min-h-0">
-            <img src={project.images.right} alt="Project image main" className="w-full h-full object-cover rounded-[40px] sm:rounded-[50px] md:rounded-[60px]" />
+            <img src={project.images.right} alt="Project image main" className="w-full h-full object-cover object-top rounded-[40px] sm:rounded-[50px] md:rounded-[60px]" />
           </div>
         </div>
         

@@ -13,8 +13,8 @@ export const Navbar: React.FC = () => {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="w-full max-w-6xl mx-auto px-6 py-6 flex items-center justify-between relative z-10"
     >
-      <div className="flex items-center gap-3">
-        <span className="font-bold tracking-widest text-lg">CODIA</span>
+      <div className="flex items-center">
+        <img src="/logo.jpeg" alt="CODIA Logo" className="h-7 md:h-8 w-auto object-contain" />
       </div>
 
       <div className="hidden md:flex items-center gap-8">

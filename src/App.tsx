@@ -23,9 +23,6 @@ function App() {
         />
       </div>
 
-      {/* Guide lines */}
-      <div className="hidden md:block pointer-events-none fixed inset-y-0 left-1/2 -translate-x-[calc(50%+36rem)] w-px bg-white/10 z-[5]" />
-      <div className="hidden md:block pointer-events-none fixed inset-y-0 left-1/2 translate-x-[calc(-50%+36rem)] w-px bg-white/10 z-[5]" />
 
       {/* Root SVG Noise Filter */}
       <svg className="hidden">

@@ -74,14 +74,14 @@ export const ProjectsShowcase: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-[500px]">
               <div className="md:col-span-4 flex flex-col gap-6 h-full">
                 <div className="relative w-full h-[240px] md:flex-1 rounded-3xl overflow-hidden border border-white/10 group">
-                  <img src={project.images.left1} alt="Detail" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <img src={project.images.left1} alt="Detail" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
                 </div>
                 <div className="relative w-full h-[240px] md:flex-1 rounded-3xl overflow-hidden border border-white/10 group">
-                  <img src={project.images.left2} alt="Mobile View" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <img src={project.images.left2} alt="Mobile View" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
                 </div>
               </div>
               <div className="md:col-span-8 relative rounded-3xl overflow-hidden border border-white/10 h-[300px] md:h-full group">
-                <img src={project.images.right} alt="Main Dashboard" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src={project.images.right} alt="Main Dashboard" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
               </div>
             </div>
           </motion.div>

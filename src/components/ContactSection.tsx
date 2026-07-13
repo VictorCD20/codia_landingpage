@@ -23,7 +23,8 @@ export const ContactSection: React.FC = () => {
               </div>
               <div>
                 <span className="block text-xs uppercase tracking-widest opacity-50 mb-1">WhatsApp / Ventas</span>
-                <span className="font-medium text-xl">+52 (55) 8765-4321</span>
+                <span className="font-medium text-xl">+52 999 996 8380</span>
+                <span className="font-medium text-x2">+52 999 464 4181</span>
               </div>
               <div>
                 <span className="block text-xs uppercase tracking-widest opacity-50 mb-1">Email</span>
