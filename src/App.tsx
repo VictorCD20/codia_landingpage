@@ -5,7 +5,7 @@ import { ProjectsShowcase } from './components/ProjectsShowcase';
 import { TechStack } from './components/TechStack';
 import { Pricing } from './components/Pricing';
 import { FinalCTA } from './components/FinalCTA';
-import { ContactForm } from './components/ContactForm';
+import { ContactSection } from './components/ContactSection';
 
 function App() {
   return (
@@ -41,7 +41,7 @@ function App() {
       <TechStack />
       <Pricing />
       <FinalCTA />
-      <ContactForm />
+      <ContactSection />
       
     </div>
   );

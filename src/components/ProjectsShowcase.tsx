@@ -9,7 +9,6 @@ const projects = [
     name: "Tienda en Línea y Conversión",
     desc: "Plataforma de comercio electrónico diseñada para maximizar ventas. Integramos pasarelas de pago seguras, gestión de inventario en tiempo real y una experiencia de usuario fluida en cualquier dispositivo.",
     images: {
-      left1: "/p1_ecommerce_product_1783039173671.jpg",
       left2: "/p1_ecommerce_mobile_1783039166808.jpg",
       right: "/p1_ecommerce_dashboard_1783039159517.jpg"
     }
@@ -20,7 +19,6 @@ const projects = [
     name: "Gestión de Envíos Inteligente",
     desc: "Sistema centralizado para el control de flotillas y rastreo de entregas. Optimiza rutas automáticamente mediante algoritmos de inteligencia artificial, reduciendo costos operativos drásticamente.",
     images: {
-      left1: "/p3_delivery_tracking_1783039215548.jpg",
       left2: "/p3_delivery_mobile_1783039208097.jpg",
       right: "/p3_delivery_dashboard_1783039201262.jpg"
     }
@@ -31,7 +29,6 @@ const projects = [
     name: "Finanzas y Analíticas POS",
     desc: "Control total de tu negocio con nuestro sistema POS en la nube. Reportes financieros al instante, gestión multiplanta y sincronización de datos para que tomes decisiones basadas en información real.",
     images: {
-      left1: "/p2_pos_analytics_1783039194767.jpg",
       left2: "/p2_pos_tablet_1783039188003.jpg",
       right: "/p2_pos_dashboard_1783039180830.jpg"
     }
@@ -72,17 +69,12 @@ export const ProjectsShowcase: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-[500px]">
-              <div className="md:col-span-4 flex flex-col gap-6 h-full">
-                <div className="relative w-full h-[240px] md:flex-1 rounded-3xl overflow-hidden border border-white/10 group">
-                  <img src={project.images.left1} alt="Detail" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
-                </div>
-                <div className="relative w-full h-[240px] md:flex-1 rounded-3xl overflow-hidden border border-white/10 group">
+                <div className="md:col-span-4 relative rounded-3xl overflow-hidden border border-white/10 h-[280px] md:h-full group">
                   <img src={project.images.left2} alt="Mobile View" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
                 </div>
-              </div>
-              <div className="md:col-span-8 relative rounded-3xl overflow-hidden border border-white/10 h-[300px] md:h-full group">
-                <img src={project.images.right} alt="Main Dashboard" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
-              </div>
+                <div className="md:col-span-8 relative rounded-3xl overflow-hidden border border-white/10 h-[320px] md:h-full group">
+                  <img src={project.images.right} alt="Main Dashboard" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+                </div>
             </div>
           </motion.div>
         ))}

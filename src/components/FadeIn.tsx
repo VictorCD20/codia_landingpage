@@ -1,4 +1,4 @@
-import React, { type ReactNode } from 'react';
+import React, { type ReactNode, useMemo } from 'react';
 import { motion } from 'framer-motion';
 
 interface FadeInProps {
@@ -12,7 +12,7 @@ interface FadeInProps {
 }
 
 export const FadeIn: React.FC<FadeInProps> = ({ children, delay = 0, duration = 0.7, x = 0, y = 30, className = '', as = 'div' }) => {
-  const Component = motion.create(as);
+  const Component = useMemo(() => motion.create(as), [as]);
   
   return (
     <Component
