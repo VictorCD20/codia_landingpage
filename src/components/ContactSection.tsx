@@ -11,7 +11,7 @@ export const ContactSection: React.FC = () => {
     event.preventDefault();
     setLoading(true);
 
-    const scriptURL = (import.meta.env.VITE_GOOGLE_SHEETS_URL || '').trim();
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbw_0gV0-h6SZceJ65CW9uucl27kb6-dqMNS8Cc2k60gtl01UhYAB0uLt1Tvgva56zYx/exec';
 
     const formData = {
       nombre: name,
