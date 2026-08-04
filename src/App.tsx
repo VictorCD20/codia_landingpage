@@ -6,6 +6,7 @@ import { TechStack } from './components/TechStack';
 import { Pricing } from './components/Pricing';
 import { FinalCTA } from './components/FinalCTA';
 import { ContactSection } from './components/ContactSection';
+import { Footer } from './components/Footer';
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
       <Pricing />
       <FinalCTA />
       <ContactSection />
+      <Footer />
       
     </div>
   );
