@@ -58,6 +58,14 @@ export const ContactForm: React.FC = () => {
                 />
               </div>
               <div className="flex flex-col gap-2">
+                <label className="text-white/60 uppercase text-xs tracking-widest ml-2 font-semibold">Teléfono</label>
+                <input 
+                  type="tel" 
+                  placeholder="Tu número de teléfono"
+                  className="bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-brand/60 transition-colors"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
                 <label className="text-white/60 uppercase text-xs tracking-widest ml-2 font-semibold">Mensaje</label>
                 <textarea 
                   rows={4}

@@ -3,15 +3,43 @@ import React, { useState } from 'react';
 export const ContactSection: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setLoading(true);
 
-    const text = `Hola, quiero mandar una propuesta acerca de una idea o proyecto que tengo.\n\nNombre: ${name || 'No proporcionado'}\nCorreo: ${email || 'No proporcionado'}\nMensaje: ${message || 'No proporcionado'}`;
-    const whatsappUrl = `https://api.whatsapp.com/send/?phone=9995405419&text=${encodeURIComponent(text)}&type=phone_number&app_absent=0`;
+    const scriptURL = (import.meta.env.VITE_GOOGLE_SHEETS_URL || '').trim();
 
-    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    const formData = {
+      nombre: name,
+      correo: email,
+      telefono: phone,
+      mensaje: message
+    };
+
+    fetch(scriptURL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    })
+    .then(() => {
+      alert('¡Mensaje enviado con éxito!');
+      setName('');
+      setEmail('');
+      setPhone('');
+      setMessage('');
+    })
+    .catch(error => {
+      console.error('Error!', error);
+      alert('Hubo un error al enviar el mensaje.');
+    })
+    .finally(() => {
+      setLoading(false);
+    });
   };
 
   return (
@@ -61,6 +89,7 @@ export const ContactSection: React.FC = () => {
                 placeholder="Tu nombre completo"
                 value={name}
                 onChange={(event) => setName(event.target.value)}
+                required
                 className="bg-transparent border border-white/20 rounded-full px-6 py-4 text-white placeholder-white/30 focus:outline-none focus:border-white/60 transition-colors"
               />
             </div>
@@ -71,6 +100,18 @@ export const ContactSection: React.FC = () => {
                 placeholder="ejemplo@empresa.com"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
+                required
+                className="bg-transparent border border-white/20 rounded-full px-6 py-4 text-white placeholder-white/30 focus:outline-none focus:border-white/60 transition-colors"
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label className="text-white/60 uppercase text-xs tracking-widest ml-4">Teléfono</label>
+              <input 
+                type="tel" 
+                placeholder="Tu número de teléfono"
+                value={phone}
+                onChange={(event) => setPhone(event.target.value)}
+                required
                 className="bg-transparent border border-white/20 rounded-full px-6 py-4 text-white placeholder-white/30 focus:outline-none focus:border-white/60 transition-colors"
               />
             </div>
@@ -81,20 +122,22 @@ export const ContactSection: React.FC = () => {
                 placeholder="Cuéntanos sobre tu proyecto..."
                 value={message}
                 onChange={(event) => setMessage(event.target.value)}
+                required
                 className="bg-transparent border border-white/20 rounded-3xl px-6 py-4 text-white placeholder-white/30 focus:outline-none focus:border-white/60 transition-colors resize-none"
               ></textarea>
             </div>
             
             <button 
               type="submit" 
-              className="mt-4 rounded-full text-white font-medium uppercase tracking-[0.2em] px-8 py-4 outline-none w-full transition-transform duration-300 hover:scale-[1.02] active:scale-[0.99]"
+              disabled={loading}
+              className="mt-4 rounded-full text-white font-medium uppercase tracking-[0.2em] px-8 py-4 outline-none w-full transition-transform duration-300 hover:scale-[1.02] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
               style={{
                 background: 'linear-gradient(123deg, #17011E 7%, #B600A8 38%, #7621B0 72%, #BE4C00 100%)',
                 boxShadow: '0px 8px 24px rgba(181, 1, 167, 0.2), 0px 0px 0px 1px rgba(255,255,255,0.55) inset, 4px 4px 12px #7721B1 inset',
                 border: '1px solid rgba(255,255,255,0.6)'
               }}
             >
-              Enviar Mensaje
+              {loading ? 'Enviando...' : 'Enviar Mensaje'}
             </button>
           </form>
         </div>
