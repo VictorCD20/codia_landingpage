@@ -2,6 +2,7 @@ import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { FeatureTriage } from './components/FeatureTriage';
 import { ProjectsShowcase } from './components/ProjectsShowcase';
+import { TeamSection } from './components/TeamSection';
 import { TechStack } from './components/TechStack';
 import { Pricing } from './components/Pricing';
 import { FinalCTA } from './components/FinalCTA';
@@ -39,6 +40,7 @@ function App() {
       <Hero />
       <FeatureTriage />
       <ProjectsShowcase />
+      <TeamSection />
       <TechStack />
       <Pricing />
       <FinalCTA />
