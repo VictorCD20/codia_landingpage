@@ -3,9 +3,12 @@ import { motion } from 'motion/react';
 import { SectionEyebrow } from './Primitives';
 
 // Import local project assets from the fotos_sitios folder
-import kyrosImg from '../../assets/fotos_sitios/Kyros.png';
+import kyrosWebImg from '../../assets/fotos_sitios/kyros_web.png';
+import kyrosMovilImg from '../../assets/fotos_sitios/kayrosmovil.png';
 import festeasyImg from '../../assets/fotos_sitios/festeasy.png';
+import festeasyMovilImg from '../../assets/fotos_sitios/festeasy_movil.png';
 import sunglasImg from '../../assets/fotos_sitios/sunglas_sitioweb.png';
+import sunglasMovilImg from '../../assets/fotos_sitios/sunglasmovil.png';
 
 const projects = [
   {
@@ -14,6 +17,7 @@ const projects = [
     name: "Catálogo Digital para Óptica",
     desc: "Catálogo claro, visual y responsivo diseñado para ópticas y tiendas de accesorios. Incluye categorías, filtros rápidos y un botón directo para consultar y hacer pedidos por WhatsApp.",
     images: {
+      left2: sunglasMovilImg,
       right: sunglasImg
     }
   },
@@ -23,6 +27,7 @@ const projects = [
     name: "FestEasy - Invitaciones Digitales",
     desc: "Plataforma interactiva para eventos. Permite la confirmación de asistencia en tiempo real, detalles del evento con geolocalización, mesa de regalos y un diseño personalizado.",
     images: {
+      left2: festeasyMovilImg,
       right: festeasyImg
     }
   },
@@ -32,7 +37,8 @@ const projects = [
     name: "Kyros - Sistema Administrativo",
     desc: "Panel de administración y CRM a medida para control de operaciones, seguimiento de solicitudes, registro de notas de clientes y métricas de desempeño básicas.",
     images: {
-      right: kyrosImg
+      left2: kyrosMovilImg,
+      right: kyrosWebImg
     }
   },
   {
@@ -89,7 +95,7 @@ export const ProjectsShowcase: React.FC = () => {
           >
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
               <div className="flex items-start md:items-center gap-6">
-                <span className="text-white/10 font-black text-6xl leading-none">{project.num}</span>
+                <span className="text-white font-black text-6xl leading-none opacity-90">{project.num}</span>
                 <div className="flex flex-col">
                   <span className="text-brand uppercase tracking-widest text-xs font-semibold mb-2">{project.client}</span>
                   <h3 className="text-white font-semibold text-3xl md:text-4xl">{project.name}</h3>
@@ -101,13 +107,23 @@ export const ProjectsShowcase: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-[500px]">
+                {/* Mobile version: only visible on mobile (hidden on md and above) */}
                 {project.images.left2 && (
-                  <div className="md:col-span-4 relative rounded-3xl overflow-hidden border border-white/10 h-[280px] md:h-full group">
-                    <img src={project.images.left2} alt="Mobile View" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+                  <div className="block md:hidden md:col-span-12 relative rounded-3xl overflow-hidden border border-white/10 h-[420px] bg-black/40 p-3 group">
+                    <img 
+                      src={project.images.left2} 
+                      alt="Mobile View" 
+                      className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-[1.02]" 
+                    />
                   </div>
                 )}
-                <div className={`${project.images.left2 ? 'md:col-span-8' : 'md:col-span-12'} relative rounded-3xl overflow-hidden border border-white/10 h-[320px] md:h-full group`}>
-                  <img src={project.images.right} alt="Main Showcase" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+                {/* Web version: on mobile, hidden if we have a mobile image; on desktop, always shown at full width */}
+                <div className={`${project.images.left2 ? 'hidden md:block md:col-span-12' : 'block md:col-span-12'} relative rounded-3xl overflow-hidden border border-white/10 h-[320px] md:h-full bg-black/40 p-3 group`}>
+                  <img 
+                    src={project.images.right} 
+                    alt="Main Showcase" 
+                    className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-[1.02]" 
+                  />
                 </div>
             </div>
           </motion.div>
