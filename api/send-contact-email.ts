@@ -95,6 +95,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       `,
     });
 
+    console.log("Resultado correo usuario:", JSON.stringify(userEmailResult, null, 2));
+
+    if (userEmailResult.error) {
+      return res.status(500).json({
+        success: false,
+        step: "user_email",
+        error: userEmailResult.error
+      });
+    }
+
     // 7. Send internal CODIA notification email
     const internalEmailResult = await resend.emails.send({
       from: fromEmail,
@@ -116,23 +126,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       `,
     });
 
-    // 8. Log results safely
-    console.log("Resultado correo usuario:", userEmailResult);
-    console.log("Resultado correo interno:", internalEmailResult);
+    console.log("Resultado correo interno:", JSON.stringify(internalEmailResult, null, 2));
 
-    // 9. Check for explicit Resend errors
-    if (userEmailResult.error || internalEmailResult.error) {
-      console.error("Resend devolvió un error:", {
-        userEmailError: userEmailResult.error,
-        internalEmailError: internalEmailResult.error
-      });
+    if (internalEmailResult.error) {
       return res.status(500).json({
         success: false,
-        error: "Resend devolvió un error",
-        details: {
-          userEmailError: userEmailResult.error,
-          internalEmailError: internalEmailResult.error
-        }
+        step: "internal_email",
+        error: internalEmailResult.error
       });
     }
 
@@ -144,6 +144,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   } catch (error: any) {
     console.error('Error fatal enviando correo:', error);
     return res.status(500).json({
+      success: false,
       error: 'Error al enviar el correo a través de Resend',
       details: error?.message || 'Error desconocido'
     });
