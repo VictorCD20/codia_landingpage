@@ -73,7 +73,7 @@ export const ContactSection: React.FC = () => {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(61,129,227,0.08),transparent_50%)] pointer-events-none" />
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
       <div className="relative mx-auto max-w-5xl rounded-[36px] border border-white/10 bg-white/[0.03] p-6 sm:p-8 md:p-10 shadow-[0_20px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl">
-        <div className="grid gap-12 md:grid-cols-[1fr_1.1fr] md:gap-16 items-center">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16 items-center">
         
         {/* Contact Info */}
         <div className="flex-1">

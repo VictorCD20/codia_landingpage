@@ -70,7 +70,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const resend = new Resend(resendApiKey);
 
     // 6. Send User confirmation email
-    await resend.emails.send({
+    const userEmailResult = await resend.emails.send({
       from: fromEmail,
       to: email,
       subject: 'Recibimos tu solicitud en CODIA',
@@ -96,7 +96,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
 
     // 7. Send internal CODIA notification email
-    await resend.emails.send({
+    const internalEmailResult = await resend.emails.send({
       from: fromEmail,
       to: internalEmail,
       subject: 'Nueva solicitud desde el sitio web de CODIA',
@@ -116,12 +116,33 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       `,
     });
 
+    // 8. Log results safely
+    console.log("Resultado correo usuario:", userEmailResult);
+    console.log("Resultado correo interno:", internalEmailResult);
+
+    // 9. Check for explicit Resend errors
+    if (userEmailResult.error || internalEmailResult.error) {
+      console.error("Resend devolvió un error:", {
+        userEmailError: userEmailResult.error,
+        internalEmailError: internalEmailResult.error
+      });
+      return res.status(500).json({
+        success: false,
+        error: "Resend devolvió un error",
+        details: {
+          userEmailError: userEmailResult.error,
+          internalEmailError: internalEmailResult.error
+        }
+      });
+    }
+
     return res.status(200).json({
       success: true,
-      message: 'Correos enviados correctamente',
+      userEmailId: userEmailResult.data?.id,
+      internalEmailId: internalEmailResult.data?.id
     });
   } catch (error: any) {
-    console.error('Error enviando correo:', error);
+    console.error('Error fatal enviando correo:', error);
     return res.status(500).json({
       error: 'Error al enviar el correo a través de Resend',
       details: error?.message || 'Error desconocido'

@@ -55,7 +55,7 @@ export const Navbar: React.FC = () => {
         </div>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-8">
           {links.map((link, i) => (
             <motion.a 
               key={link}
@@ -71,7 +71,7 @@ export const Navbar: React.FC = () => {
           ))}
         </div>
 
-        <div className="hidden md:block" onClick={(e) => handleLinkClick(e as any, 'contacto')}>
+        <div className="hidden lg:block" onClick={(e) => handleLinkClick(e as any, 'contacto')}>
           <AppleButton label="Contáctanos" />
         </div>
 
@@ -79,7 +79,7 @@ export const Navbar: React.FC = () => {
         <button 
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle Menu"
-          className="md:hidden flex items-center justify-center w-10 h-10 rounded-full border border-white/10 bg-white/5 cursor-pointer hover:bg-white/10 transition-colors"
+          className="lg:hidden flex items-center justify-center w-10 h-10 rounded-full border border-white/10 bg-white/5 cursor-pointer hover:bg-white/10 transition-colors"
         >
           {isOpen ? <X className="w-5 h-5 text-white" /> : <Menu className="w-5 h-5 text-white" />}
         </button>
@@ -93,7 +93,7 @@ export const Navbar: React.FC = () => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="absolute top-full left-0 w-full bg-[#0c0c0c]/95 border-b border-white/10 backdrop-blur-xl md:hidden overflow-hidden"
+            className="absolute top-full left-0 w-full bg-[#0c0c0c]/95 border-b border-white/10 backdrop-blur-xl lg:hidden overflow-hidden"
           >
             <div className="flex flex-col px-6 py-8 gap-6">
               {links.map((link) => (
