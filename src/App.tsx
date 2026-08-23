@@ -9,7 +9,6 @@ import { TrustSection } from './components/TrustSection';
 import { FAQSection } from './components/FAQSection';
 import { TeamSection } from './components/TeamSection';
 import { TechStack } from './components/TechStack';
-import { Pricing } from './components/Pricing';
 import { FinalCTA } from './components/FinalCTA';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
@@ -53,7 +52,6 @@ function App() {
       <FAQSection />
       <TeamSection />
       <TechStack />
-      <Pricing />
       <FinalCTA />
       <ContactSection />
       <Footer />
