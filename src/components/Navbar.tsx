@@ -4,7 +4,7 @@ import { Menu } from 'lucide-react';
 import { AppleButton } from './Primitives';
 
 export const Navbar: React.FC = () => {
-  const links = ['Soluciones', 'Servicios', 'Portafolio', 'Contacto'];
+  const links = ['Inicio', 'Soluciones', 'Servicios', 'Proceso', 'Contacto'];
 
   return (
     <motion.nav 

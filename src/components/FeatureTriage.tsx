@@ -14,18 +14,18 @@ export const FeatureTriage: React.FC = () => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7 }}
         >
-          <SectionEyebrow label="Arquitectura" tag="Escalable" />
+          <SectionEyebrow label="Problemas que resolvemos" tag="Negocios locales" />
           
-          <h2 className="mt-5 text-3xl md:text-5xl font-semibold tracking-tight leading-[1.02]">
-            Optimiza tus procesos <br/> con Inteligencia Artificial.
+          <h2 className="mt-5 text-3xl md:text-5xl font-semibold tracking-tight leading-[1.1]">
+            ¿Tu negocio pierde oportunidades por no tener una presencia digital clara?
           </h2>
           
           <p className="mt-6 text-white/60 text-base leading-[1.6] max-w-md">
-            Integramos modelos inteligentes para optimizar tareas repetitivas y potenciar la productividad. Enfócate en hacer crecer tu negocio, nosotros nos encargamos del código.
+            Muchos negocios tienen buenos productos o servicios, pero dependen solo de redes sociales, WhatsApp o recomendaciones. Eso puede hacer que la información esté desordenada, que los clientes no encuentren fácilmente lo que ofrecen y que se pierdan oportunidades de venta o contacto.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-2">
-            {['Automatización', 'Machine Learning', 'Data Analytics', 'APIs Robustas'].map(chip => (
+            {['Pérdida de ventas', 'Información desorganizada', 'Procesos lentos', 'Imagen poco profesional'].map(chip => (
               <span key={chip} className="text-xs text-white/70 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03]">
                 {chip}
               </span>
@@ -42,54 +42,51 @@ export const FeatureTriage: React.FC = () => {
           className="liquid-glass rounded-2xl p-5"
         >
           <div className="text-xs font-medium text-white/60 mb-4 px-1">
-            Módulos del Sistema CODIA
+            Situación Actual vs Solución Digital
           </div>
 
           <div className="space-y-3">
-            {/* Priority */}
+            {/* Solo uso redes */}
             <div className="liquid-glass rounded-lg p-3">
               <div className="flex items-center gap-2 mb-2 text-xs font-semibold" style={{ color: '#00d2ff' }}>
                 <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#00d2ff' }} />
-                Soluciones E-Commerce (3)
+                Solo uso Facebook o Instagram
               </div>
               <div className="text-sm text-white/80 pl-4 space-y-1">
-                <div>Tiendas en línea escalables</div>
-                <div>Pasarelas de pago integradas</div>
+                <div>Sitio web profesional con tu propia marca y control.</div>
               </div>
             </div>
 
-            {/* Follow-up */}
+            {/* Productos desordenados */}
             <div className="liquid-glass rounded-lg p-3">
               <div className="flex items-center gap-2 mb-2 text-xs font-semibold" style={{ color: '#A4F4FD' }}>
                 <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#A4F4FD' }} />
-                Punto de Venta POS (5)
+                Mis productos están desordenados
               </div>
-              <div className="text-sm text-white/60 pl-4 space-y-1">
-                <div>Sistemas para retail y restaurantes</div>
-                <div>Analíticas en tiempo real</div>
+              <div className="text-sm text-white/80 pl-4 space-y-1">
+                <div>Catálogo digital claro, visual y fácil de consultar.</div>
               </div>
             </div>
 
-            {/* Updates */}
+            {/* Sin seguimiento */}
             <div className="liquid-glass rounded-lg p-3">
               <div className="flex items-center gap-2 mb-2 text-xs font-semibold" style={{ color: '#f59e0b' }}>
                 <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#f59e0b' }} />
-                Desarrollo Móvil (8)
+                Me escriben pero no doy seguimiento
               </div>
-              <div className="text-sm text-white/50 pl-4 space-y-1">
-                <div>Apps nativas y multiplataforma</div>
-                <div>Geolocalización y tracking</div>
+              <div className="text-sm text-white/80 pl-4 space-y-1">
+                <div>Panel de solicitudes para organizar y atender tus leads.</div>
               </div>
             </div>
 
-            {/* Archived */}
+            {/* Todo manual */}
             <div className="liquid-glass rounded-lg p-3">
               <div className="flex items-center gap-2 mb-2 text-xs font-semibold" style={{ color: '#525252' }}>
                 <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#525252' }} />
-                Integraciones (12)
+                Hago todo manual
               </div>
-              <div className="text-sm text-white/40 pl-4">
-                CRMs · ERPs · APIs de terceros
+              <div className="text-sm text-white/80 pl-4">
+                Automatización simple para ahorrar tiempo y evitar errores.
               </div>
             </div>
           </div>

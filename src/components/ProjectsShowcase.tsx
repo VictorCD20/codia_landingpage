@@ -2,10 +2,42 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { SectionEyebrow } from './Primitives';
 
+// Import local project assets from the fotos_sitios folder
+import kyrosImg from '../../assets/fotos_sitios/Kyros.png';
+import festeasyImg from '../../assets/fotos_sitios/festeasy.png';
+import sunglasImg from '../../assets/fotos_sitios/sunglas_sitioweb.png';
+
 const projects = [
   {
     num: "01",
-    client: "E-Commerce",
+    client: "Demo Conceptual",
+    name: "Catálogo Digital para Óptica",
+    desc: "Catálogo claro, visual y responsivo diseñado para ópticas y tiendas de accesorios. Incluye categorías, filtros rápidos y un botón directo para consultar y hacer pedidos por WhatsApp.",
+    images: {
+      right: sunglasImg
+    }
+  },
+  {
+    num: "02",
+    client: "Proyecto Real",
+    name: "FestEasy - Invitaciones Digitales",
+    desc: "Plataforma interactiva para eventos. Permite la confirmación de asistencia en tiempo real, detalles del evento con geolocalización, mesa de regalos y un diseño personalizado.",
+    images: {
+      right: festeasyImg
+    }
+  },
+  {
+    num: "03",
+    client: "Proyecto Real",
+    name: "Kyros - Sistema Administrativo",
+    desc: "Panel de administración y CRM a medida para control de operaciones, seguimiento de solicitudes, registro de notas de clientes y métricas de desempeño básicas.",
+    images: {
+      right: kyrosImg
+    }
+  },
+  {
+    num: "04",
+    client: "Proyecto Real",
     name: "Tienda en Línea y Conversión",
     desc: "Plataforma de comercio electrónico diseñada para maximizar ventas. Integramos pasarelas de pago seguras, gestión de inventario en tiempo real y una experiencia de usuario fluida en cualquier dispositivo.",
     images: {
@@ -14,23 +46,23 @@ const projects = [
     }
   },
   {
-    num: "02",
-    client: "Logística",
-    name: "Gestión de Envíos Inteligente",
-    desc: "Sistema centralizado para el control de flotillas y rastreo de entregas. Optimiza rutas automáticamente mediante algoritmos de inteligencia artificial, reduciendo costos operativos drásticamente.",
-    images: {
-      left2: "/p3_delivery_mobile_1783039208097.jpg",
-      right: "/p3_delivery_dashboard_1783039201262.jpg"
-    }
-  },
-  {
-    num: "03",
-    client: "Punto de Venta",
+    num: "05",
+    client: "Proyecto Real",
     name: "Finanzas y Analíticas POS",
     desc: "Control total de tu negocio con nuestro sistema POS en la nube. Reportes financieros al instante, gestión multiplanta y sincronización de datos para que tomes decisiones basadas en información real.",
     images: {
       left2: "/p2_pos_tablet_1783039188003.jpg",
       right: "/p2_pos_dashboard_1783039180830.jpg"
+    }
+  },
+  {
+    num: "06",
+    client: "Proyecto Real",
+    name: "Gestión de Envíos Inteligente",
+    desc: "Sistema centralizado para el control de flotillas y rastreo de entregas. Optimiza rutas automáticamente mediante algoritmos de inteligencia artificial, reduciendo costos operativos drásticamente.",
+    images: {
+      left2: "/p3_delivery_mobile_1783039208097.jpg",
+      right: "/p3_delivery_dashboard_1783039201262.jpg"
     }
   }
 ];
@@ -39,9 +71,9 @@ export const ProjectsShowcase: React.FC = () => {
   return (
     <section id="portafolio" className="relative z-20 pt-20 pb-40 px-6 max-w-6xl mx-auto">
       <div className="mb-20 flex flex-col items-center">
-        <SectionEyebrow label="Casos de Éxito" tag="Portafolio" />
+        <SectionEyebrow label="Demos y Soluciones" tag="Nuestras Soluciones" />
         <h2 className="mt-5 text-4xl md:text-6xl font-semibold tracking-tight text-center heading-gradient" style={{ filter: 'url(#c3-noise)' }}>
-          Proyectos Destacados
+          Demos y soluciones que podemos desarrollar
         </h2>
       </div>
 
@@ -69,11 +101,13 @@ export const ProjectsShowcase: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-[500px]">
-                <div className="md:col-span-4 relative rounded-3xl overflow-hidden border border-white/10 h-[280px] md:h-full group">
-                  <img src={project.images.left2} alt="Mobile View" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
-                </div>
-                <div className="md:col-span-8 relative rounded-3xl overflow-hidden border border-white/10 h-[320px] md:h-full group">
-                  <img src={project.images.right} alt="Main Dashboard" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+                {project.images.left2 && (
+                  <div className="md:col-span-4 relative rounded-3xl overflow-hidden border border-white/10 h-[280px] md:h-full group">
+                    <img src={project.images.left2} alt="Mobile View" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+                  </div>
+                )}
+                <div className={`${project.images.left2 ? 'md:col-span-8' : 'md:col-span-12'} relative rounded-3xl overflow-hidden border border-white/10 h-[320px] md:h-full group`}>
+                  <img src={project.images.right} alt="Main Showcase" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
                 </div>
             </div>
           </motion.div>

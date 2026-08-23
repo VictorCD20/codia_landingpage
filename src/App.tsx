@@ -1,13 +1,19 @@
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { FeatureTriage } from './components/FeatureTriage';
+import { BusinessSolutionsSection } from './components/BusinessSolutionsSection';
+import { ServicesSection } from './components/ServicesSection';
 import { ProjectsShowcase } from './components/ProjectsShowcase';
+import { ProcessSection } from './components/ProcessSection';
+import { TrustSection } from './components/TrustSection';
+import { FAQSection } from './components/FAQSection';
 import { TeamSection } from './components/TeamSection';
 import { TechStack } from './components/TechStack';
 import { Pricing } from './components/Pricing';
 import { FinalCTA } from './components/FinalCTA';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
+import { Analytics } from '@vercel/analytics/react';
 
 function App() {
   return (
@@ -39,13 +45,19 @@ function App() {
       <Navbar />
       <Hero />
       <FeatureTriage />
+      <BusinessSolutionsSection />
+      <ServicesSection />
       <ProjectsShowcase />
+      <ProcessSection />
+      <TrustSection />
+      <FAQSection />
       <TeamSection />
       <TechStack />
       <Pricing />
       <FinalCTA />
       <ContactSection />
       <Footer />
+      <Analytics />
       
     </div>
   );

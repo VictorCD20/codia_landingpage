@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 
 export const ContactSection: React.FC = () => {
   const [name, setName] = useState('');
+  const [businessName, setBusinessName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [solutionType, setSolutionType] = useState('Sitio web');
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -15,8 +17,10 @@ export const ContactSection: React.FC = () => {
 
     const formData = {
       nombre: name,
+      negocio: businessName,
       correo: email,
       telefono: phone,
+      solucion: solutionType,
       mensaje: message
     };
 
@@ -27,10 +31,12 @@ export const ContactSection: React.FC = () => {
       body: JSON.stringify(formData)
     })
     .then(() => {
-      alert('¡Mensaje enviado con éxito!');
+      alert('Gracias por contactarnos. Revisaremos tu información y nos comunicaremos contigo para conocer mejor tu proyecto.');
       setName('');
+      setBusinessName('');
       setEmail('');
       setPhone('');
+      setSolutionType('Sitio web');
       setMessage('');
     })
     .catch(error => {
@@ -52,11 +58,11 @@ export const ContactSection: React.FC = () => {
         {/* Contact Info */}
         <div className="flex-1">
           <div>
-            <h2 className="hero-heading font-black uppercase text-[clamp(2.5rem,8vw,100px)] leading-none mb-6">
-              Hablemos
+            <h2 className="hero-heading font-black uppercase text-[clamp(2.5rem,8vw,80px)] leading-none mb-6">
+              Diagnóstico
             </h2>
             <p className="text-[#D7E2EA] font-light leading-relaxed mb-10 text-lg opacity-80 max-w-xl">
-              ¿Tienes un proyecto en mente? Contáctanos y descubre cómo podemos ayudarte a transformar tu negocio con la arquitectura de software correcta.
+              Cuéntanos qué necesitas y te ayudamos a definir si tu negocio requiere una página web, catálogo digital, sistema interno o automatización.
             </p>
             
             <div className="grid gap-4 text-[#D7E2EA] max-w-xl">
@@ -94,6 +100,28 @@ export const ContactSection: React.FC = () => {
               />
             </div>
             <div className="flex flex-col gap-2">
+              <label className="text-white/60 uppercase text-xs tracking-widest ml-4">Nombre del negocio</label>
+              <input 
+                type="text" 
+                placeholder="Nombre de tu negocio o marca"
+                value={businessName}
+                onChange={(event) => setBusinessName(event.target.value)}
+                required
+                className="bg-transparent border border-white/20 rounded-full px-6 py-4 text-white placeholder-white/30 focus:outline-none focus:border-white/60 transition-colors"
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label className="text-white/60 uppercase text-xs tracking-widest ml-4">WhatsApp</label>
+              <input 
+                type="tel" 
+                placeholder="Tu número de WhatsApp"
+                value={phone}
+                onChange={(event) => setPhone(event.target.value)}
+                required
+                className="bg-transparent border border-white/20 rounded-full px-6 py-4 text-white placeholder-white/30 focus:outline-none focus:border-white/60 transition-colors"
+              />
+            </div>
+            <div className="flex flex-col gap-2">
               <label className="text-white/60 uppercase text-xs tracking-widest ml-4">Correo Electrónico</label>
               <input 
                 type="email" 
@@ -105,21 +133,25 @@ export const ContactSection: React.FC = () => {
               />
             </div>
             <div className="flex flex-col gap-2">
-              <label className="text-white/60 uppercase text-xs tracking-widest ml-4">Teléfono</label>
-              <input 
-                type="tel" 
-                placeholder="Tu número de teléfono"
-                value={phone}
-                onChange={(event) => setPhone(event.target.value)}
-                required
-                className="bg-transparent border border-white/20 rounded-full px-6 py-4 text-white placeholder-white/30 focus:outline-none focus:border-white/60 transition-colors"
-              />
+              <label className="text-white/60 uppercase text-xs tracking-widest ml-4">Tipo de solución</label>
+              <select
+                value={solutionType}
+                onChange={(event) => setSolutionType(event.target.value)}
+                className="bg-transparent border border-white/20 rounded-full px-6 py-4 text-white focus:outline-none focus:border-white/60 transition-colors appearance-none cursor-pointer"
+                style={{ colorScheme: 'dark' }}
+              >
+                <option value="Sitio web" className="bg-[#0C0C0C]">Sitio web</option>
+                <option value="Catálogo digital" className="bg-[#0C0C0C]">Catálogo digital</option>
+                <option value="Sistema interno" className="bg-[#0C0C0C]">Sistema interno</option>
+                <option value="Automatización" className="bg-[#0C0C0C]">Automatización</option>
+                <option value="No estoy seguro" className="bg-[#0C0C0C]">No estoy seguro</option>
+              </select>
             </div>
             <div className="flex flex-col gap-2">
               <label className="text-white/60 uppercase text-xs tracking-widest ml-4">Mensaje</label>
               <textarea 
                 rows={4}
-                placeholder="Cuéntanos sobre tu proyecto..."
+                placeholder="Cuéntanos más detalles sobre tu proyecto..."
                 value={message}
                 onChange={(event) => setMessage(event.target.value)}
                 required
@@ -137,11 +169,10 @@ export const ContactSection: React.FC = () => {
                 border: '1px solid rgba(255,255,255,0.6)'
               }}
             >
-              {loading ? 'Enviando...' : 'Enviar Mensaje'}
+              {loading ? 'Enviando...' : 'Solicitar diagnóstico'}
             </button>
           </form>
         </div>
-
         </div>
       </div>
     </section>

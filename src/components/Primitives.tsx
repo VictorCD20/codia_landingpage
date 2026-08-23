@@ -1,9 +1,9 @@
 import React from 'react';
 import { ChevronRight } from 'lucide-react';
 
-export const AppleButton: React.FC<{ label?: string, full?: boolean }> = ({ label = "Iniciar Proyecto", full = false }) => (
+export const AppleButton: React.FC<{ label?: string, full?: boolean, href?: string }> = ({ label = "Iniciar Proyecto", full = false, href = "#contacto" }) => (
   <a 
-    href="#contacto"
+    href={href}
     className={`group inline-flex items-center justify-center gap-2 rounded-full font-medium text-sm px-5 py-3 transition-all active:scale-[0.98] btn-slide ${full ? 'w-full' : ''}`}
   >
     {label}
