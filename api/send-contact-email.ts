@@ -67,6 +67,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     // 5. Initialize Resend safely inside the handler to prevent startup crashes
+    console.log("FROM usado:", fromEmail);
+    console.log("TO usuario:", email);
+    console.log("TO interno:", internalEmail);
     const resend = new Resend(resendApiKey);
 
     // 6. Send User confirmation email
