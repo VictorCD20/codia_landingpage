@@ -9,6 +9,7 @@ export const ContactSection: React.FC = () => {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'success' | 'email_error' | null>(null);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -49,7 +50,11 @@ export const ContactSection: React.FC = () => {
     })
     .then(response => {
       if (!response.ok) {
-        throw new Error('Error al enviar el correo');
+        // Succeeded in Google Sheets but failed Resend
+        setSubmitStatus('email_error');
+      } else {
+        // Everything worked perfectly
+        setSubmitStatus('success');
       }
       setIsSubmitted(true);
       setName('');
@@ -110,17 +115,36 @@ export const ContactSection: React.FC = () => {
         <div className="flex-1 rounded-[30px] sm:rounded-[40px] border border-white/10 bg-gradient-to-b from-white/7 to-white/3 p-6 sm:p-8 md:p-10 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-md flex flex-col justify-center min-h-[480px] transition-all duration-300">
           {isSubmitted ? (
             <div className="flex flex-col items-center text-center p-4">
-              <div className="w-16 h-16 rounded-full bg-[#3ecf8e]/10 border border-[#3ecf8e]/30 flex items-center justify-center mb-6 text-[#3ecf8e]">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              </div>
-              <h3 className="text-2xl font-semibold text-white mb-3">¡Mensaje Enviado!</h3>
-              <p className="text-white/70 text-sm leading-relaxed max-w-sm">
-                Gracias por contactarnos. Revisaremos tu información y nos comunicaremos contigo para conocer mejor tu proyecto.
-              </p>
+              {submitStatus === 'success' ? (
+                <>
+                  <div className="w-16 h-16 rounded-full bg-[#3ecf8e]/10 border border-[#3ecf8e]/30 flex items-center justify-center mb-6 text-[#3ecf8e]">
+                    <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl font-semibold text-white mb-3">¡Mensaje Enviado!</h3>
+                  <p className="text-white/70 text-sm leading-relaxed max-w-sm">
+                    Gracias por contactarnos. Recibimos tu solicitud y te enviaremos una confirmación por correo.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <div className="w-16 h-16 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mb-6 text-amber-400">
+                    <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl font-semibold text-white mb-3">Solicitud Recibida</h3>
+                  <p className="text-white/70 text-sm leading-relaxed max-w-sm">
+                    Recibimos tu solicitud, pero hubo un problema al enviar el correo de confirmación. Nos pondremos en contacto contigo pronto.
+                  </p>
+                </>
+              )}
               <button 
-                onClick={() => setIsSubmitted(false)}
+                onClick={() => {
+                  setIsSubmitted(false);
+                  setSubmitStatus(null);
+                }}
                 className="mt-8 rounded-full border border-white/15 px-6 py-2.5 text-xs uppercase tracking-wider text-white/80 hover:bg-white/5 transition-colors cursor-pointer"
               >
                 Enviar otro mensaje
