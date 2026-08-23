@@ -66,21 +66,22 @@ export const ContactSection: React.FC = () => {
               Cuéntanos qué necesitas y te ayudamos a definir si tu negocio requiere una página web, catálogo digital, sistema interno o automatización.
             </p>
             
-            <div className="grid gap-4 text-[#D7E2EA] max-w-xl">
-              <div className="rounded-2xl border border-white/10 bg-black/20 px-5 py-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[#D7E2EA] max-w-xl">
+              <div className="rounded-2xl border border-white/10 bg-black/20 px-5 py-4 flex flex-col justify-center">
                 <span className="block text-xs uppercase tracking-widest opacity-50 mb-1">Teléfono Principal</span>
-                <span className="font-medium text-xl">+52 999 540 5419</span>
+                <span className="font-medium text-base sm:text-[17px] md:text-lg lg:text-xl">+52 999 540 5419</span>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-black/20 px-5 py-4">
-                <span className="block text-xs uppercase tracking-widest opacity-50 mb-1">WhatsApp / Ventas</span>
-                <div className="flex flex-col gap-1">
-                  <span className="font-medium text-xl">+52 999 996 8380</span>
-                  <span className="font-medium text-xl">+52 999 464 4181</span>
-                </div>
-              </div>
-              <div className="rounded-2xl border border-white/10 bg-black/20 px-5 py-4">
+              <div className="rounded-2xl border border-white/10 bg-black/20 px-5 py-4 flex flex-col justify-center">
                 <span className="block text-xs uppercase tracking-widest opacity-50 mb-1">Email</span>
-                <span className="font-medium text-xl">codiasupport@gmail.com</span>
+                <span className="font-medium text-xs sm:text-sm md:text-base lg:text-[18px] break-all">codiasupport@gmail.com</span>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-black/20 px-5 py-4 flex flex-col justify-center">
+                <span className="block text-xs uppercase tracking-widest opacity-50 mb-1">WhatsApp / Ventas 1</span>
+                <span className="font-medium text-base sm:text-[17px] md:text-lg lg:text-xl">+52 999 996 8380</span>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-black/20 px-5 py-4 flex flex-col justify-center">
+                <span className="block text-xs uppercase tracking-widest opacity-50 mb-1">WhatsApp / Ventas 2</span>
+                <span className="font-medium text-base sm:text-[17px] md:text-lg lg:text-xl">+52 999 464 4181</span>
               </div>
             </div>
           </div>
