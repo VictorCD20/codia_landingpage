@@ -51,7 +51,7 @@ export const ContactSection: React.FC = () => {
 
   return (
     <section id="contacto" className="relative z-20 overflow-hidden px-5 sm:px-8 md:px-10 py-20">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(61,129,227,0.15),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(182,0,168,0.16),transparent_30%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(61,129,227,0.08),transparent_50%)] pointer-events-none" />
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
       <div className="relative mx-auto max-w-5xl rounded-[36px] border border-white/10 bg-white/[0.03] p-6 sm:p-8 md:p-10 shadow-[0_20px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl">
         <div className="grid gap-12 md:grid-cols-[1fr_1.1fr] md:gap-16 items-center">
@@ -189,12 +189,7 @@ export const ContactSection: React.FC = () => {
               <button 
                 type="submit" 
                 disabled={loading}
-                className="mt-2 rounded-full text-white font-medium uppercase tracking-[0.2em] px-8 py-3.5 outline-none w-full transition-transform duration-300 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed text-xs cursor-pointer"
-                style={{
-                  background: 'linear-gradient(123deg, #17011E 7%, #B600A8 38%, #7621B0 72%, #BE4C00 100%)',
-                  boxShadow: '0px 8px 24px rgba(181, 1, 167, 0.2), 0px 0px 0px 1px rgba(255,255,255,0.55) inset, 4px 4px 12px #7721B1 inset',
-                  border: '1px solid rgba(255,255,255,0.6)'
-                }}
+                className="mt-2 rounded-full text-black font-semibold uppercase tracking-[0.2em] px-8 py-3.5 outline-none w-full transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed text-xs cursor-pointer btn-slide"
               >
                 {loading ? 'Enviando...' : 'Solicitar diagnóstico'}
               </button>
