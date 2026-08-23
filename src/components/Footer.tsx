@@ -3,9 +3,11 @@ import { Mail, Phone, ExternalLink } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   const menuLinks = [
+    { label: 'Inicio', href: '#inicio' },
     { label: 'Soluciones', href: '#soluciones' },
     { label: 'Servicios', href: '#servicios' },
     { label: 'Portafolio', href: '#portafolio' },
+    { label: 'Proceso', href: '#proceso' },
     { label: 'Contacto', href: '#contacto' },
   ];
 
@@ -22,7 +24,7 @@ export const Footer: React.FC = () => {
         {/* Brand & Description */}
         <div className="flex flex-col gap-4">
           <div className="flex items-center">
-            <img src="/logo.jpeg" alt="CODIA Logo" className="h-8 w-auto object-contain rounded-md" />
+            <img src="/logo.png" alt="CODIA Logo" className="h-8 w-auto object-contain rounded-md" />
           </div>
           <p className="text-white/60 text-sm font-light leading-relaxed max-w-sm">
             Creamos soluciones de software a la medida con arquitectura robusta y diseño excepcional para potenciar el crecimiento de tu negocio.

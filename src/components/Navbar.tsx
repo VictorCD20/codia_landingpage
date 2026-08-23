@@ -4,7 +4,7 @@ import { Menu } from 'lucide-react';
 import { AppleButton } from './Primitives';
 
 export const Navbar: React.FC = () => {
-  const links = ['Inicio', 'Soluciones', 'Servicios', 'Proceso', 'Contacto'];
+  const links = ['Inicio', 'Soluciones', 'Servicios', 'Portafolio', 'Proceso', 'Contacto'];
 
   return (
     <motion.nav 
@@ -14,7 +14,7 @@ export const Navbar: React.FC = () => {
       className="w-full max-w-6xl mx-auto px-6 py-6 flex items-center justify-between relative z-10"
     >
       <div className="flex items-center">
-        <img src="/logo.jpeg" alt="CODIA Logo" className="h-7 md:h-8 w-auto object-contain" />
+        <img src="/logo.png" alt="CODIA Logo" className="h-7 md:h-8 w-auto object-contain" />
       </div>
 
       <div className="hidden md:flex items-center gap-8">
