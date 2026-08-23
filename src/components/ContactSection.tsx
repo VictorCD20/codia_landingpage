@@ -25,6 +25,7 @@ export const ContactSection: React.FC = () => {
       mensaje: message
     };
 
+    // 1. Save data to Google Sheets (CRM backup)
     fetch(scriptURL, {
       method: 'POST',
       mode: 'no-cors',
@@ -32,6 +33,24 @@ export const ContactSection: React.FC = () => {
       body: JSON.stringify(formData)
     })
     .then(() => {
+      // 2. Send email via serverless function (Resend API)
+      return fetch('/api/send-contact-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          business_name: businessName,
+          email,
+          phone,
+          solution_type: solutionType,
+          message
+        })
+      });
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Error al enviar el correo');
+      }
       setIsSubmitted(true);
       setName('');
       setBusinessName('');
@@ -42,7 +61,7 @@ export const ContactSection: React.FC = () => {
     })
     .catch(error => {
       console.error('Error!', error);
-      alert('Hubo un error al enviar el mensaje.');
+      alert('Hubo un error al procesar tu mensaje. Por favor, inténtalo de nuevo.');
     })
     .finally(() => {
       setLoading(false);

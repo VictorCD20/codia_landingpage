@@ -16,6 +16,26 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    setIsOpen(false);
+    
+    const element = document.getElementById(targetId);
+    if (element) {
+      // Small timeout to allow the mobile dropdown unmount/closing animation to start
+      setTimeout(() => {
+        const offset = 80; // Offset for sticky navbar height
+        const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+        const offsetPosition = elementPosition - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }, 100);
+    }
+  };
+
   return (
     <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
       isScrolled 
@@ -40,17 +60,18 @@ export const Navbar: React.FC = () => {
             <motion.a 
               key={link}
               href={`#${link.toLowerCase()}`}
+              onClick={(e) => handleLinkClick(e, link.toLowerCase())}
               initial={{ opacity: 0, y: -5 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 + i * 0.05 }}
-              className="text-white/70 text-sm font-medium hover:text-white transition-colors uppercase tracking-wider"
+              className="text-white/70 text-sm font-medium hover:text-white transition-colors uppercase tracking-wider cursor-pointer"
             >
               {link}
             </motion.a>
           ))}
         </div>
 
-        <div className="hidden md:block">
+        <div className="hidden md:block" onClick={(e) => handleLinkClick(e as any, 'contacto')}>
           <AppleButton label="Contáctanos" />
         </div>
 
@@ -79,13 +100,13 @@ export const Navbar: React.FC = () => {
                 <a 
                   key={link}
                   href={`#${link.toLowerCase()}`}
-                  onClick={() => setIsOpen(false)}
-                  className="text-white/80 text-base font-medium uppercase tracking-wider hover:text-white transition-colors"
+                  onClick={(e) => handleLinkClick(e, link.toLowerCase())}
+                  className="text-white/80 text-base font-medium uppercase tracking-wider hover:text-white transition-colors cursor-pointer"
                 >
                   {link}
                 </a>
               ))}
-              <div className="pt-4 border-t border-white/5" onClick={() => setIsOpen(false)}>
+              <div className="pt-4 border-t border-white/5" onClick={(e) => handleLinkClick(e as any, 'contacto')}>
                 <AppleButton label="Contáctanos" full />
               </div>
             </div>
