@@ -6,7 +6,13 @@ import { AppleButton } from './Primitives';
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const links = ['Inicio', 'Soluciones', 'Servicios', 'Portafolio', 'Proceso', 'Contacto'];
+  const links = [
+    { label: 'Inicio', id: 'inicio' },
+    { label: 'Diagnóstico', id: 'diagnostico' },
+    { label: 'Soluciones', id: 'soluciones' },
+    { label: 'Proceso', id: 'proceso' },
+    { label: 'Contacto', id: 'contacto' }
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,15 +64,15 @@ export const Navbar: React.FC = () => {
         <div className="hidden lg:flex items-center gap-8">
           {links.map((link, i) => (
             <motion.a 
-              key={link}
-              href={`#${link.toLowerCase()}`}
-              onClick={(e) => handleLinkClick(e, link.toLowerCase())}
+              key={link.id}
+              href={`#${link.id}`}
+              onClick={(e) => handleLinkClick(e, link.id)}
               initial={{ opacity: 0, y: -5 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 + i * 0.05 }}
               className="text-white/70 text-sm font-medium hover:text-white transition-colors uppercase tracking-wider cursor-pointer"
             >
-              {link}
+              {link.label}
             </motion.a>
           ))}
         </div>
@@ -98,12 +104,12 @@ export const Navbar: React.FC = () => {
             <div className="flex flex-col px-6 py-8 gap-6">
               {links.map((link) => (
                 <a 
-                  key={link}
-                  href={`#${link.toLowerCase()}`}
-                  onClick={(e) => handleLinkClick(e, link.toLowerCase())}
+                  key={link.id}
+                  href={`#${link.id}`}
+                  onClick={(e) => handleLinkClick(e, link.id)}
                   className="text-white/80 text-base font-medium uppercase tracking-wider hover:text-white transition-colors cursor-pointer"
                 >
-                  {link}
+                  {link.label}
                 </a>
               ))}
               <div className="pt-4 border-t border-white/5" onClick={(e) => handleLinkClick(e as any, 'contacto')}>

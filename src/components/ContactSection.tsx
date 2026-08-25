@@ -5,7 +5,7 @@ export const ContactSection: React.FC = () => {
   const [businessName, setBusinessName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [solutionType, setSolutionType] = useState('Sitio web');
+  const [solutionType, setSolutionType] = useState('Presencia digital');
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -61,7 +61,7 @@ export const ContactSection: React.FC = () => {
       setBusinessName('');
       setEmail('');
       setPhone('');
-      setSolutionType('Sitio web');
+      setSolutionType('Presencia digital');
       setMessage('');
     })
     .catch(error => {
@@ -83,8 +83,8 @@ export const ContactSection: React.FC = () => {
         {/* Contact Info */}
         <div className="flex-1">
           <div>
-            <h2 className="hero-heading font-black uppercase text-[clamp(2.5rem,8vw,80px)] leading-none mb-6">
-              Diagnóstico
+            <h2 className="hero-heading font-black uppercase text-[clamp(2.0rem,6vw,50px)] leading-none mb-6">
+              Solicita un diagnóstico para tu negocio
             </h2>
             <p className="text-[#D7E2EA] font-light leading-relaxed mb-10 text-lg opacity-80 max-w-xl">
               Cuéntanos qué necesitas y te ayudamos a definir si tu negocio requiere una página web, catálogo digital, sistema interno o automatización.
@@ -124,7 +124,7 @@ export const ContactSection: React.FC = () => {
                   </div>
                   <h3 className="text-2xl font-semibold text-white mb-3">¡Mensaje Enviado!</h3>
                   <p className="text-white/70 text-sm leading-relaxed max-w-sm">
-                    Gracias por contactarnos. Recibimos tu solicitud y te enviaremos una confirmación por correo.
+                    Gracias por contactarnos. Recibimos tu solicitud y revisaremos qué solución digital puede ayudarte mejor.
                   </p>
                 </>
               ) : (
@@ -136,7 +136,7 @@ export const ContactSection: React.FC = () => {
                   </div>
                   <h3 className="text-2xl font-semibold text-white mb-3">Solicitud Recibida</h3>
                   <p className="text-white/70 text-sm leading-relaxed max-w-sm">
-                    Recibimos tu solicitud, pero hubo un problema al enviar el correo de confirmación. Nos pondremos en contacto contigo pronto.
+                    Gracias por contactarnos. Recibimos tu solicitud y revisaremos qué solución digital puede ayudarte mejor.
                   </p>
                 </>
               )}
@@ -207,10 +207,11 @@ export const ContactSection: React.FC = () => {
                     className="w-full bg-[#0C0C0C]/80 border border-white/20 rounded-full px-5 py-3 text-white focus:outline-none focus:border-white/60 transition-colors appearance-none cursor-pointer text-sm"
                     style={{ colorScheme: 'dark' }}
                   >
-                    <option value="Sitio web">Sitio web</option>
-                    <option value="Catálogo digital">Catálogo digital</option>
-                    <option value="Sistema interno">Sistema interno</option>
+                    <option value="Presencia digital">Presencia digital</option>
+                    <option value="Catálogo">Catálogo</option>
+                    <option value="Panel administrativo">Panel administrativo</option>
                     <option value="Automatización">Automatización</option>
+                    <option value="Sistema interno">Sistema interno</option>
                     <option value="No estoy seguro">No estoy seguro</option>
                   </select>
                   <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-white/40 text-[10px]">▼</div>

@@ -11,7 +11,7 @@ export const Hero: React.FC = () => {
         transition={{ delay: 0.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         className="text-4xl md:text-7xl font-semibold tracking-tight leading-[1.1] max-w-4xl"
       >
-        <span className="block text-white">Sitios web y soluciones digitales</span>
+        <span className="block text-white">Soluciones digitales prácticas para negocios que quieren trabajar</span>
         <span 
           className="block animate-shiny"
           style={{
@@ -24,7 +24,7 @@ export const Hero: React.FC = () => {
             filter: 'url(#c3-noise)'
           }}
         >
-          para crecer
+          con más orden.
         </span>
       </motion.h1>
 
@@ -32,9 +32,9 @@ export const Hero: React.FC = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5, duration: 0.8 }}
-        className="mt-8 text-white/60 max-w-2xl text-base md:text-lg leading-[1.6]"
+        className="mt-8 text-white/60 max-w-3xl text-base md:text-lg leading-[1.6]"
       >
-        Creamos páginas web, catálogos digitales, sistemas internos y automatizaciones para ayudarte a captar clientes, mostrar mejor tus servicios y organizar tu operación.
+        Analizamos las necesidades de tu negocio y desarrollamos herramientas digitales claras: sitios web, catálogos, paneles administrativos, automatizaciones y sistemas internos.
       </motion.p>
 
       <motion.div
@@ -46,7 +46,6 @@ export const Hero: React.FC = () => {
         <AppleButton label="Solicitar diagnóstico" href="#contacto" />
         <AppleButton label="Ver soluciones" href="#soluciones" />
       </motion.div>
-      <span className="text-xs text-white/40 mt-4 block">Fácil, rápido y sin tecnicismos complejos</span>
     </section>
   );
 };

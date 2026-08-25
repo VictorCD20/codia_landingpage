@@ -1,15 +1,13 @@
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { WhatWeDoSection } from './components/WhatWeDoSection';
+import { DigitalDiagnosisSection } from './components/DigitalDiagnosisSection';
 import { FeatureTriage } from './components/FeatureTriage';
-import { BusinessSolutionsSection } from './components/BusinessSolutionsSection';
 import { ServicesSection } from './components/ServicesSection';
-import { ProjectsShowcase } from './components/ProjectsShowcase';
 import { ProcessSection } from './components/ProcessSection';
+import { ValidationSolutionsSection } from './components/ValidationSolutionsSection';
+import { ProjectsShowcase } from './components/ProjectsShowcase';
 import { TrustSection } from './components/TrustSection';
-import { FAQSection } from './components/FAQSection';
-import { TeamSection } from './components/TeamSection';
-import { TechStack } from './components/TechStack';
-import { FinalCTA } from './components/FinalCTA';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { Analytics } from '@vercel/analytics/react';
@@ -43,16 +41,14 @@ function App() {
 
       <Navbar />
       <Hero />
+      <WhatWeDoSection />
+      <DigitalDiagnosisSection />
       <FeatureTriage />
-      <BusinessSolutionsSection />
       <ServicesSection />
-      <ProjectsShowcase />
       <ProcessSection />
+      <ValidationSolutionsSection />
+      <ProjectsShowcase />
       <TrustSection />
-      <FAQSection />
-      <TeamSection />
-      <TechStack />
-      <FinalCTA />
       <ContactSection />
       <Footer />
       <Analytics />

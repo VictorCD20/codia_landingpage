@@ -1,44 +1,50 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { SectionEyebrow } from './Primitives';
-import { Users, Info, Sparkles, Code, ClipboardList, CheckCircle2 } from 'lucide-react';
+import { Users, Info, Cloud, Sparkles, ClipboardList, Wrench, CheckCircle2 } from 'lucide-react';
 
 const reasons = [
   {
     title: 'Atención directa',
-    desc: 'Hablas directamente con el equipo que diseña y desarrolla tu proyecto.',
+    desc: 'Te comunicas directamente con el equipo técnico que diseña y desarrolla tus herramientas web.',
     icon: Users,
     color: '#00d2ff',
   },
   {
     title: 'Soluciones claras',
-    desc: 'Te explicamos lo que tu negocio necesita sin usar tecnicismos o lenguaje complicado.',
+    desc: 'Te explicamos los beneficios y opciones sin tecnicismos complejos ni lenguaje corporativo confuso.',
     icon: Info,
     color: '#3ecf8e',
   },
   {
-    title: 'Diseño profesional',
-    desc: 'Creamos interfaces modernas, limpias y 100% adaptadas a la identidad de tu negocio.',
-    icon: Sparkles,
+    title: 'Desarrollo en la nube',
+    desc: 'Herramientas disponibles 24/7 en plataformas estables y de alta disponibilidad sin servidores costosos.',
+    icon: Cloud,
     color: '#B600A8',
   },
   {
-    title: 'Desarrollo funcional',
-    desc: 'No solo hacemos pantallas bonitas; creamos herramientas que realmente resuelven problemas.',
-    icon: Code,
+    title: 'Diseño moderno',
+    desc: 'Creamos interfaces limpias, profesionales y con una excelente experiencia de usuario en móvil y web.',
+    icon: Sparkles,
     color: '#f59e0b',
   },
   {
-    title: 'Proceso por etapas',
-    desc: 'Trabajamos con un flujo estructurado: diagnóstico, propuesta, revisión y entrega.',
+    title: 'Proceso consultivo',
+    desc: 'Nos tomamos el tiempo para entender tus necesidades antes de sugerir cualquier desarrollo.',
     icon: ClipboardList,
     color: '#ff4b4b',
   },
   {
-    title: 'Periodo inicial de ajustes',
-    desc: 'Incluimos una etapa de revisión para corregir cualquier detalle acordado tras la entrega.',
+    title: 'Mantenimiento y mejora',
+    desc: 'Te apoyamos en el seguimiento posterior para que tu sistema siga funcionando sin problemas.',
+    icon: Wrench,
+    color: '#00d2ff',
+  },
+  {
+    title: 'Validación con negocios reales',
+    desc: 'Probamos e iteramos nuestras herramientas con el feedback constante de comercios locales.',
     icon: CheckCircle2,
-    color: '#a3a3a3',
+    color: '#3ecf8e',
   },
 ];
 
@@ -46,12 +52,12 @@ export const TrustSection: React.FC = () => {
   return (
     <section className="max-w-6xl mx-auto px-6 py-20 md:py-28 relative z-10">
       <div className="mb-16 flex flex-col items-center text-center">
-        <SectionEyebrow label="Nuestros Valores" tag="Confianza" />
+        <SectionEyebrow label="Por qué confiar en CODIA" tag="Nuestra Filosofía" />
         <h2 className="mt-5 text-4xl md:text-6xl font-semibold tracking-tight heading-gradient" style={{ filter: 'url(#c3-noise)' }}>
-          ¿Por qué trabajar con CODIA?
+          Por qué confiar en CODIA
         </h2>
-        <p className="mt-4 text-white/60 max-w-xl text-sm md:text-base leading-relaxed">
-          Nos enfocamos en la honestidad, la claridad y el beneficio real para tu negocio. Sin falsas promesas.
+        <p className="mt-6 text-white/60 max-w-2xl text-sm md:text-base leading-relaxed">
+          Estamos construyendo CODIA con método. No prometemos soluciones para todo. Escuchamos, diagnosticamos y desarrollamos herramientas digitales prácticas según la necesidad real de cada negocio.
         </p>
       </div>
 
@@ -65,14 +71,14 @@ export const TrustSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: index * 0.05 }}
-              className="flex gap-4 items-start p-4 rounded-2xl bg-white/[0.01] border border-white/5"
+              className="flex gap-4 items-start p-5 rounded-2xl bg-white/[0.01] border border-white/5"
             >
               <div className="p-3 rounded-xl bg-white/5 border border-white/10 shrink-0" style={{ color: item.color }}>
                 <IconComponent className="w-5 h-5" />
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-white mb-2">{item.title}</h3>
-                <p className="text-white/60 text-sm leading-relaxed">
+                <p className="text-white/60 text-xs sm:text-sm leading-relaxed">
                   {item.desc}
                 </p>
               </div>

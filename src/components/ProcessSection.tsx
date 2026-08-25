@@ -5,39 +5,33 @@ import { SectionEyebrow } from './Primitives';
 const steps = [
   {
     num: '01',
-    title: 'Diagnóstico',
-    desc: 'Entendemos tu negocio, tus servicios y lo que quieres lograr.',
+    title: 'Escuchamos',
+    desc: 'Platicamos con detalles sobre las necesidades reales, problemas y dinámicas actuales de tu negocio.',
     color: '#00d2ff',
   },
   {
     num: '02',
-    title: 'Propuesta',
-    desc: 'Definimos alcance, tiempos, costo y entregables.',
+    title: 'Diagnosticamos',
+    desc: 'Analizamos qué herramienta es la más conveniente o si requieres simplificar un proceso primero.',
     color: '#3ecf8e',
   },
   {
     num: '03',
-    title: 'Diseño y desarrollo',
-    desc: 'Creamos la estructura, interfaz y funcionalidades.',
+    title: 'Proponemos',
+    desc: 'Definimos una solución práctica, clara y con un alcance delimitado, sin tecnicismos innecesarios.',
     color: '#B600A8',
   },
   {
     num: '04',
-    title: 'Revisión',
-    desc: 'Ajustamos textos, imágenes, secciones y detalles acordados.',
+    title: 'Implementamos',
+    desc: 'Diseñamos y desarrollamos el prototipo o herramienta final y lo conectamos con tus flujos de trabajo.',
     color: '#f59e0b',
   },
   {
     num: '05',
-    title: 'Entrega',
-    desc: 'Publicamos el sitio o sistema y entregamos accesos básicos.',
+    title: 'Acompañamos',
+    desc: 'Te ayudamos a adoptar la herramienta, capacitando a tu equipo y refinando detalles para su correcto uso.',
     color: '#ff4b4b',
-  },
-  {
-    num: '06',
-    title: 'Seguimiento',
-    desc: 'Puedes solicitar soporte, mantenimiento o mejoras posteriores.',
-    color: '#a3a3a3',
   },
 ];
 

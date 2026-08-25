@@ -4,9 +4,8 @@ import { Mail, Phone, ExternalLink } from 'lucide-react';
 export const Footer: React.FC = () => {
   const menuLinks = [
     { label: 'Inicio', href: '#inicio' },
+    { label: 'Diagnóstico', href: '#diagnostico' },
     { label: 'Soluciones', href: '#soluciones' },
-    { label: 'Servicios', href: '#servicios' },
-    { label: 'Portafolio', href: '#portafolio' },
     { label: 'Proceso', href: '#proceso' },
     { label: 'Contacto', href: '#contacto' },
   ];
@@ -27,7 +26,7 @@ export const Footer: React.FC = () => {
             <img src="/logo.png" alt="CODIA Logo" className="h-8 w-auto object-contain rounded-md" />
           </div>
           <p className="text-white/60 text-sm font-light leading-relaxed max-w-sm">
-            Creamos soluciones de software a la medida con arquitectura robusta y diseño excepcional para potenciar el crecimiento de tu negocio.
+            Estudio y laboratorio de soluciones digitales prácticas para negocios locales. Te ayudamos a ordenar procesos, automatizar tareas y mejorar tu presencia digital.
           </p>
           <div className="text-white/40 text-xs mt-4">
             &copy; {new Date().getFullYear()} CODIA. Todos los derechos reservados.
