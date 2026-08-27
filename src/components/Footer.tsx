@@ -11,7 +11,7 @@ export const Footer: React.FC = () => {
   ];
 
   const teamMembers = [
-    { name: 'Victor Can', href: 'https://portafolio-victor-can.vercel.app/', pending: false },
+    { name: 'Victor Can', href: 'https://victorportafolio-orcin.vercel.app/', pending: false },
     { name: 'Kevin Vargas', href: 'https://portafolio-kevin-vargas.vercel.app/', pending: false },
     { name: 'Emir Montalvo', href: 'https://portafolio-emir-montalvo.vercel.app/', pending: false },
   ];

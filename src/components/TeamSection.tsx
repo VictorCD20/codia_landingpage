@@ -26,7 +26,7 @@ const teamMembers = [
     specialties: ['React / Next.js', 'Node.js', 'UX/UI & SEO'],
     icon: Code2,
     gradient: 'from-[#3D81E3] to-[#00d2ff]',
-    portfolioUrl: 'https://portafolio-victor-can.vercel.app/',
+    portfolioUrl: 'https://victorportafolio-orcin.vercel.app/',
     githubUrl: 'https://github.com/VictorCD20',
     linkedinUrl: 'https://www.linkedin.com/in/victor-can-dominguez-722711366/',
     accentColor: '#3D81E3'
