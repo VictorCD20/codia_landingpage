@@ -25,15 +25,21 @@ export const ContactForm: React.FC = () => {
             <div className="flex flex-col gap-6 text-white">
               <div>
                 <span className="block text-xs uppercase tracking-widest text-white/40 font-bold mb-1">Teléfono Principal</span>
-                <span className="font-medium text-xl">+52 (55) 1234-5678</span>
+                <a href="tel:+5219995370947" className="font-medium text-xl text-white hover:text-blue-400 transition-colors no-underline">
+                  +52 1 999 537 0947
+                </a>
               </div>
               <div>
                 <span className="block text-xs uppercase tracking-widest text-white/40 font-bold mb-1">WhatsApp / Ventas</span>
-                <span className="font-medium text-xl">+52 (55) 8765-4321</span>
+                <a href="https://wa.me/5219995370947" target="_blank" rel="noopener noreferrer" className="font-medium text-xl text-white hover:text-emerald-400 transition-colors no-underline">
+                  +52 1 999 537 0947
+                </a>
               </div>
               <div>
                 <span className="block text-xs uppercase tracking-widest text-white/40 font-bold mb-1">Email</span>
-                <span className="font-medium text-xl text-brand">contacto@codia.com</span>
+                <a href="mailto:codiasupport@gmail.com" className="font-medium text-xl text-brand hover:underline">
+                  codiasupport@gmail.com
+                </a>
               </div>
             </div>
           </div>

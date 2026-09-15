@@ -91,22 +91,60 @@ export const ContactSection: React.FC = () => {
             </p>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[#D7E2EA] max-w-xl">
-              <div className="rounded-2xl border border-white/10 bg-black/20 px-5 py-4 flex flex-col justify-center">
-                <span className="block text-xs uppercase tracking-widest opacity-50 mb-1">Teléfono Principal</span>
-                <span className="font-medium text-base sm:text-[17px] md:text-lg lg:text-xl">+52 999 540 5419</span>
+              {/* Single Phone & WhatsApp Card */}
+              <div className="rounded-2xl border border-white/10 bg-black/20 p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-white/30 hover:bg-white/10 transition-all group sm:col-span-2">
+                <div>
+                  <span className="block text-xs uppercase tracking-widest opacity-50 mb-1 text-[#D7E2EA]">Teléfono & WhatsApp Directo</span>
+                  <span className="font-medium text-lg sm:text-xl lg:text-2xl text-white whitespace-nowrap">+52 1 999 537 0947</span>
+                </div>
+                <div className="flex items-center gap-2 mt-1 sm:mt-0">
+                  <a 
+                    href="tel:+5219995370947" 
+                    className="px-4 py-2 rounded-full bg-white/10 hover:bg-blue-500/20 hover:border-blue-400/50 border border-white/15 text-xs font-medium text-white transition-all no-underline"
+                  >
+                    Llamar
+                  </a>
+                  <a 
+                    href="https://wa.me/5219995370947" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="px-4 py-2 rounded-full bg-emerald-500/20 hover:bg-emerald-500/35 border border-emerald-500/50 text-xs font-medium text-emerald-300 transition-all no-underline"
+                  >
+                    WhatsApp
+                  </a>
+                </div>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-black/20 px-5 py-4 flex flex-col justify-center">
-                <span className="block text-xs uppercase tracking-widest opacity-50 mb-1">Email</span>
-                <span className="font-medium text-xs sm:text-sm md:text-base lg:text-[18px] break-all">codiasupport@gmail.com</span>
-              </div>
-              <div className="rounded-2xl border border-white/10 bg-black/20 px-5 py-4 flex flex-col justify-center">
-                <span className="block text-xs uppercase tracking-widest opacity-50 mb-1">WhatsApp / Ventas 1</span>
-                <span className="font-medium text-base sm:text-[17px] md:text-lg lg:text-xl">+52 999 996 8380</span>
-              </div>
-              <div className="rounded-2xl border border-white/10 bg-black/20 px-5 py-4 flex flex-col justify-center">
-                <span className="block text-xs uppercase tracking-widest opacity-50 mb-1">WhatsApp / Ventas 2</span>
-                <span className="font-medium text-base sm:text-[17px] md:text-lg lg:text-xl">+52 999 464 4181</span>
-              </div>
+
+              {/* Full-width Email Card */}
+              <a 
+                href="mailto:codiasupport@gmail.com" 
+                className="rounded-2xl border border-white/10 bg-black/20 px-5 py-4 flex flex-col justify-center hover:border-white/30 hover:bg-white/10 transition-all group no-underline sm:col-span-2"
+              >
+                <span className="block text-xs uppercase tracking-widest opacity-50 mb-1 text-[#D7E2EA]">Correo Electrónico</span>
+                <span className="font-medium text-base sm:text-lg md:text-xl text-white group-hover:text-blue-400 transition-colors break-all sm:break-normal">
+                  codiasupport@gmail.com
+                </span>
+              </a>
+
+              {/* Social Media Cards */}
+              <a 
+                href="https://www.facebook.com/CodiaSoftware/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="rounded-2xl border border-white/10 bg-black/20 px-5 py-4 flex flex-col justify-center hover:border-white/30 hover:bg-white/10 transition-all group no-underline"
+              >
+                <span className="block text-xs uppercase tracking-widest opacity-50 mb-1 text-[#D7E2EA]">Facebook</span>
+                <span className="font-medium text-sm sm:text-base md:text-lg text-white group-hover:text-blue-400 transition-colors">@CodiaSoftware</span>
+              </a>
+              <a 
+                href="https://www.instagram.com/codia_software/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="rounded-2xl border border-white/10 bg-black/20 px-5 py-4 flex flex-col justify-center hover:border-white/30 hover:bg-white/10 transition-all group no-underline"
+              >
+                <span className="block text-xs uppercase tracking-widest opacity-50 mb-1 text-[#D7E2EA]">Instagram</span>
+                <span className="font-medium text-sm sm:text-base md:text-lg text-white group-hover:text-pink-400 transition-colors">@codia_software</span>
+              </a>
             </div>
           </div>
         </div>
