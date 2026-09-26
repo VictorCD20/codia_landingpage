@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import { AppleButton } from './Primitives';
+import { navLinks } from '../config/navigation';
 
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const links = [
-    { label: 'Inicio', id: 'inicio' },
-    { label: 'Diagnóstico', id: 'diagnostico' },
-    { label: 'Soluciones', id: 'soluciones' },
-    { label: 'Proceso', id: 'proceso' },
-    { label: 'Contacto', id: 'contacto' }
-  ];
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,26 +17,6 @@ export const Navbar: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
-    e.preventDefault();
-    setIsOpen(false);
-    
-    const element = document.getElementById(targetId);
-    if (element) {
-      // Small timeout to allow the mobile dropdown unmount/closing animation to start
-      setTimeout(() => {
-        const offset = 80; // Offset for sticky navbar height
-        const elementPosition = element.getBoundingClientRect().top + window.scrollY;
-        const offsetPosition = elementPosition - offset;
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
-      }, 100);
-    }
-  };
 
   return (
     <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
@@ -56,28 +32,33 @@ export const Navbar: React.FC = () => {
           isScrolled ? 'py-4' : 'py-6'
         }`}
       >
-        <div className="flex items-center">
+        <Link to="/" className="flex items-center no-underline">
           <img src="/logo.png" alt="CODIA Logo" className="h-7 md:h-8 w-auto object-contain" />
-        </div>
+        </Link>
 
         {/* Desktop Menu */}
         <div className="hidden lg:flex items-center gap-8">
-          {links.map((link, i) => (
-            <motion.a 
-              key={link.id}
-              href={`#${link.id}`}
-              onClick={(e) => handleLinkClick(e, link.id)}
+          {navLinks.map((link, i) => (
+            <motion.div
+              key={link.path}
               initial={{ opacity: 0, y: -5 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 + i * 0.05 }}
-              className="text-white/70 text-sm font-medium hover:text-white transition-colors uppercase tracking-wider cursor-pointer"
             >
-              {link.label}
-            </motion.a>
+              <NavLink 
+                to={link.path}
+                end={link.path === '/'}
+                className={({ isActive }) => `text-sm font-medium transition-colors uppercase tracking-wider no-underline ${
+                  isActive ? 'text-white font-bold border-b-2 border-blue-400 pb-1' : 'text-white/70 hover:text-white'
+                }`}
+              >
+                {link.label}
+              </NavLink>
+            </motion.div>
           ))}
         </div>
 
-        <div className="hidden lg:block" onClick={(e) => handleLinkClick(e as any, 'contacto')}>
+        <div className="hidden lg:block cursor-pointer" onClick={() => navigate('/contacto')}>
           <AppleButton label="Contáctanos" />
         </div>
 
@@ -102,17 +83,26 @@ export const Navbar: React.FC = () => {
             className="absolute top-full left-0 w-full bg-[#0c0c0c]/95 border-b border-white/10 backdrop-blur-xl lg:hidden overflow-hidden"
           >
             <div className="flex flex-col px-6 py-8 gap-6">
-              {links.map((link) => (
-                <a 
-                  key={link.id}
-                  href={`#${link.id}`}
-                  onClick={(e) => handleLinkClick(e, link.id)}
-                  className="text-white/80 text-base font-medium uppercase tracking-wider hover:text-white transition-colors cursor-pointer"
+              {navLinks.map((link) => (
+                <NavLink 
+                  key={link.path}
+                  to={link.path}
+                  end={link.path === '/'}
+                  onClick={() => setIsOpen(false)}
+                  className={({ isActive }) => `text-base font-medium uppercase tracking-wider transition-colors no-underline ${
+                    isActive ? 'text-blue-400 font-bold' : 'text-white/80 hover:text-white'
+                  }`}
                 >
                   {link.label}
-                </a>
+                </NavLink>
               ))}
-              <div className="pt-4 border-t border-white/5" onClick={(e) => handleLinkClick(e as any, 'contacto')}>
+              <div 
+                className="pt-4 border-t border-white/5 cursor-pointer" 
+                onClick={() => {
+                  setIsOpen(false);
+                  navigate('/contacto');
+                }}
+              >
                 <AppleButton label="Contáctanos" full />
               </div>
             </div>

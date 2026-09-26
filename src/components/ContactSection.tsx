@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const ContactSection: React.FC = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [businessName, setBusinessName] = useState('');
   const [email, setEmail] = useState('');
@@ -63,6 +65,7 @@ export const ContactSection: React.FC = () => {
       setPhone('');
       setSolutionType('Presencia digital');
       setMessage('');
+      navigate('/gracias');
     })
     .catch(error => {
       console.error('Error!', error);

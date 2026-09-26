@@ -1,5 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Mail, Phone, ExternalLink } from 'lucide-react';
+import { siteConfig } from '../config/site';
+import { navLinks } from '../config/navigation';
+import { teamMembers } from '../constants/company';
 
 const FacebookIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
   <svg className={className} viewBox="0 0 24 24" fill="currentColor">
@@ -16,19 +20,7 @@ const InstagramIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4"
 );
 
 export const Footer: React.FC = () => {
-  const menuLinks = [
-    { label: 'Inicio', href: '#inicio' },
-    { label: 'Diagnóstico', href: '#diagnostico' },
-    { label: 'Soluciones', href: '#soluciones' },
-    { label: 'Proceso', href: '#proceso' },
-    { label: 'Contacto', href: '#contacto' },
-  ];
-
-  const teamMembers = [
-    { name: 'Victor Can', href: 'https://victorportafolio-orcin.vercel.app/', pending: false },
-    { name: 'Kevin Vargas', href: 'https://portafolio-kevin-vargas.vercel.app/', pending: false },
-    { name: 'Emir Montalvo', href: 'https://portafolio-emir-montalvo.vercel.app/', pending: false },
-  ];
+  const menuLinks = navLinks;
 
   return (
     <footer className="relative z-20 w-full border-t border-white/10 bg-[#0c0c0c]/85 backdrop-blur-md py-12 md:py-16 mt-12">
@@ -37,33 +29,38 @@ export const Footer: React.FC = () => {
         {/* Brand & Description */}
         <div className="flex flex-col gap-4">
           <div className="flex items-center">
-            <img src="/logo.png" alt="CODIA Logo" className="h-8 w-auto object-contain rounded-md" />
+            <Link to="/" className="no-underline">
+              <img src="/logo.png" alt={`${siteConfig.name} Logo`} className="h-8 w-auto object-contain rounded-md" />
+            </Link>
           </div>
           <p className="text-white/60 text-sm font-light leading-relaxed max-w-sm">
             Estudio y laboratorio de soluciones digitales prácticas para negocios locales. Te ayudamos a ordenar procesos, automatizar tareas y mejorar tu presencia digital.
           </p>
           <div className="flex items-center gap-3 mt-1">
             <a 
-              href="https://www.facebook.com/CodiaSoftware/" 
+              href={siteConfig.social.facebook} 
               target="_blank" 
               rel="noopener noreferrer"
               className="p-2 rounded-full border border-white/10 text-white/60 hover:text-blue-400 hover:border-blue-400/50 bg-white/5 transition-all duration-200"
-              title="Facebook CODIA"
+              title={`Facebook ${siteConfig.name}`}
             >
               <FacebookIcon className="w-4 h-4" />
             </a>
             <a 
-              href="https://www.instagram.com/codia_software/" 
+              href={siteConfig.social.instagram} 
               target="_blank" 
               rel="noopener noreferrer"
               className="p-2 rounded-full border border-white/10 text-white/60 hover:text-pink-400 hover:border-pink-400/50 bg-white/5 transition-all duration-200"
-              title="Instagram CODIA"
+              title={`Instagram ${siteConfig.name}`}
             >
               <InstagramIcon className="w-4 h-4" />
             </a>
           </div>
-          <div className="text-white/40 text-xs mt-2">
-            &copy; {new Date().getFullYear()} CODIA. Todos los derechos reservados.
+          <div className="text-white/40 text-xs mt-2 flex flex-col gap-1">
+            <div>&copy; {new Date().getFullYear()} {siteConfig.name}. Todos los derechos reservados.</div>
+            <Link to="/aviso-de-privacidad" className="text-white/50 hover:text-white transition-colors underline text-[11px] w-fit">
+              Aviso de Privacidad
+            </Link>
           </div>
         </div>
 
@@ -75,13 +72,13 @@ export const Footer: React.FC = () => {
               Menú
             </h4>
             {menuLinks.map((link) => (
-              <a 
+              <Link 
                 key={link.label}
-                href={link.href}
-                className="text-white/60 text-sm hover:text-white transition-colors duration-200 w-fit"
+                to={link.path}
+                className="text-white/60 text-sm hover:text-white transition-colors duration-200 w-fit no-underline"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -91,14 +88,14 @@ export const Footer: React.FC = () => {
               Contacto y Redes
             </h4>
             <a 
-              href="tel:+5219995370947" 
+              href={siteConfig.contact.phoneUrl} 
               className="flex items-center gap-2 text-white/60 text-sm hover:text-white transition-colors duration-200 w-fit"
             >
               <Phone className="w-4 h-4" />
-              <span>+52 1 999 537 0947</span>
+              <span>{siteConfig.contact.phone}</span>
             </a>
             <a 
-              href="https://wa.me/5219995370947" 
+              href={siteConfig.contact.whatsappUrl} 
               target="_blank" 
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-white/60 text-sm hover:text-emerald-400 transition-colors duration-200 w-fit"
@@ -107,14 +104,14 @@ export const Footer: React.FC = () => {
               <span>WhatsApp</span>
             </a>
             <a 
-              href="mailto:codiasupport@gmail.com" 
+              href={siteConfig.contact.emailUrl} 
               className="flex items-center gap-2 text-white/60 text-sm hover:text-white transition-colors duration-200 w-fit"
             >
               <Mail className="w-4 h-4" />
               <span>Soporte</span>
             </a>
             <a 
-              href="https://www.facebook.com/CodiaSoftware/" 
+              href={siteConfig.social.facebook} 
               target="_blank" 
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-white/60 text-sm hover:text-blue-400 transition-colors duration-200 w-fit"
@@ -123,7 +120,7 @@ export const Footer: React.FC = () => {
               <span>Facebook</span>
             </a>
             <a 
-              href="https://www.instagram.com/codia_software/" 
+              href={siteConfig.social.instagram} 
               target="_blank" 
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-white/60 text-sm hover:text-pink-400 transition-colors duration-200 w-fit"
