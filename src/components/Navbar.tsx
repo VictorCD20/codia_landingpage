@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import { AppleButton } from './Primitives';
 import { navLinks } from '../config/navigation';
+import { telemetry } from '../tracking/tracker';
 
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,7 +15,7 @@ export const Navbar: React.FC = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -23,7 +24,7 @@ export const Navbar: React.FC = () => {
       isScrolled 
         ? 'bg-[#0c0c0c]/80 backdrop-blur-md border-b border-white/10 shadow-lg' 
         : 'bg-transparent'
-    }`}>
+    }`} role="banner">
       <motion.nav 
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -31,9 +32,14 @@ export const Navbar: React.FC = () => {
         className={`w-full max-w-6xl mx-auto px-6 flex items-center justify-between transition-all duration-300 ${
           isScrolled ? 'py-4' : 'py-6'
         }`}
+        aria-label="Navegación principal"
       >
-        <Link to="/" className="flex items-center no-underline">
-          <img src="/logo.png" alt="CODIA Logo" className="h-7 md:h-8 w-auto object-contain" />
+        <Link 
+          to="/" 
+          className="flex items-center no-underline focus-visible:ring-2 focus-visible:ring-blue-400 outline-none rounded"
+          aria-label="Ir al Inicio de CODIA Software"
+        >
+          <img src="/logo.png" alt="CODIA Logo" className="h-7 md:h-8 w-auto object-contain" loading="eager" />
         </Link>
 
         {/* Desktop Menu */}
@@ -48,7 +54,8 @@ export const Navbar: React.FC = () => {
               <NavLink 
                 to={link.path}
                 end={link.path === '/'}
-                className={({ isActive }) => `text-sm font-medium transition-colors uppercase tracking-wider no-underline ${
+                onClick={() => telemetry.trackCTAClick(`Nav_${link.label}`, link.path)}
+                className={({ isActive }) => `text-sm font-medium transition-colors uppercase tracking-wider no-underline focus-visible:ring-2 focus-visible:ring-blue-400 outline-none rounded ${
                   isActive ? 'text-white font-bold border-b-2 border-blue-400 pb-1' : 'text-white/70 hover:text-white'
                 }`}
               >
@@ -58,15 +65,22 @@ export const Navbar: React.FC = () => {
           ))}
         </div>
 
-        <div className="hidden lg:block cursor-pointer" onClick={() => navigate('/contacto')}>
+        <div 
+          className="hidden lg:block cursor-pointer" 
+          onClick={() => {
+            telemetry.trackCTAClick('Navbar_Contact_Button', '/contacto');
+            navigate('/contacto');
+          }}
+        >
           <AppleButton label="Contáctanos" />
         </div>
 
         {/* Mobile Toggle Button */}
         <button 
           onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle Menu"
-          className="lg:hidden flex items-center justify-center w-10 h-10 rounded-full border border-white/10 bg-white/5 cursor-pointer hover:bg-white/10 transition-colors"
+          aria-label={isOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
+          aria-expanded={isOpen}
+          className="lg:hidden flex items-center justify-center w-10 h-10 rounded-full border border-white/10 bg-white/5 cursor-pointer hover:bg-white/10 transition-colors focus-visible:ring-2 focus-visible:ring-blue-400 outline-none"
         >
           {isOpen ? <X className="w-5 h-5 text-white" /> : <Menu className="w-5 h-5 text-white" />}
         </button>
@@ -88,7 +102,10 @@ export const Navbar: React.FC = () => {
                   key={link.path}
                   to={link.path}
                   end={link.path === '/'}
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {
+                    setIsOpen(false);
+                    telemetry.trackCTAClick(`MobileNav_${link.label}`, link.path);
+                  }}
                   className={({ isActive }) => `text-base font-medium uppercase tracking-wider transition-colors no-underline ${
                     isActive ? 'text-blue-400 font-bold' : 'text-white/80 hover:text-white'
                   }`}
@@ -100,6 +117,7 @@ export const Navbar: React.FC = () => {
                 className="pt-4 border-t border-white/5 cursor-pointer" 
                 onClick={() => {
                   setIsOpen(false);
+                  telemetry.trackCTAClick('MobileNav_Contact_Button', '/contacto');
                   navigate('/contacto');
                 }}
               >

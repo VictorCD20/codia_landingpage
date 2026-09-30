@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { submitContactDiagnostic } from '../services/contactService';
+import { telemetry } from '../tracking/tracker';
 
 export const ContactSection: React.FC = () => {
   const navigate = useNavigate();
@@ -9,55 +11,31 @@ export const ContactSection: React.FC = () => {
   const [phone, setPhone] = useState('');
   const [solutionType, setSolutionType] = useState('Presencia digital');
   const [message, setMessage] = useState('');
+  const [honeypot, setHoneypot] = useState('');
   const [loading, setLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'success' | 'email_error' | null>(null);
+  const [submitStatus, setSubmitStatus] = useState<'success' | 'email_error' | 'rate_limited' | 'spam_rejected' | 'validation_error' | null>(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
+    setErrorMessage('');
 
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbw_0gV0-h6SZceJ65CW9uucl27kb6-dqMNS8Cc2k60gtl01UhYAB0uLt1Tvgva56zYx/exec';
+    const result = await submitContactDiagnostic({
+      name,
+      businessName,
+      email,
+      phone,
+      solutionType,
+      message,
+      honeypot
+    });
 
-    const formData = {
-      nombre: name,
-      negocio: businessName,
-      correo: email,
-      telefono: phone,
-      solucion: solutionType,
-      mensaje: message
-    };
+    setLoading(false);
 
-    // 1. Save data to Google Sheets (CRM backup)
-    fetch(scriptURL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData)
-    })
-    .then(() => {
-      // 2. Send email via serverless function (Resend API)
-      return fetch('/api/send-contact-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name,
-          business_name: businessName,
-          email,
-          phone,
-          solution_type: solutionType,
-          message
-        })
-      });
-    })
-    .then(response => {
-      if (!response.ok) {
-        // Succeeded in Google Sheets but failed Resend
-        setSubmitStatus('email_error');
-      } else {
-        // Everything worked perfectly
-        setSubmitStatus('success');
-      }
+    if (result.success) {
+      setSubmitStatus(result.status);
       setIsSubmitted(true);
       setName('');
       setBusinessName('');
@@ -66,18 +44,14 @@ export const ContactSection: React.FC = () => {
       setSolutionType('Presencia digital');
       setMessage('');
       navigate('/gracias');
-    })
-    .catch(error => {
-      console.error('Error!', error);
-      alert('Hubo un error al procesar tu mensaje. Por favor, inténtalo de nuevo.');
-    })
-    .finally(() => {
-      setLoading(false);
-    });
+    } else {
+      setSubmitStatus(result.status);
+      setErrorMessage(result.error || 'Hubo un error al procesar tu solicitud. Por favor intenta de nuevo.');
+    }
   };
 
   return (
-    <section id="contacto" className="relative z-20 overflow-hidden px-5 sm:px-8 md:px-10 py-20">
+    <section id="contacto" className="relative z-20 overflow-hidden px-5 sm:px-8 md:px-10 py-20" aria-labelledby="contact-heading">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(61,129,227,0.08),transparent_50%)] pointer-events-none" />
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
       <div className="relative mx-auto max-w-5xl rounded-[36px] border border-white/10 bg-white/[0.03] p-6 sm:p-8 md:p-10 shadow-[0_20px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl">
@@ -86,7 +60,7 @@ export const ContactSection: React.FC = () => {
         {/* Contact Info */}
         <div className="flex-1">
           <div>
-            <h2 className="hero-heading font-black uppercase text-[clamp(2.0rem,6vw,50px)] leading-none mb-6">
+            <h2 id="contact-heading" className="hero-heading font-black uppercase text-[clamp(2.0rem,6vw,50px)] leading-none mb-6">
               Solicita un diagnóstico para tu negocio
             </h2>
             <p className="text-[#D7E2EA] font-light leading-relaxed mb-10 text-lg opacity-80 max-w-xl">
@@ -103,7 +77,9 @@ export const ContactSection: React.FC = () => {
                 <div className="flex items-center gap-2 mt-1 sm:mt-0">
                   <a 
                     href="tel:+5219995370947" 
-                    className="px-4 py-2 rounded-full bg-white/10 hover:bg-blue-500/20 hover:border-blue-400/50 border border-white/15 text-xs font-medium text-white transition-all no-underline"
+                    onClick={() => telemetry.trackPhoneClick('ContactSection_Phone')}
+                    className="px-4 py-2 rounded-full bg-white/10 hover:bg-blue-500/20 hover:border-blue-400/50 border border-white/15 text-xs font-medium text-white transition-all no-underline focus-visible:ring-2 focus-visible:ring-blue-400 outline-none"
+                    aria-label="Llamar a CODIA por teléfono"
                   >
                     Llamar
                   </a>
@@ -111,7 +87,9 @@ export const ContactSection: React.FC = () => {
                     href="https://wa.me/5219995370947" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="px-4 py-2 rounded-full bg-emerald-500/20 hover:bg-emerald-500/35 border border-emerald-500/50 text-xs font-medium text-emerald-300 transition-all no-underline"
+                    onClick={() => telemetry.trackWhatsAppClick('ContactSection_WhatsApp')}
+                    className="px-4 py-2 rounded-full bg-emerald-500/20 hover:bg-emerald-500/35 border border-emerald-500/50 text-xs font-medium text-emerald-300 transition-all no-underline focus-visible:ring-2 focus-visible:ring-emerald-400 outline-none"
+                    aria-label="Enviar mensaje por WhatsApp a CODIA"
                   >
                     WhatsApp
                   </a>
@@ -121,7 +99,9 @@ export const ContactSection: React.FC = () => {
               {/* Full-width Email Card */}
               <a 
                 href="mailto:codiasupport@gmail.com" 
-                className="rounded-2xl border border-white/10 bg-black/20 px-5 py-4 flex flex-col justify-center hover:border-white/30 hover:bg-white/10 transition-all group no-underline sm:col-span-2"
+                onClick={() => telemetry.trackCTAClick('Email_Click', 'mailto:codiasupport@gmail.com')}
+                className="rounded-2xl border border-white/10 bg-black/20 px-5 py-4 flex flex-col justify-center hover:border-white/30 hover:bg-white/10 transition-all group no-underline sm:col-span-2 focus-visible:ring-2 focus-visible:ring-blue-400 outline-none"
+                aria-label="Enviar correo electrónico a codiasupport@gmail.com"
               >
                 <span className="block text-xs uppercase tracking-widest opacity-50 mb-1 text-[#D7E2EA]">Correo Electrónico</span>
                 <span className="font-medium text-base sm:text-lg md:text-xl text-white group-hover:text-blue-400 transition-colors break-all sm:break-normal">
@@ -134,7 +114,9 @@ export const ContactSection: React.FC = () => {
                 href="https://www.facebook.com/CodiaSoftware/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="rounded-2xl border border-white/10 bg-black/20 px-5 py-4 flex flex-col justify-center hover:border-white/30 hover:bg-white/10 transition-all group no-underline"
+                onClick={() => telemetry.trackCTAClick('Facebook_Click', 'https://www.facebook.com/CodiaSoftware/')}
+                className="rounded-2xl border border-white/10 bg-black/20 px-5 py-4 flex flex-col justify-center hover:border-white/30 hover:bg-white/10 transition-all group no-underline focus-visible:ring-2 focus-visible:ring-blue-400 outline-none"
+                aria-label="Visitar Facebook de CODIA Software"
               >
                 <span className="block text-xs uppercase tracking-widest opacity-50 mb-1 text-[#D7E2EA]">Facebook</span>
                 <span className="font-medium text-sm sm:text-base md:text-lg text-white group-hover:text-blue-400 transition-colors">@CodiaSoftware</span>
@@ -143,7 +125,9 @@ export const ContactSection: React.FC = () => {
                 href="https://www.instagram.com/codia_software/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="rounded-2xl border border-white/10 bg-black/20 px-5 py-4 flex flex-col justify-center hover:border-white/30 hover:bg-white/10 transition-all group no-underline"
+                onClick={() => telemetry.trackCTAClick('Instagram_Click', 'https://www.instagram.com/codia_software/')}
+                className="rounded-2xl border border-white/10 bg-black/20 px-5 py-4 flex flex-col justify-center hover:border-white/30 hover:bg-white/10 transition-all group no-underline focus-visible:ring-2 focus-visible:ring-pink-400 outline-none"
+                aria-label="Visitar Instagram de CODIA Software"
               >
                 <span className="block text-xs uppercase tracking-widest opacity-50 mb-1 text-[#D7E2EA]">Instagram</span>
                 <span className="font-medium text-sm sm:text-base md:text-lg text-white group-hover:text-pink-400 transition-colors">@codia_software</span>
@@ -159,7 +143,7 @@ export const ContactSection: React.FC = () => {
               {submitStatus === 'success' ? (
                 <>
                   <div className="w-16 h-16 rounded-full bg-[#3ecf8e]/10 border border-[#3ecf8e]/30 flex items-center justify-center mb-6 text-[#3ecf8e]">
-                    <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+                    <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24" aria-hidden="true">
                       <polyline points="20 6 9 17 4 12"></polyline>
                     </svg>
                   </div>
@@ -171,7 +155,7 @@ export const ContactSection: React.FC = () => {
               ) : (
                 <>
                   <div className="w-16 h-16 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mb-6 text-amber-400">
-                    <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
                     </svg>
                   </div>
@@ -186,66 +170,89 @@ export const ContactSection: React.FC = () => {
                   setIsSubmitted(false);
                   setSubmitStatus(null);
                 }}
-                className="mt-8 rounded-full border border-white/15 px-6 py-2.5 text-xs uppercase tracking-wider text-white/80 hover:bg-white/5 transition-colors cursor-pointer"
+                className="mt-8 rounded-full border border-white/15 px-6 py-2.5 text-xs uppercase tracking-wider text-white/80 hover:bg-white/5 transition-colors cursor-pointer focus-visible:ring-2 focus-visible:ring-blue-400 outline-none"
               >
                 Enviar otro mensaje
               </button>
             </div>
           ) : (
-            <form className="flex flex-col gap-3.5" onSubmit={handleSubmit}>
-              <div className="flex flex-col gap-1">
-                <label className="text-white/60 uppercase text-[10px] tracking-widest ml-4 font-medium">Nombre</label>
+            <form className="flex flex-col gap-3.5" onSubmit={handleSubmit} noValidate>
+              {/* Anti-spam Honeypot */}
+              <div style={{ display: 'none' }} aria-hidden="true">
                 <input 
+                  type="text" 
+                  name="hp_check" 
+                  tabIndex={-1} 
+                  autoComplete="off"
+                  value={honeypot} 
+                  onChange={(e) => setHoneypot(e.target.value)} 
+                />
+              </div>
+
+              {errorMessage && (
+                <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 text-xs text-center">
+                  {errorMessage}
+                </div>
+              )}
+
+              <div className="flex flex-col gap-1">
+                <label htmlFor="input-nombre" className="text-white/60 uppercase text-[10px] tracking-widest ml-4 font-medium">Nombre</label>
+                <input 
+                  id="input-nombre"
                   type="text" 
                   placeholder="Tu nombre completo"
                   value={name}
                   onChange={(event) => setName(event.target.value)}
                   required
-                  className="bg-transparent border border-white/20 rounded-full px-5 py-2.5 text-white placeholder-white/30 focus:outline-none focus:border-white/60 transition-colors text-sm"
+                  className="bg-transparent border border-white/20 rounded-full px-5 py-2.5 text-white placeholder-white/40 focus:outline-none focus:border-white/60 focus-visible:ring-2 focus-visible:ring-blue-400 transition-colors text-sm"
                 />
               </div>
               <div className="flex flex-col gap-1">
-                <label className="text-white/60 uppercase text-[10px] tracking-widest ml-4 font-medium">Nombre del negocio</label>
+                <label htmlFor="input-negocio" className="text-white/60 uppercase text-[10px] tracking-widest ml-4 font-medium">Nombre del negocio</label>
                 <input 
+                  id="input-negocio"
                   type="text" 
                   placeholder="Nombre de tu negocio o marca"
                   value={businessName}
                   onChange={(event) => setBusinessName(event.target.value)}
                   required
-                  className="bg-transparent border border-white/20 rounded-full px-5 py-2.5 text-white placeholder-white/30 focus:outline-none focus:border-white/60 transition-colors text-sm"
+                  className="bg-transparent border border-white/20 rounded-full px-5 py-2.5 text-white placeholder-white/40 focus:outline-none focus:border-white/60 focus-visible:ring-2 focus-visible:ring-blue-400 transition-colors text-sm"
                 />
               </div>
 
               <div className="flex flex-col gap-1">
-                <label className="text-white/60 uppercase text-[10px] tracking-widest ml-4 font-medium">WhatsApp</label>
+                <label htmlFor="input-phone" className="text-white/60 uppercase text-[10px] tracking-widest ml-4 font-medium">WhatsApp</label>
                 <input 
+                  id="input-phone"
                   type="tel" 
                   placeholder="Tu número de WhatsApp (con lada)"
                   value={phone}
                   onChange={(event) => setPhone(event.target.value)}
                   required
-                  className="bg-transparent border border-white/20 rounded-full px-5 py-2.5 text-white placeholder-white/30 focus:outline-none focus:border-white/60 transition-colors text-sm"
+                  className="bg-transparent border border-white/20 rounded-full px-5 py-2.5 text-white placeholder-white/40 focus:outline-none focus:border-white/60 focus-visible:ring-2 focus-visible:ring-blue-400 transition-colors text-sm"
                 />
               </div>
               <div className="flex flex-col gap-1">
-                <label className="text-white/60 uppercase text-[10px] tracking-widest ml-4 font-medium">Correo Electrónico</label>
+                <label htmlFor="input-email" className="text-white/60 uppercase text-[10px] tracking-widest ml-4 font-medium">Correo Electrónico</label>
                 <input 
+                  id="input-email"
                   type="email" 
                   placeholder="ejemplo@empresa.com"
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
                   required
-                  className="bg-transparent border border-white/20 rounded-full px-5 py-2.5 text-white placeholder-white/30 focus:outline-none focus:border-white/60 transition-colors text-sm"
+                  className="bg-transparent border border-white/20 rounded-full px-5 py-2.5 text-white placeholder-white/40 focus:outline-none focus:border-white/60 focus-visible:ring-2 focus-visible:ring-blue-400 transition-colors text-sm"
                 />
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-white/60 uppercase text-[10px] tracking-widest ml-4 font-medium">Tipo de solución</label>
+                <label htmlFor="select-solucion" className="text-white/60 uppercase text-[10px] tracking-widest ml-4 font-medium">Tipo de solución</label>
                 <div className="relative">
                   <select
+                    id="select-solucion"
                     value={solutionType}
                     onChange={(event) => setSolutionType(event.target.value)}
-                    className="w-full bg-[#0C0C0C]/80 border border-white/20 rounded-full px-5 py-3 text-white focus:outline-none focus:border-white/60 transition-colors appearance-none cursor-pointer text-sm"
+                    className="w-full bg-[#0C0C0C]/80 border border-white/20 rounded-full px-5 py-3 text-white focus:outline-none focus:border-white/60 focus-visible:ring-2 focus-visible:ring-blue-400 transition-colors appearance-none cursor-pointer text-sm"
                     style={{ colorScheme: 'dark' }}
                   >
                     <option value="Presencia digital">Presencia digital</option>
@@ -255,26 +262,27 @@ export const ContactSection: React.FC = () => {
                     <option value="Sistema interno">Sistema interno</option>
                     <option value="No estoy seguro">No estoy seguro</option>
                   </select>
-                  <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-white/40 text-[10px]">▼</div>
+                  <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-white/40 text-[10px]" aria-hidden="true">▼</div>
                 </div>
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label className="text-white/60 uppercase text-[10px] tracking-widest ml-4 font-medium">Mensaje</label>
+                <label htmlFor="textarea-mensaje" className="text-white/60 uppercase text-[10px] tracking-widest ml-4 font-medium">Mensaje</label>
                 <textarea 
+                  id="textarea-mensaje"
                   rows={3}
                   placeholder="Detalles adicionales de tu proyecto..."
                   value={message}
                   onChange={(event) => setMessage(event.target.value)}
                   required
-                  className="bg-transparent border border-white/20 rounded-2xl px-5 py-3 text-white placeholder-white/30 focus:outline-none focus:border-white/60 transition-colors resize-none text-sm"
+                  className="bg-transparent border border-white/20 rounded-2xl px-5 py-3 text-white placeholder-white/40 focus:outline-none focus:border-white/60 focus-visible:ring-2 focus-visible:ring-blue-400 transition-colors resize-none text-sm"
                 ></textarea>
               </div>
               
               <button 
                 type="submit" 
                 disabled={loading}
-                className="mt-2 rounded-full text-black font-semibold uppercase tracking-[0.2em] px-8 py-3.5 outline-none w-full transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed text-xs cursor-pointer btn-slide"
+                className="mt-2 rounded-full text-black font-semibold uppercase tracking-[0.2em] px-8 py-3.5 outline-none w-full transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed text-xs cursor-pointer btn-slide focus-visible:ring-2 focus-visible:ring-blue-400"
               >
                 {loading ? 'Enviando...' : 'Solicitar diagnóstico'}
               </button>

@@ -1,7 +1,4 @@
-/**
- * Facade y utilidades de Analytics preparadas para escalabilidad futura.
- * En la Fase 1 no altera GTM, Google Analytics ni Vercel Analytics existente.
- */
+import { telemetry } from '../tracking/tracker';
 
 export interface AnalyticsEvent {
   action: string;
@@ -11,12 +8,10 @@ export interface AnalyticsEvent {
 }
 
 export const trackEvent = (event: AnalyticsEvent): void => {
-  // Facade preparado para enviar eventos personalizados en fases posteriores.
-  if (typeof window !== 'undefined' && (window as any).gtag) {
-    (window as any).gtag('event', event.action, {
-      event_category: event.category,
-      event_label: event.label,
-      value: event.value,
-    });
-  }
+  telemetry.trackEvent({
+    action: (event.action as any) || 'click_cta',
+    category: event.category || 'General',
+    label: event.label,
+    value: event.value
+  });
 };
