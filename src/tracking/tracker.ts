@@ -14,8 +14,13 @@ declare global {
  * Motor de Rastreo Unificado CODIA (Tracking & Telemetry Engine - FASES 10, 15, 16)
  */
 class TelemetryEngine {
-  trackFormSubmit(arg0: string, arg1: { name: string; email: string; }) {
-    throw new Error('Method not implemented.');
+  public trackFormSubmit(formName: string, data: { name: string; email: string; }): void {
+    this.trackEvent({
+      action: 'submit_form',
+      category: 'Conversion',
+      label: formName,
+      params: data
+    });
   }
   private isDev = import.meta.env.DEV;
 
