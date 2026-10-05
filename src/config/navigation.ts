@@ -1,10 +1,7 @@
 import type { NavLink } from '../types/navigation';
 
 export const navLinks: NavLink[] = [
-  { label: 'Inicio', path: '/' },
-  { label: 'Servicios', path: '/servicios' },
-  { label: 'Cómo trabajamos', path: '/como-trabajamos' },
-  { label: 'Nosotros', path: '/nosotros' },
+  { label: 'Próximamente', path: '/' },
   { label: 'Contacto', path: '/contacto' },
 ];
 

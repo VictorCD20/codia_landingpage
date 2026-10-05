@@ -160,6 +160,94 @@ export const pageMetadataMap: Record<string, PageMetadata> = {
       { name: 'Aviso de Privacidad', url: `${siteConfig.domain}aviso-de-privacidad` }
     ],
     jsonLdType: 'WebSite'
+  },
+  '/coming-soon': {
+    ...defaultSEO,
+    title: 'Próximamente | Ecosistema CODIA',
+    description: 'Estamos haciendo cambios en nuestro sitio web para ofrecerte una mejor experiencia.',
+    canonical: `${siteConfig.domain}coming-soon`,
+    breadcrumbs: [
+      { name: 'Inicio', url: `${siteConfig.domain}` },
+      { name: 'Próximamente', url: `${siteConfig.domain}coming-soon` }
+    ],
+    jsonLdType: 'WebSite'
+  },
+  '/proximamente': {
+    ...defaultSEO,
+    title: 'Próximamente | Ecosistema CODIA',
+    description: 'Estamos haciendo cambios en nuestro sitio web para ofrecerte una mejor experiencia.',
+    canonical: `${siteConfig.domain}proximamente`,
+    breadcrumbs: [
+      { name: 'Inicio', url: `${siteConfig.domain}` },
+      { name: 'Próximamente', url: `${siteConfig.domain}proximamente` }
+    ],
+    jsonLdType: 'WebSite'
+  },
+  '/crm': {
+    ...defaultSEO,
+    title: 'CRM de Negocios | Próximamente | CODIA',
+    description: 'Gestión inteligente de prospectos y ventas. CODIA CRM está siendo desarrollado para agilizar el pipeline comercial de pymes.',
+    canonical: `${siteConfig.domain}crm`,
+    breadcrumbs: [
+      { name: 'Inicio', url: `${siteConfig.domain}` },
+      { name: 'CRM', url: `${siteConfig.domain}crm` }
+    ],
+    jsonLdType: 'SoftwareApplication'
+  },
+  '/ia': {
+    ...defaultSEO,
+    title: 'Inteligencia Artificial | Próximamente | CODIA',
+    description: 'Modelos y agentes de IA diseñados para potenciar empresas. Explora el desarrollo de la suite de inteligencia artificial de CODIA.',
+    canonical: `${siteConfig.domain}ia`,
+    breadcrumbs: [
+      { name: 'Inicio', url: `${siteConfig.domain}` },
+      { name: 'Inteligencia Artificial', url: `${siteConfig.domain}ia` }
+    ],
+    jsonLdType: 'SoftwareApplication'
+  },
+  '/herramientas': {
+    ...defaultSEO,
+    title: 'Herramientas Digitales | Próximamente | CODIA',
+    description: 'Suite de utilidades interactivas para análisis de ROI y madurez tecnológica de tu empresa.',
+    canonical: `${siteConfig.domain}herramientas`,
+    breadcrumbs: [
+      { name: 'Inicio', url: `${siteConfig.domain}` },
+      { name: 'Herramientas', url: `${siteConfig.domain}herramientas` }
+    ],
+    jsonLdType: 'WebSite'
+  },
+  '/comunidad': {
+    ...defaultSEO,
+    title: 'Comunidad CODIA | Próximamente | CODIA',
+    description: 'Una red estratégica para conectar fundadores y líderes impulsando la transformación digital.',
+    canonical: `${siteConfig.domain}comunidad`,
+    breadcrumbs: [
+      { name: 'Inicio', url: `${siteConfig.domain}` },
+      { name: 'Comunidad', url: `${siteConfig.domain}comunidad` }
+    ],
+    jsonLdType: 'WebSite'
+  },
+  '/dashboard': {
+    ...defaultSEO,
+    title: 'Dashboard Ejecutivo | Próximamente | CODIA',
+    description: 'Panel de control analítico para supervisar métricas operativas y de negocio en tiempo real.',
+    canonical: `${siteConfig.domain}dashboard`,
+    breadcrumbs: [
+      { name: 'Inicio', url: `${siteConfig.domain}` },
+      { name: 'Dashboard', url: `${siteConfig.domain}dashboard` }
+    ],
+    jsonLdType: 'SoftwareApplication'
+  },
+  '/recursos': {
+    ...defaultSEO,
+    title: 'Recursos Exclusivos | Próximamente | CODIA',
+    description: 'Descarga plantillas, e-books y guías de automatización diseñadas para líderes de negocio.',
+    canonical: `${siteConfig.domain}recursos`,
+    breadcrumbs: [
+      { name: 'Inicio', url: `${siteConfig.domain}` },
+      { name: 'Recursos', url: `${siteConfig.domain}recursos` }
+    ],
+    jsonLdType: 'WebSite'
   }
 };
 
