@@ -2,7 +2,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { MainLayout } from './layouts/MainLayout';
 import { LegalLayout } from './layouts/LegalLayout';
 import { HomePage } from './pages/HomePage'; // Archived full homepage view
-import { ServicesPage } from './pages/ServicesPage';
+import { PricingPage } from './pages/PricingPage';
+import { SolutionsPage } from './pages/SolutionsPage';
+import { DemoPage } from './pages/DemoPage';
 import { WebDevelopmentPage } from './pages/WebDevelopmentPage';
 import { CustomSystemsPage } from './pages/CustomSystemsPage';
 import { AutomationPage } from './pages/AutomationPage';
@@ -20,9 +22,13 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<MainLayout />}>
-          <Route path="/" element={<ComingSoonPage />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/home" element={<HomePage />} />
-          <Route path="/servicios" element={<ServicesPage />} />
+          <Route path="/soluciones" element={<SolutionsPage />} />
+          <Route path="/planes" element={<PricingPage />} />
+          <Route path="/demo" element={<DemoPage />} />
+          <Route path="/demostracion" element={<DemoPage />} />
+          <Route path="/servicios" element={<SolutionsPage />} />
           <Route path="/servicios/desarrollo-web" element={<WebDevelopmentPage />} />
           <Route path="/servicios/sistemas-a-medida" element={<CustomSystemsPage />} />
           <Route path="/servicios/automatizacion" element={<AutomationPage />} />

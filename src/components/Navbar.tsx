@@ -44,35 +44,53 @@ export const Navbar: React.FC = () => {
 
         {/* Desktop Menu */}
         <div className="hidden lg:flex items-center gap-8">
-          {navLinks.map((link, i) => (
-            <motion.div
-              key={link.path}
-              initial={{ opacity: 0, y: -5 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 + i * 0.05 }}
-            >
-              <NavLink 
-                to={link.path}
-                end={link.path === '/'}
-                onClick={() => telemetry.trackCTAClick(`Nav_${link.label}`, link.path)}
-                className={({ isActive }) => `text-sm font-medium transition-colors uppercase tracking-wider no-underline focus-visible:ring-2 focus-visible:ring-blue-400 outline-none rounded ${
-                  isActive ? 'text-white font-bold border-b-2 border-blue-400 pb-1' : 'text-white/70 hover:text-white'
-                }`}
+          {navLinks.map((link, i) => {
+            const isHash = link.path.startsWith('/#');
+            return (
+              <motion.div
+                key={link.path}
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 + i * 0.05 }}
               >
-                {link.label}
-              </NavLink>
-            </motion.div>
-          ))}
+                {isHash ? (
+                  <a
+                    href={link.path.replace('/', '')}
+                    onClick={() => telemetry.trackCTAClick(`Nav_${link.label}`, link.path)}
+                    className="text-sm font-medium transition-colors uppercase tracking-wider no-underline text-white/70 hover:text-white focus-visible:ring-2 focus-visible:ring-blue-400 outline-none rounded"
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <NavLink 
+                    to={link.path}
+                    end={link.path === '/'}
+                    onClick={() => telemetry.trackCTAClick(`Nav_${link.label}`, link.path)}
+                    className={({ isActive }) => `text-sm font-medium transition-colors uppercase tracking-wider no-underline focus-visible:ring-2 focus-visible:ring-blue-400 outline-none rounded ${
+                      isActive ? 'text-white font-bold border-b-2 border-blue-400 pb-1' : 'text-white/70 hover:text-white'
+                    }`}
+                  >
+                    {link.label}
+                  </NavLink>
+                )}
+              </motion.div>
+            );
+          })}
         </div>
 
         <div 
           className="hidden lg:block cursor-pointer" 
           onClick={() => {
-            telemetry.trackCTAClick('Navbar_Contact_Button', '/contacto');
-            navigate('/contacto');
+            telemetry.trackCTAClick('Navbar_Assessment_Button', '/#diagnostico');
+            const el = document.getElementById('diagnostico');
+            if (el) {
+              el.scrollIntoView({ behavior: 'smooth' });
+            } else {
+              navigate('/#diagnostico');
+            }
           }}
         >
-          <AppleButton label="Contáctanos" />
+          <AppleButton label="Evaluar mi negocio" href="#diagnostico" />
         </div>
 
         {/* Mobile Toggle Button */}
@@ -97,31 +115,51 @@ export const Navbar: React.FC = () => {
             className="absolute top-full left-0 w-full bg-[#0c0c0c]/95 border-b border-white/10 backdrop-blur-xl lg:hidden overflow-hidden"
           >
             <div className="flex flex-col px-6 py-8 gap-6">
-              {navLinks.map((link) => (
-                <NavLink 
-                  key={link.path}
-                  to={link.path}
-                  end={link.path === '/'}
-                  onClick={() => {
-                    setIsOpen(false);
-                    telemetry.trackCTAClick(`MobileNav_${link.label}`, link.path);
-                  }}
-                  className={({ isActive }) => `text-base font-medium uppercase tracking-wider transition-colors no-underline ${
-                    isActive ? 'text-blue-400 font-bold' : 'text-white/80 hover:text-white'
-                  }`}
-                >
-                  {link.label}
-                </NavLink>
-              ))}
+              {navLinks.map((link) => {
+                const isHash = link.path.startsWith('/#');
+                return isHash ? (
+                  <a
+                    key={link.path}
+                    href={link.path.replace('/', '')}
+                    onClick={() => {
+                      setIsOpen(false);
+                      telemetry.trackCTAClick(`MobileNav_${link.label}`, link.path);
+                    }}
+                    className="text-base font-medium uppercase tracking-wider transition-colors no-underline text-white/80 hover:text-white"
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <NavLink 
+                    key={link.path}
+                    to={link.path}
+                    end={link.path === '/'}
+                    onClick={() => {
+                      setIsOpen(false);
+                      telemetry.trackCTAClick(`MobileNav_${link.label}`, link.path);
+                    }}
+                    className={({ isActive }) => `text-base font-medium uppercase tracking-wider transition-colors no-underline ${
+                      isActive ? 'text-blue-400 font-bold' : 'text-white/80 hover:text-white'
+                    }`}
+                  >
+                    {link.label}
+                  </NavLink>
+                );
+              })}
               <div 
                 className="pt-4 border-t border-white/5 cursor-pointer" 
                 onClick={() => {
                   setIsOpen(false);
-                  telemetry.trackCTAClick('MobileNav_Contact_Button', '/contacto');
-                  navigate('/contacto');
+                  telemetry.trackCTAClick('MobileNav_Assessment_Button', '/#diagnostico');
+                  const el = document.getElementById('diagnostico');
+                  if (el) {
+                    el.scrollIntoView({ behavior: 'smooth' });
+                  } else {
+                    navigate('/#diagnostico');
+                  }
                 }}
               >
-                <AppleButton label="Contáctanos" full />
+                <AppleButton label="Evaluar mi negocio" href="#diagnostico" full />
               </div>
             </div>
           </motion.div>

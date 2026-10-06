@@ -1,12 +1,15 @@
 import type { NavLink } from '../types/navigation';
 
 export const navLinks: NavLink[] = [
-  { label: 'Próximamente', path: '/' },
-  { label: 'Contacto', path: '/contacto' },
+  { label: 'Inicio', path: '/' },
+  { label: 'Soluciones', path: '/soluciones' },
+  { label: 'Planes', path: '/planes' },
+  { label: 'Demostración', path: '/demo' },
+  { label: 'Nosotros', path: '/nosotros' },
 ];
 
 export const serviceSubLinks: NavLink[] = [
-  { label: 'Desarrollo Web', path: '/servicios/desarrollo-web' },
-  { label: 'Sistemas a Medida', path: '/servicios/sistemas-a-medida' },
-  { label: 'Automatización', path: '/servicios/automatizacion' },
+  { label: 'Sitios Web & E-Commerce', path: '/servicios/desarrollo-web' },
+  { label: 'Sistemas a Medida & POS', path: '/servicios/sistemas-a-medida' },
+  { label: 'Automatización & Notificaciones', path: '/servicios/automatizacion' },
 ];

@@ -5,32 +5,24 @@ import { Plus, Minus } from 'lucide-react';
 
 const faqs = [
   {
-    q: '¿Cuánto cuesta una página web?',
-    a: 'Depende del alcance, número de secciones y funcionalidades. Podemos hacer una propuesta a la medida según lo que necesite tu negocio.',
+    q: '¿El software y el sitio web son 100% de mi propiedad?',
+    a: 'Sí. A diferencia de plataformas cerradas que te cobran rentas mensuales forzosas para siempre, en CODIA el desarrollo y código fuente son tuyos. No estás atado a permanencias obligatorias.',
   },
   {
-    q: '¿Cuánto tarda el desarrollo?',
-    a: 'Un sitio informativo puede tomar de 1 a 3 semanas, dependiendo de qué tan rápido contemos con la información, imágenes y revisiones.',
+    q: '¿Cuánto tiempo toma tener mi sistema o página web funcionando?',
+    a: 'Un sitio web o catálogo profesional está listo en 1 a 2 semanas. Un sistema POS o panel a la medida toma entre 2 y 4 semanas con entregas parciales y pruebas continuas con tu equipo.',
   },
   {
-    q: '¿Qué necesito para comenzar?',
-    a: 'Tu logotipo, información del negocio, catálogo de servicios/productos, fotos, redes sociales, datos de contacto y referencias visuales si las tienes.',
+    q: '¿Qué pasa si mi personal no tiene experiencia usando tecnología?',
+    a: 'Nuestras interfaces están diseñadas con la máxima simplicidad (similares a una app común de celular). Además, incluimos sesiones de capacitación directa y videos de uso para todo tu equipo.',
   },
   {
-    q: '¿Puedo pagar en partes?',
-    a: 'Sí. Nos adaptamos a las necesidades de cobro del cliente y definimos el esquema de pagos antes de iniciar el desarrollo.',
+    q: '¿Puedo empezar con un plan básico y agregar módulos después?',
+    a: 'Totalmente. Construimos bajo una arquitectura modular y escalable. Puedes iniciar con presencia web y después conectar inventario, facturación, pasarelas de cobro o alertas por WhatsApp.',
   },
   {
-    q: '¿El sitio incluye dominio y hosting?',
-    a: 'Te orientamos en la compra y configuración a tu nombre para que seas el único dueño, o podemos trabajar sobre el dominio y hosting que ya tengas.',
-  },
-  {
-    q: '¿Puedo pedir cambios después?',
-    a: 'Sí. Incluimos un periodo inicial de revisión sin costo y también ofrecemos esquemas de mantenimiento mensual opcionales.',
-  },
-  {
-    q: '¿Solo hacen páginas web?',
-    a: 'No. También creamos catálogos digitales interactivos, sistemas internos para negocios locales, paneles administrativos y automatizaciones de tareas repetitivas.',
+    q: '¿Qué tipo de garantía y soporte técnico ofrecen tras la entrega?',
+    a: 'Todos los proyectos incluyen periodo de garantía post-lanzamiento para resolver cualquier eventualidad técnica sin costo, además de canales de soporte directo vía WhatsApp y teléfono.',
   },
 ];
 
