@@ -19,6 +19,7 @@ import {
   Clock
 } from 'lucide-react';
 import { telemetry } from '../tracking/tracker';
+import { saveLeadToGoogleSheets } from '../services/contactService';
 
 interface PlanFeature {
   name: string;
@@ -160,19 +161,34 @@ export const PricingPage: React.FC = () => {
       `${modalState.industryTitle}: ${JSON.stringify(formData)}`
     );
 
+    const messageText = `[${modalState.type === 'consultoria' ? 'SOLICITUD DE CONSULTORÍA PERSONALIZADA' : 'LISTA DE ESPERA PRIORITARIA'}]\nSector: ${modalState.industryTitle}\nNegocio: ${formData.businessName}\nNotas: ${formData.notes}`;
+
     try {
+      // 1. Direct Save to Google Sheets Database
+      await saveLeadToGoogleSheets({
+        nombre: formData.name,
+        negocio: formData.businessName,
+        correo: `${formData.businessName.replace(/\s+/g, '').toLowerCase()}@lead.request`,
+        telefono: formData.whatsapp,
+        solucion: `${modalState.type === 'consultoria' ? 'Consultoría' : 'Lista Espera'}: ${modalState.industryTitle}`,
+        mensaje: messageText,
+      });
+
+      // 2. Send email via Resend serverless endpoint
       await fetch('/api/send-contact-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: formData.name,
+          business_name: formData.businessName,
           email: `${formData.businessName.replace(/\s+/g, '').toLowerCase()}@lead.request`,
           phone: formData.whatsapp,
-          message: `[${modalState.type === 'consultoria' ? 'SOLICITUD DE CONSULTORÍA PERSONALIZADA' : 'LISTA DE ESPERA PRIORITARIA'}]\nSector: ${modalState.industryTitle}\nNegocio: ${formData.businessName}\nNotas: ${formData.notes}`,
+          solution_type: `${modalState.type === 'consultoria' ? 'Consultoría' : 'Lista Espera'}: ${modalState.industryTitle}`,
+          message: messageText,
         }),
       });
-    } catch {
-      // Fallback
+    } catch (err) {
+      console.warn('[Pricing Modal Warning]:', err);
     } finally {
       setIsSubmitting(false);
       setIsSubmitted(true);

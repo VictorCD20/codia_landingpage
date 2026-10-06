@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { SectionEyebrow } from './Primitives';
 import { Sparkles, CheckCircle2, Clock, Calendar, ShieldCheck, Send, Volume2, VolumeX, Play, Pause, Maximize2 } from 'lucide-react';
 import { telemetry } from '../tracking/tracker';
+import { saveLeadToGoogleSheets } from '../services/contactService';
 import videoCafeteria from '../../assets/videos/video_cafeteria.mp4';
 
 export const DemoCenterSection: React.FC = () => {
@@ -61,20 +62,34 @@ export const DemoCenterSection: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
     telemetry.trackCTAClick('Demo_Assisted_Booking', JSON.stringify(bookingData));
+    const messageText = `[SOLICITUD DE DEMOSTRACIÓN GUIADA]\nNegocio: ${bookingData.businessName}\nGiro: ${bookingData.industry}\nObjetivo a resolver: ${bookingData.mainGoal}\nTamaño de equipo: ${bookingData.teamSize}\nHorario preferido: ${bookingData.preferredTime}`;
 
     try {
+      // 1. Direct Save to Google Sheets Database
+      await saveLeadToGoogleSheets({
+        nombre: bookingData.name,
+        negocio: bookingData.businessName,
+        correo: `${bookingData.businessName.replace(/\s+/g, '').toLowerCase()}@demo.request`,
+        telefono: bookingData.whatsapp,
+        solucion: `Demostración: ${bookingData.industry}`,
+        mensaje: messageText,
+      });
+
+      // 2. Send email via Resend serverless endpoint
       await fetch('/api/send-contact-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: bookingData.name,
+          business_name: bookingData.businessName,
           email: `${bookingData.businessName.replace(/\s+/g, '').toLowerCase()}@demo.request`,
           phone: bookingData.whatsapp,
-          message: `[SOLICITUD DE DEMOSTRACIÓN GUIADA]\nNegocio: ${bookingData.businessName}\nGiro: ${bookingData.industry}\nObjetivo a resolver: ${bookingData.mainGoal}\nTamaño de equipo: ${bookingData.teamSize}\nHorario preferido: ${bookingData.preferredTime}`,
+          solution_type: `Demostración: ${bookingData.industry}`,
+          message: messageText,
         }),
       });
-    } catch {
-      // Fallback
+    } catch (err) {
+      console.warn('[Demo Booking Warning]:', err);
     } finally {
       setIsSubmitting(false);
       setIsBooked(true);

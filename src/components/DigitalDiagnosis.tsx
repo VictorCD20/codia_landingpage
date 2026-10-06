@@ -13,6 +13,7 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { telemetry } from '../tracking/tracker';
+import { saveLeadToGoogleSheets } from '../services/contactService';
 
 interface AssessmentState {
   industry: string;
@@ -114,8 +115,20 @@ export const DigitalDiagnosis: React.FC = () => {
     setIsSubmitting(true);
     telemetry.trackCTAClick('Assessment_Submit', JSON.stringify({ industry: formData.industry, plan: recommendation.plan }));
 
+    const messageText = `[DIAGNÓSTICO DIGITAL]\nGiro: ${formData.industry}\nEquipo: ${formData.teamSize}\nControl actual: ${formData.currentControl}\nDolor principal: ${formData.mainPain}\nMeta: ${formData.goal}\nRecomendación: ${recommendation.plan}\nNotas: ${formData.notes}`;
+
     try {
-      // Simulate/Send payload
+      // 1. Direct Save to Google Sheets Database
+      await saveLeadToGoogleSheets({
+        nombre: formData.name,
+        negocio: formData.industry,
+        correo: formData.email,
+        telefono: formData.whatsapp,
+        solucion: recommendation.plan,
+        mensaje: messageText,
+      });
+
+      // 2. Send email via Resend serverless endpoint
       await fetch('/api/send-contact-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -123,11 +136,12 @@ export const DigitalDiagnosis: React.FC = () => {
           name: formData.name,
           email: formData.email,
           phone: formData.whatsapp,
-          message: `[DIAGNÓSTICO DIGITAL]\nGiro: ${formData.industry}\nEquipo: ${formData.teamSize}\nControl: ${formData.currentControl}\nDolor: ${formData.mainPain}\nMeta: ${formData.goal}\nRecomendación: ${recommendation.plan}\nNotas: ${formData.notes}`,
+          solution_type: recommendation.plan,
+          message: messageText,
         }),
       });
-    } catch {
-      // Graceful fallback
+    } catch (err) {
+      console.warn('[Assessment Submit Warning]:', err);
     } finally {
       setIsSubmitting(false);
       setIsSubmitted(true);

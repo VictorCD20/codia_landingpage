@@ -17,6 +17,53 @@ export interface ContactSubmissionResult {
   status: 'success' | 'email_error' | 'rate_limited' | 'spam_rejected' | 'validation_error';
 }
 
+export const GOOGLE_SHEETS_SCRIPT_URL = 
+  import.meta.env.VITE_GOOGLE_SHEETS_URL || 
+  'https://script.google.com/macros/s/AKfycbw_0gV0-h6SZceJ65CW9uucl27kb6-dqMNS8Cc2k60gtl01UhYAB0uLt1Tvgva56zYx/exec';
+
+/**
+ * Universal direct sync to Google Sheets database.
+ * Supports Google Apps Script e.parameter via URLSearchParams & mode: no-cors.
+ */
+export async function saveLeadToGoogleSheets(payload: {
+  nombre: string;
+  negocio?: string;
+  correo?: string;
+  telefono: string;
+  solucion?: string;
+  mensaje?: string;
+}): Promise<boolean> {
+  try {
+    const formData = new URLSearchParams();
+    formData.append('nombre', payload.nombre || '');
+    formData.append('negocio', payload.negocio || '');
+    formData.append('correo', payload.correo || '');
+    formData.append('telefono', payload.telefono || '');
+    formData.append('solucion', payload.solucion || '');
+    formData.append('mensaje', payload.mensaje || '');
+    formData.append('fecha', new Date().toLocaleString('es-MX', { timeZone: 'America/Mexico_City' }));
+
+    await fetch(GOOGLE_SHEETS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: formData.toString(),
+    });
+
+    console.log('[Google Sheets]: Lead successfully dispatched to database.');
+    return true;
+  } catch (err) {
+    console.warn('[Google Sheets Sync Warning]:', err);
+    return false;
+  }
+}
+
+/**
+ * Comprehensive lead submission with rate-limiting, Google Sheets storage,
+ * Resend email dispatch, and conversion telemetry.
+ */
 export async function submitContactDiagnostic(data: ContactFormData): Promise<ContactSubmissionResult> {
   // 1. Anti-spam honeypot check
   if (data.honeypot && data.honeypot.trim() !== '') {
@@ -50,24 +97,15 @@ export async function submitContactDiagnostic(data: ContactFormData): Promise<Co
     return { success: false, status: 'validation_error', error: 'Ingresa un número de WhatsApp/teléfono válido.' };
   }
 
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbw_0gV0-h6SZceJ65CW9uucl27kb6-dqMNS8Cc2k60gtl01UhYAB0uLt1Tvgva56zYx/exec';
-
-  const sheetsPayload = {
-    nombre: cleanName,
-    negocio: cleanBusiness,
-    correo: cleanEmail,
-    telefono: cleanPhone,
-    solucion: cleanSolution,
-    mensaje: cleanMessage
-  };
-
   try {
     // 1. Save to Google Sheets
-    await fetch(scriptURL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(sheetsPayload)
+    await saveLeadToGoogleSheets({
+      nombre: cleanName,
+      negocio: cleanBusiness,
+      correo: cleanEmail,
+      telefono: cleanPhone,
+      solucion: cleanSolution,
+      mensaje: cleanMessage,
     });
 
     // 2. Send email via Resend serverless endpoint
