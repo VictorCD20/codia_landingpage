@@ -47,17 +47,11 @@ export const ProblemsSection: React.FC = () => {
           Operar un negocio no debería significar{' '}
           <span className="text-[#00d2ff]">vivir en el desorden.</span>
         </h2>
-<<<<<<< HEAD
         <div className="mt-4 max-w-2xl px-5 py-3.5 rounded-2xl bg-black/70 border border-white/15 backdrop-blur-md shadow-xl text-center">
           <p className="text-white/90 text-sm md:text-base font-normal leading-relaxed">
             La mayoría de los negocios no necesitan software genérico y complicado. Necesitan herramientas prácticas que resuelvan su problema específico.
           </p>
         </div>
-=======
-        <p className="mt-4 text-white/80 text-base md:text-lg max-w-2xl font-light">
-          La mayoría de los negocios no necesitan software genérico y complicado. Necesitan herramientas prácticas que resuelvan su problema específico.
-        </p>
->>>>>>> 0ebba1bca87bc65112bc95af9c3ab0b0b94d668b
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

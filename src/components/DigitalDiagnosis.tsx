@@ -175,13 +175,8 @@ export const DigitalDiagnosis: React.FC = () => {
           Descubre qué solución digital{' '}
           <span className="text-[#00d2ff]">resolverá tu operación.</span>
         </h2>
-<<<<<<< HEAD
-        <p className="mt-4 text-white/60 text-base md:text-lg max-w-xl font-light">
-          Responde 5 preguntas clave y obtén una recomendación personalizada con la propuesta adaptada a tu negocio.
-=======
         <p className="mt-4 text-white/80 text-base md:text-lg max-w-xl font-light">
           Responde 5 preguntas rápidas y obtén una recomendación personalizada con los módulos exactos que tu negocio necesita.
->>>>>>> 0ebba1bca87bc65112bc95af9c3ab0b0b94d668b
         </p>
       </div>
 
@@ -191,13 +186,8 @@ export const DigitalDiagnosis: React.FC = () => {
         {!isSubmitted && (
           <div className="mb-8">
             <div className="flex items-center justify-between text-xs text-white/50 mb-2 font-medium">
-<<<<<<< HEAD
               <span>{step <= 5 ? `Pregunta ${step} de 5` : 'Diagnóstico Generado & Propuesta'}</span>
               <span>{step <= 5 ? `${Math.round((step / 5) * 100)}% de preguntas` : '100% completado'}</span>
-=======
-              <span>{step <= 5 ? `Pregunta ${step} de 5` : 'Tu diagnóstico'}</span>
-              <span>{Math.round((step / 6) * 100)}% completado</span>
->>>>>>> 0ebba1bca87bc65112bc95af9c3ab0b0b94d668b
             </div>
             <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
               <m.div

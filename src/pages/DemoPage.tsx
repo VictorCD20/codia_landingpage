@@ -11,36 +11,32 @@ export const DemoPage: React.FC = () => {
       {/* Hero Eyebrow for Dedicated Demo Page */}
       <section className="max-w-6xl mx-auto px-6 text-center mb-12 relative z-10">
         <div className="liquid-glass liquid-glass-clear rounded-[32px] px-6 py-10 sm:px-12 sm:py-14 max-w-4xl mx-auto">
-        <div className="flex justify-center mb-4">
-          <SectionEyebrow label="Sesión de Demostración Guiada" tag="Recorrido 1 a 1 en Vivo" />
-        </div>
-        <m.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-[1.08] max-w-4xl mx-auto"
-        >
-          Conoce el software en acción{' '}
-          <span 
-            className="block animate-shiny mt-1"
-            style={{
-              backgroundImage: 'linear-gradient(to right, #ffffff 0%, #A4F4FD 25%, #00d2ff 50%, #3ecf8e 75%, #ffffff 100%)',
-              backgroundSize: '200% auto',
-              WebkitBackgroundClip: 'text',
-              backgroundClip: 'text',
-              color: 'transparent',
-              WebkitTextFillColor: 'transparent',
-              filter: 'url(#c3-noise)'
-            }}
+          <div className="flex justify-center mb-4">
+            <SectionEyebrow label="Sesión de Demostración Guiada" tag="Recorrido 1 a 1 en Vivo" />
+          </div>
+          <m.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-[1.08] max-w-4xl mx-auto"
           >
-            con ejemplos reales de tu giro comercial.
-          </span>
-<<<<<<< HEAD
-        </m.h1>
-=======
-        </motion.h1>
+            Conoce el software en acción{' '}
+            <span 
+              className="block animate-shiny mt-1"
+              style={{
+                backgroundImage: 'linear-gradient(to right, #ffffff 0%, #A4F4FD 25%, #00d2ff 50%, #3ecf8e 75%, #ffffff 100%)',
+                backgroundSize: '200% auto',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                color: 'transparent',
+                WebkitTextFillColor: 'transparent',
+                filter: 'url(#c3-noise)'
+              }}
+            >
+              con ejemplos reales de tu giro comercial.
+            </span>
+          </m.h1>
         </div>
->>>>>>> 0ebba1bca87bc65112bc95af9c3ab0b0b94d668b
       </section>
 
       {/* Main Interactive Video & Booking Center */}

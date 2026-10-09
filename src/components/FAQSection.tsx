@@ -47,13 +47,8 @@ export const FAQSection: React.FC = () => {
           const isOpen = openIndex === index;
           return (
             <div
-<<<<<<< HEAD
               key={faq.q}
               className="liquid-glass rounded-2xl border border-white/10 overflow-hidden transition-all duration-300"
-=======
-              key={index}
-              className="surface-card rounded-2xl border border-white/10 overflow-hidden transition-all duration-300"
->>>>>>> 0ebba1bca87bc65112bc95af9c3ab0b0b94d668b
             >
               <button
                 onClick={() => toggleFAQ(index)}

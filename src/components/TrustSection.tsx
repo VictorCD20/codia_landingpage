@@ -56,17 +56,11 @@ export const TrustSection: React.FC = () => {
         <h2 className="mt-5 text-4xl md:text-6xl font-semibold tracking-tight heading-gradient" style={{ filter: 'url(#c3-noise)' }}>
           Por qué confiar en CODIA
         </h2>
-<<<<<<< HEAD
         <div className="mt-4 max-w-2xl px-5 py-3.5 rounded-2xl bg-black/70 border border-white/15 backdrop-blur-md shadow-xl text-center">
           <p className="text-white/90 text-sm md:text-base font-normal leading-relaxed">
             Estamos construyendo CODIA con método. No prometemos soluciones para todo. Escuchamos, diagnosticamos y desarrollamos herramientas digitales prácticas según la necesidad real de cada negocio.
           </p>
         </div>
-=======
-        <p className="mt-6 text-white/80 max-w-2xl text-sm md:text-base leading-relaxed">
-          Estamos construyendo CODIA con método. No prometemos soluciones para todo. Escuchamos, diagnosticamos y desarrollamos herramientas digitales prácticas según la necesidad real de cada negocio.
-        </p>
->>>>>>> 0ebba1bca87bc65112bc95af9c3ab0b0b94d668b
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

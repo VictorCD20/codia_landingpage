@@ -74,12 +74,8 @@ export const SolutionsPage: React.FC = () => {
             <PhoneCall className="w-4 h-4" />
             <span>Agendar una demostración</span>
           </a>
-<<<<<<< HEAD
         </m.div>
-=======
-        </motion.div>
         </div>
->>>>>>> 0ebba1bca87bc65112bc95af9c3ab0b0b94d668b
       </section>
 
       {/* 02. PROBLEMAS REALES (DOLORES OPERATIVOS) */}
@@ -212,13 +208,8 @@ export const SolutionsPage: React.FC = () => {
             const isOpen = openFaq === idx;
             return (
               <div
-<<<<<<< HEAD
                 key={faq.q}
                 className="liquid-glass rounded-2xl border border-white/10 overflow-hidden transition-all"
-=======
-                key={idx}
-                className="surface-card rounded-2xl border border-white/10 overflow-hidden transition-all"
->>>>>>> 0ebba1bca87bc65112bc95af9c3ab0b0b94d668b
               >
                 <button
                   onClick={() => setOpenFaq(isOpen ? null : idx)}
