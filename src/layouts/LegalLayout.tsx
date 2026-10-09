@@ -40,10 +40,11 @@ export const LegalLayout: React.FC = () => {
           <div>
             &copy; {new Date().getFullYear()} {siteConfig.name}. Todos los derechos reservados.
           </div>
-          <nav className="flex items-center gap-6" aria-label="Navegación pie legal">
+          <nav className="flex flex-wrap items-center justify-center gap-4 sm:gap-6" aria-label="Navegación pie legal">
             <Link to="/" className="hover:text-white transition-colors no-underline focus-visible:ring-2 focus-visible:ring-blue-400 outline-none">Inicio</Link>
             <Link to="/contacto" className="hover:text-white transition-colors no-underline focus-visible:ring-2 focus-visible:ring-blue-400 outline-none">Contacto</Link>
             <Link to="/aviso-de-privacidad" className="hover:text-white transition-colors no-underline focus-visible:ring-2 focus-visible:ring-blue-400 outline-none">Aviso de Privacidad</Link>
+            <Link to="/terminos-y-condiciones" className="hover:text-white transition-colors no-underline focus-visible:ring-2 focus-visible:ring-blue-400 outline-none">Términos y Condiciones</Link>
           </nav>
         </div>
       </footer>

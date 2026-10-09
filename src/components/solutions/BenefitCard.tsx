@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { ShieldCheck, Code, Zap, Award, Headphones, TrendingUp } from 'lucide-react';
 
 interface WhyCodiaItem {
@@ -56,8 +56,8 @@ export const BenefitCard: React.FC = () => {
       {whyCodiaItems.map((item, index) => {
         const Icon = icons[item.iconName] || ShieldCheck;
         return (
-          <motion.div
-            key={index}
+          <m.div
+            key={item.title}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
@@ -75,7 +75,7 @@ export const BenefitCard: React.FC = () => {
                 {item.description}
               </p>
             </div>
-          </motion.div>
+          </m.div>
         );
       })}
     </div>

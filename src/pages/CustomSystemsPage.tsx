@@ -68,8 +68,8 @@ export const CustomSystemsPage: React.FC = () => {
             'Punto de venta y registro básico de ventas del día.',
             'Plataforma para consulta de estatus de servicios o entregas para tus clientes.',
             'Sistemas de captura de solicitudes de facturación asistida.',
-          ].map((item, idx) => (
-            <div key={idx} className="flex items-start gap-3">
+          ].map((item) => (
+            <div key={item} className="flex items-start gap-3">
               <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
               <span className="text-white/80 text-sm leading-relaxed">{item}</span>
             </div>

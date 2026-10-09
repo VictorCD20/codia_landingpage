@@ -1,20 +1,20 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { AppleButton, SectionEyebrow } from './Primitives';
 
 export const Hero: React.FC = () => {
   return (
     <section id="inicio" className="pt-20 md:pt-32 pb-20 text-center flex flex-col items-center relative z-10 px-6 max-w-6xl mx-auto">
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         className="mb-4"
       >
         <SectionEyebrow label="Software & Soluciones Digitales" tag="Para Negocios y PyMEs" />
-      </motion.div>
+      </m.div>
 
-      <motion.h1 
+      <m.h1 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
@@ -24,7 +24,7 @@ export const Hero: React.FC = () => {
         <span 
           className="block animate-shiny mt-1"
           style={{
-            backgroundImage: 'linear-gradient(to right, #091020 0%, #0B2551 12.5%, #A4F4FD 32.5%, #00d2ff 50%, #0B2551 67.5%, #091020 87.5%, #091020 100%)',
+            backgroundImage: 'linear-gradient(to right, #ffffff 0%, #A4F4FD 25%, #00d2ff 50%, #3ecf8e 75%, #ffffff 100%)',
             backgroundSize: '200% auto',
             WebkitBackgroundClip: 'text',
             backgroundClip: 'text',
@@ -35,18 +35,18 @@ export const Hero: React.FC = () => {
         >
           sin complicarte.
         </span>
-      </motion.h1>
+      </m.h1>
 
-      <motion.p
+      <m.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4, duration: 0.8 }}
         className="mt-6 text-white/70 max-w-xl text-base md:text-lg leading-[1.6] font-light"
       >
         Convertimos libretas, chats sueltos y procesos manuales en sistemas digitales prácticos que ordenan tu operación y multiplican tus ventas.
-      </motion.p>
+      </m.p>
 
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6, duration: 0.8 }}
@@ -59,10 +59,10 @@ export const Hero: React.FC = () => {
         >
           Agendar una demostración
         </a>
-      </motion.div>
+      </m.div>
 
       {/* Visual Step Indicator (Orientación al usuario) */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.8 }}
@@ -99,10 +99,10 @@ export const Hero: React.FC = () => {
             <div className="text-white text-xs font-medium">Agenda tu demostración</div>
           </div>
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Trust micro-indicators */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8, duration: 0.8 }}
@@ -120,7 +120,7 @@ export const Hero: React.FC = () => {
           <span className="w-2 h-2 rounded-full bg-purple-400"></span>
           <span>Soporte y capacitación local</span>
         </div>
-      </motion.div>
+      </m.div>
     </section>
   );
 };

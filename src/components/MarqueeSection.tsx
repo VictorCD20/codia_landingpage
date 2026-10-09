@@ -24,8 +24,16 @@ const gifs = [
   "https://motionsites.ai/assets/hero-celestia-preview-0yO3jXO8.gif"
 ];
 
-const row1 = [...gifs.slice(0, 11), ...gifs.slice(0, 11), ...gifs.slice(0, 11)];
-const row2 = [...gifs.slice(11), ...gifs.slice(11), ...gifs.slice(11)];
+const row1 = [
+  ...gifs.slice(0, 11).map((src, idx) => ({ id: `row1-a-${idx}`, src })),
+  ...gifs.slice(0, 11).map((src, idx) => ({ id: `row1-b-${idx}`, src })),
+  ...gifs.slice(0, 11).map((src, idx) => ({ id: `row1-c-${idx}`, src })),
+];
+const row2 = [
+  ...gifs.slice(11).map((src, idx) => ({ id: `row2-a-${idx}`, src })),
+  ...gifs.slice(11).map((src, idx) => ({ id: `row2-b-${idx}`, src })),
+  ...gifs.slice(11).map((src, idx) => ({ id: `row2-c-${idx}`, src })),
+];
 
 export const MarqueeSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -52,10 +60,10 @@ export const MarqueeSection: React.FC = () => {
         className="flex gap-3 w-max"
         style={{ transform: `translate3d(${offset - 200}px, 0, 0)`, willChange: 'transform' }}
       >
-        {row1.map((src, i) => (
+        {row1.map((item) => (
           <img 
-            key={`r1-${i}`} 
-            src={src} 
+            key={item.id} 
+            src={item.src} 
             alt="project preview" 
             loading="lazy" 
             className="w-[420px] h-[270px] rounded-2xl object-cover shrink-0" 
@@ -67,10 +75,10 @@ export const MarqueeSection: React.FC = () => {
         className="flex gap-3 w-max"
         style={{ transform: `translate3d(${-(offset - 200)}px, 0, 0)`, willChange: 'transform' }}
       >
-        {row2.map((src, i) => (
+        {row2.map((item) => (
           <img 
-            key={`r2-${i}`} 
-            src={src} 
+            key={item.id} 
+            src={item.src} 
             alt="project preview" 
             loading="lazy" 
             className="w-[420px] h-[270px] rounded-2xl object-cover shrink-0" 

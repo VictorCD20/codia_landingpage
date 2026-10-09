@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'motion/react';
 import { comingSoonTimeline, type TimelineStep, type ModuleStatus } from './comingSoon.config';
 import { ArrowDown, ArrowRight } from 'lucide-react';
 
@@ -24,15 +24,15 @@ export const ComingSoonTimeline: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <motion.span
+          <m.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="text-xs font-mono uppercase tracking-widest text-blue-400 font-semibold"
           >
             ROADMAP DE DESARROLLO
-          </motion.span>
-          <motion.h2
+          </m.span>
+          <m.h2
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -40,8 +40,8 @@ export const ComingSoonTimeline: React.FC = () => {
             className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mt-2 mb-4"
           >
             Próximas funcionalidades
-          </motion.h2>
-          <motion.p
+          </m.h2>
+          <m.p
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -49,7 +49,7 @@ export const ComingSoonTimeline: React.FC = () => {
             className="text-base text-white/70 leading-relaxed"
           >
             Nuestro plan continuo de evolución por fases. Cada etapa se lanza tras exhaustivas pruebas de rendimiento y seguridad.
-          </motion.p>
+          </m.p>
         </div>
 
         {/* Visual Timeline Grid / Flow */}
@@ -62,7 +62,7 @@ export const ComingSoonTimeline: React.FC = () => {
 
               return (
                 <div key={step.name} className="relative flex flex-col items-center">
-                  <motion.div
+                  <m.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
@@ -84,7 +84,7 @@ export const ComingSoonTimeline: React.FC = () => {
                     <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-semibold border ${getStatusBadgeStyle(step.status)}`}>
                       {step.status}
                     </span>
-                  </motion.div>
+                  </m.div>
 
                   {!isLast && (
                     <div className="absolute -right-3 top-1/2 -translate-y-1/2 z-20 text-white/30">
@@ -104,7 +104,7 @@ export const ComingSoonTimeline: React.FC = () => {
 
               return (
                 <React.Fragment key={step.name}>
-                  <motion.div
+                  <m.div
                     initial={{ opacity: 0, y: 15 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -124,7 +124,7 @@ export const ComingSoonTimeline: React.FC = () => {
                     <span className={`px-2.5 py-1 rounded-full text-[10px] font-semibold border flex-shrink-0 ${getStatusBadgeStyle(step.status)}`}>
                       {step.status}
                     </span>
-                  </motion.div>
+                  </m.div>
 
                   {!isLast && (
                     <div className="text-white/30 my-1">

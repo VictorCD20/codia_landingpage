@@ -3,7 +3,7 @@ import { DemoCenterSection } from '../components/DemoCenterSection';
 import { CTASection } from '../components/solutions/CTASection';
 import { CaseStudyCard } from '../components/solutions/CaseStudyCard';
 import { SectionEyebrow } from '../components/Primitives';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 
 export const DemoPage: React.FC = () => {
   return (
@@ -13,7 +13,7 @@ export const DemoPage: React.FC = () => {
         <div className="flex justify-center mb-4">
           <SectionEyebrow label="Sesión de Demostración Guiada" tag="Recorrido 1 a 1 en Vivo" />
         </div>
-        <motion.h1
+        <m.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
@@ -23,7 +23,7 @@ export const DemoPage: React.FC = () => {
           <span 
             className="block animate-shiny mt-1"
             style={{
-              backgroundImage: 'linear-gradient(to right, #091020 0%, #0B2551 12.5%, #A4F4FD 32.5%, #00d2ff 50%, #0B2551 67.5%, #091020 87.5%, #091020 100%)',
+              backgroundImage: 'linear-gradient(to right, #ffffff 0%, #A4F4FD 25%, #00d2ff 50%, #3ecf8e 75%, #ffffff 100%)',
               backgroundSize: '200% auto',
               WebkitBackgroundClip: 'text',
               backgroundClip: 'text',
@@ -34,7 +34,7 @@ export const DemoPage: React.FC = () => {
           >
             con ejemplos reales de tu giro comercial.
           </span>
-        </motion.h1>
+        </m.h1>
       </section>
 
       {/* Main Interactive Video & Booking Center */}

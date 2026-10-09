@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { SectionEyebrow } from './Primitives';
 import { Globe, LayoutGrid, Zap, Database, SearchCheck, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -57,9 +57,11 @@ export const SolutionsGrid: React.FC = () => {
           Herramientas construidas para{' '}
           <span className="text-[#00d2ff]">hacer crecer tu operación.</span>
         </h2>
-        <p className="mt-4 text-white/60 text-base md:text-lg max-w-2xl font-light">
-          No te vendemos tecnología por venderte tecnología. Desarrollamos soluciones directas que resuelven cuellos de botella específicos.
-        </p>
+        <div className="mt-4 max-w-2xl px-5 py-3.5 rounded-2xl bg-black/70 border border-white/15 backdrop-blur-md shadow-xl text-center">
+          <p className="text-white/90 text-sm md:text-base font-normal leading-relaxed">
+            No te vendemos tecnología por venderte tecnología. Desarrollamos soluciones directas que resuelven cuellos de botella específicos.
+          </p>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -67,8 +69,8 @@ export const SolutionsGrid: React.FC = () => {
           const Icon = sol.icon;
           const isSpan = index === 3 || index === 4;
           return (
-            <motion.div
-              key={index}
+            <m.div
+              key={sol.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
@@ -95,8 +97,8 @@ export const SolutionsGrid: React.FC = () => {
                 </p>
 
                 <div className="space-y-2 mb-6">
-                  {sol.deliverables.map((item, i) => (
-                    <div key={i} className="flex items-center gap-2 text-xs text-white/70">
+                  {sol.deliverables.map((item) => (
+                    <div key={item} className="flex items-center gap-2 text-xs text-white/70">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#3ecf8e]"></span>
                       <span>{item}</span>
                     </div>
@@ -123,7 +125,7 @@ export const SolutionsGrid: React.FC = () => {
                   </Link>
                 )}
               </div>
-            </motion.div>
+            </m.div>
           );
         })}
       </div>

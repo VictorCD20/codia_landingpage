@@ -68,8 +68,8 @@ export const AutomationPage: React.FC = () => {
             'Envío de mensajes programados o confirmaciones predeterminadas.',
             'Disparadores y webhooks entre sitios web y herramientas internas.',
             'Verificación automática de correos válidos en la recepción de solicitudes.',
-          ].map((item, idx) => (
-            <div key={idx} className="flex items-start gap-3">
+          ].map((item) => (
+            <div key={item} className="flex items-start gap-3">
               <CheckCircle2 className="w-5 h-5 text-pink-400 shrink-0 mt-0.5" />
               <span className="text-white/80 text-sm leading-relaxed">{item}</span>
             </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { masterCaseStudies } from '../../data/caseStudies';
 import { Sparkles, ArrowRight, XCircle, CheckCircle2 } from 'lucide-react';
 
@@ -7,7 +7,7 @@ export const CaseStudyCard: React.FC = () => {
   const caseStudy = masterCaseStudies[0];
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
@@ -48,8 +48,8 @@ export const CaseStudyCard: React.FC = () => {
             <span>{caseStudy.before.title}</span>
           </div>
           <ul className="space-y-3">
-            {caseStudy.before.points.map((pt, i) => (
-              <li key={i} className="flex items-start gap-2.5 text-xs text-white/70 font-light">
+            {caseStudy.before.points.map((pt) => (
+              <li key={pt} className="flex items-start gap-2.5 text-xs text-white/70 font-light">
                 <span className="text-red-400 font-bold">•</span>
                 <span>{pt}</span>
               </li>
@@ -64,8 +64,8 @@ export const CaseStudyCard: React.FC = () => {
             <span>{caseStudy.after.title}</span>
           </div>
           <ul className="space-y-3">
-            {caseStudy.after.points.map((pt, i) => (
-              <li key={i} className="flex items-start gap-2.5 text-xs text-white/90 font-light">
+            {caseStudy.after.points.map((pt) => (
+              <li key={pt} className="flex items-start gap-2.5 text-xs text-white/90 font-light">
                 <span className="text-emerald-400 font-bold">✓</span>
                 <span>{pt}</span>
               </li>
@@ -77,8 +77,8 @@ export const CaseStudyCard: React.FC = () => {
 
       {/* Metrics Row */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 rounded-2xl bg-black/40 border border-white/10 mb-8 text-center">
-        {caseStudy.metrics.map((m, idx) => (
-          <div key={idx} className="flex flex-col items-center">
+        {caseStudy.metrics.map((m) => (
+          <div key={m.label} className="flex flex-col items-center">
             <div className="text-2xl sm:text-3xl font-black text-[#00d2ff] mb-0.5">
               {m.value}
             </div>
@@ -103,6 +103,6 @@ export const CaseStudyCard: React.FC = () => {
           <ArrowRight className="w-4 h-4" />
         </a>
       </div>
-    </motion.div>
+    </m.div>
   );
 };

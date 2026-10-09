@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { SectionEyebrow } from './Primitives';
 import { FileSpreadsheet, PackageX, MessageSquareWarning, BarChart3, ArrowRight, CheckCircle2 } from 'lucide-react';
 
@@ -47,17 +47,19 @@ export const ProblemsSection: React.FC = () => {
           Operar un negocio no debería significar{' '}
           <span className="text-[#00d2ff]">vivir en el desorden.</span>
         </h2>
-        <p className="mt-4 text-white/60 text-base md:text-lg max-w-2xl font-light">
-          La mayoría de los negocios no necesitan software genérico y complicado. Necesitan herramientas prácticas que resuelvan su problema específico.
-        </p>
+        <div className="mt-4 max-w-2xl px-5 py-3.5 rounded-2xl bg-black/70 border border-white/15 backdrop-blur-md shadow-xl text-center">
+          <p className="text-white/90 text-sm md:text-base font-normal leading-relaxed">
+            La mayoría de los negocios no necesitan software genérico y complicado. Necesitan herramientas prácticas que resuelvan su problema específico.
+          </p>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {problems.map((item, idx) => {
           const Icon = item.icon;
           return (
-            <motion.div
-              key={idx}
+            <m.div
+              key={item.tag}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
@@ -99,7 +101,7 @@ export const ProblemsSection: React.FC = () => {
                   {item.result}
                 </p>
               </div>
-            </motion.div>
+            </m.div>
           );
         })}
       </div>

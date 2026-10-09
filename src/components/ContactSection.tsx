@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { submitContactDiagnostic } from '../services/contactService';
 import { telemetry } from '../tracking/tracker';
+import { siteConfig } from '../config/site';
 
 export const ContactSection: React.FC = () => {
   const navigate = useNavigate();
@@ -11,6 +12,8 @@ export const ContactSection: React.FC = () => {
   const [phone, setPhone] = useState('');
   const [solutionType, setSolutionType] = useState('Presencia digital');
   const [message, setMessage] = useState('');
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
+  const [marketingAccepted, setMarketingAccepted] = useState(false);
   const [honeypot, setHoneypot] = useState('');
   const [loading, setLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -19,8 +22,14 @@ export const ContactSection: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setLoading(true);
     setErrorMessage('');
+
+    if (!privacyAccepted) {
+      setErrorMessage('Debes leer y aceptar el Aviso de Privacidad para enviar tu solicitud.');
+      return;
+    }
+
+    setLoading(true);
 
     const result = await submitContactDiagnostic({
       name,
@@ -29,6 +38,8 @@ export const ContactSection: React.FC = () => {
       phone,
       solutionType,
       message,
+      privacyAccepted,
+      marketingAccepted,
       honeypot
     });
 
@@ -43,6 +54,8 @@ export const ContactSection: React.FC = () => {
       setPhone('');
       setSolutionType('Presencia digital');
       setMessage('');
+      setPrivacyAccepted(false);
+      setMarketingAccepted(false);
       navigate('/gracias');
     } else {
       setSubmitStatus(result.status);
@@ -72,24 +85,24 @@ export const ContactSection: React.FC = () => {
               <div className="rounded-2xl border border-white/10 bg-black/20 p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-white/30 hover:bg-white/10 transition-all group sm:col-span-2">
                 <div>
                   <span className="block text-xs uppercase tracking-widest opacity-50 mb-1 text-[#D7E2EA]">Teléfono & WhatsApp Directo</span>
-                  <span className="font-medium text-lg sm:text-xl lg:text-2xl text-white whitespace-nowrap">+52 1 999 537 0947</span>
+                  <span className="font-medium text-lg sm:text-xl lg:text-2xl text-white whitespace-nowrap">{siteConfig.contact.phone}</span>
                 </div>
                 <div className="flex items-center gap-2 mt-1 sm:mt-0">
                   <a 
-                    href="tel:+5219995370947" 
+                    href={siteConfig.contact.phoneUrl} 
                     onClick={() => telemetry.trackPhoneClick('ContactSection_Phone')}
                     className="px-4 py-2 rounded-full bg-white/10 hover:bg-blue-500/20 hover:border-blue-400/50 border border-white/15 text-xs font-medium text-white transition-all no-underline focus-visible:ring-2 focus-visible:ring-blue-400 outline-none"
-                    aria-label="Llamar a CODIA por teléfono"
+                    aria-label={`Llamar a ${siteConfig.name} por teléfono`}
                   >
                     Llamar
                   </a>
                   <a 
-                    href="https://wa.me/5219995370947" 
+                    href={siteConfig.contact.whatsappUrl} 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     onClick={() => telemetry.trackWhatsAppClick('ContactSection_WhatsApp')}
                     className="px-4 py-2 rounded-full bg-emerald-500/20 hover:bg-emerald-500/35 border border-emerald-500/50 text-xs font-medium text-emerald-300 transition-all no-underline focus-visible:ring-2 focus-visible:ring-emerald-400 outline-none"
-                    aria-label="Enviar mensaje por WhatsApp a CODIA"
+                    aria-label={`Enviar mensaje por WhatsApp a ${siteConfig.name}`}
                   >
                     WhatsApp
                   </a>
@@ -98,39 +111,39 @@ export const ContactSection: React.FC = () => {
 
               {/* Full-width Email Card */}
               <a 
-                href="mailto:codiasupport@gmail.com" 
-                onClick={() => telemetry.trackCTAClick('Email_Click', 'mailto:codiasupport@gmail.com')}
+                href={siteConfig.contact.emailUrl} 
+                onClick={() => telemetry.trackCTAClick('Email_Click', siteConfig.contact.emailUrl)}
                 className="rounded-2xl border border-white/10 bg-black/20 px-5 py-4 flex flex-col justify-center hover:border-white/30 hover:bg-white/10 transition-all group no-underline sm:col-span-2 focus-visible:ring-2 focus-visible:ring-blue-400 outline-none"
-                aria-label="Enviar correo electrónico a codiasupport@gmail.com"
+                aria-label={`Enviar correo electrónico a ${siteConfig.contact.email}`}
               >
                 <span className="block text-xs uppercase tracking-widest opacity-50 mb-1 text-[#D7E2EA]">Correo Electrónico</span>
                 <span className="font-medium text-base sm:text-lg md:text-xl text-white group-hover:text-blue-400 transition-colors break-all sm:break-normal">
-                  codiasupport@gmail.com
+                  {siteConfig.contact.email}
                 </span>
               </a>
 
               {/* Social Media Cards */}
               <a 
-                href="https://www.facebook.com/CodiaSoftware/" 
+                href={siteConfig.social.facebook} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                onClick={() => telemetry.trackCTAClick('Facebook_Click', 'https://www.facebook.com/CodiaSoftware/')}
+                onClick={() => telemetry.trackCTAClick('Facebook_Click', siteConfig.social.facebook)}
                 className="rounded-2xl border border-white/10 bg-black/20 px-5 py-4 flex flex-col justify-center hover:border-white/30 hover:bg-white/10 transition-all group no-underline focus-visible:ring-2 focus-visible:ring-blue-400 outline-none"
-                aria-label="Visitar Facebook de CODIA Software"
+                aria-label={`Visitar Facebook de ${siteConfig.name}`}
               >
                 <span className="block text-xs uppercase tracking-widest opacity-50 mb-1 text-[#D7E2EA]">Facebook</span>
-                <span className="font-medium text-sm sm:text-base md:text-lg text-white group-hover:text-blue-400 transition-colors">@CodiaSoftware</span>
+                <span className="font-medium text-sm sm:text-base md:text-lg text-white group-hover:text-blue-400 transition-colors">{siteConfig.social.facebookHandle}</span>
               </a>
               <a 
-                href="https://www.instagram.com/codia_software/" 
+                href={siteConfig.social.instagram} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                onClick={() => telemetry.trackCTAClick('Instagram_Click', 'https://www.instagram.com/codia_software/')}
+                onClick={() => telemetry.trackCTAClick('Instagram_Click', siteConfig.social.instagram)}
                 className="rounded-2xl border border-white/10 bg-black/20 px-5 py-4 flex flex-col justify-center hover:border-white/30 hover:bg-white/10 transition-all group no-underline focus-visible:ring-2 focus-visible:ring-pink-400 outline-none"
-                aria-label="Visitar Instagram de CODIA Software"
+                aria-label={`Visitar Instagram de ${siteConfig.name}`}
               >
                 <span className="block text-xs uppercase tracking-widest opacity-50 mb-1 text-[#D7E2EA]">Instagram</span>
-                <span className="font-medium text-sm sm:text-base md:text-lg text-white group-hover:text-pink-400 transition-colors">@codia_software</span>
+                <span className="font-medium text-sm sm:text-base md:text-lg text-white group-hover:text-pink-400 transition-colors">{siteConfig.social.instagramHandle}</span>
               </a>
             </div>
           </div>
@@ -176,7 +189,7 @@ export const ContactSection: React.FC = () => {
               </button>
             </div>
           ) : (
-            <form className="flex flex-col gap-3.5" onSubmit={handleSubmit} noValidate>
+            <form className="flex flex-col gap-3.5" onSubmit={handleSubmit} method="post" noValidate>
               {/* Anti-spam Honeypot */}
               <div style={{ display: 'none' }} aria-hidden="true">
                 <input 
@@ -190,15 +203,16 @@ export const ContactSection: React.FC = () => {
               </div>
 
               {errorMessage && (
-                <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 text-xs text-center">
+                <div role="alert" className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 text-xs text-center font-medium">
                   {errorMessage}
                 </div>
               )}
 
               <div className="flex flex-col gap-1">
-                <label htmlFor="input-nombre" className="text-white/60 uppercase text-[10px] tracking-widest ml-4 font-medium">Nombre</label>
+                <label htmlFor="input-nombre" className="text-white/60 uppercase text-[10px] tracking-widest ml-4 font-medium">Nombre *</label>
                 <input 
                   id="input-nombre"
+                  name="nombre"
                   type="text" 
                   placeholder="Tu nombre completo"
                   value={name}
@@ -208,9 +222,10 @@ export const ContactSection: React.FC = () => {
                 />
               </div>
               <div className="flex flex-col gap-1">
-                <label htmlFor="input-negocio" className="text-white/60 uppercase text-[10px] tracking-widest ml-4 font-medium">Nombre del negocio</label>
+                <label htmlFor="input-negocio" className="text-white/60 uppercase text-[10px] tracking-widest ml-4 font-medium">Nombre del negocio *</label>
                 <input 
                   id="input-negocio"
+                  name="negocio"
                   type="text" 
                   placeholder="Nombre de tu negocio o marca"
                   value={businessName}
@@ -221,9 +236,10 @@ export const ContactSection: React.FC = () => {
               </div>
 
               <div className="flex flex-col gap-1">
-                <label htmlFor="input-phone" className="text-white/60 uppercase text-[10px] tracking-widest ml-4 font-medium">WhatsApp</label>
+                <label htmlFor="input-phone" className="text-white/60 uppercase text-[10px] tracking-widest ml-4 font-medium">WhatsApp *</label>
                 <input 
                   id="input-phone"
+                  name="telefono"
                   type="tel" 
                   placeholder="Tu número de WhatsApp (con lada)"
                   value={phone}
@@ -233,9 +249,10 @@ export const ContactSection: React.FC = () => {
                 />
               </div>
               <div className="flex flex-col gap-1">
-                <label htmlFor="input-email" className="text-white/60 uppercase text-[10px] tracking-widest ml-4 font-medium">Correo Electrónico</label>
+                <label htmlFor="input-email" className="text-white/60 uppercase text-[10px] tracking-widest ml-4 font-medium">Correo Electrónico *</label>
                 <input 
                   id="input-email"
+                  name="email"
                   type="email" 
                   placeholder="ejemplo@empresa.com"
                   value={email}
@@ -250,6 +267,7 @@ export const ContactSection: React.FC = () => {
                 <div className="relative">
                   <select
                     id="select-solucion"
+                    name="tipo_solucion"
                     value={solutionType}
                     onChange={(event) => setSolutionType(event.target.value)}
                     className="w-full bg-[#0C0C0C]/80 border border-white/20 rounded-full px-5 py-3 text-white focus:outline-none focus:border-white/60 focus-visible:ring-2 focus-visible:ring-blue-400 transition-colors appearance-none cursor-pointer text-sm"
@@ -267,9 +285,10 @@ export const ContactSection: React.FC = () => {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="textarea-mensaje" className="text-white/60 uppercase text-[10px] tracking-widest ml-4 font-medium">Mensaje</label>
+                <label htmlFor="textarea-mensaje" className="text-white/60 uppercase text-[10px] tracking-widest ml-4 font-medium">Mensaje *</label>
                 <textarea 
                   id="textarea-mensaje"
+                  name="mensaje"
                   rows={3}
                   placeholder="Detalles adicionales de tu proyecto..."
                   value={message}
@@ -278,13 +297,49 @@ export const ContactSection: React.FC = () => {
                   className="bg-transparent border border-white/20 rounded-2xl px-5 py-3 text-white placeholder-white/40 focus:outline-none focus:border-white/60 focus-visible:ring-2 focus-visible:ring-blue-400 transition-colors resize-none text-sm"
                 ></textarea>
               </div>
+
+              {/* Consent Checkboxes */}
+              <div className="flex flex-col gap-2.5 pt-1 text-left">
+                {/* 1. Mandatory Privacy Consent */}
+                <label className="flex items-start gap-2.5 cursor-pointer text-xs text-white/80 select-none">
+                  <input
+                    type="checkbox"
+                    name="aviso_privacidad_aceptado"
+                    checked={privacyAccepted}
+                    onChange={(e) => setPrivacyAccepted(e.target.checked)}
+                    required
+                    className="mt-0.5 w-4 h-4 rounded border-white/30 bg-black/40 text-blue-500 focus:ring-blue-400 focus:ring-offset-0 shrink-0 cursor-pointer"
+                  />
+                  <span>
+                    He leído y acepto el{' '}
+                    <Link to="/aviso-de-privacidad" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline font-medium">
+                      Aviso de Privacidad
+                    </Link>
+                    . <span className="text-red-400">*</span>
+                  </span>
+                </label>
+
+                {/* 2. Optional Commercial/Marketing Consent */}
+                <label className="flex items-start gap-2.5 cursor-pointer text-xs text-white/60 select-none">
+                  <input
+                    type="checkbox"
+                    name="consentimiento_marketing"
+                    checked={marketingAccepted}
+                    onChange={(e) => setMarketingAccepted(e.target.checked)}
+                    className="mt-0.5 w-4 h-4 rounded border-white/30 bg-black/40 text-blue-500 focus:ring-blue-400 focus:ring-offset-0 shrink-0 cursor-pointer"
+                  />
+                  <span>
+                    Deseo recibir información sobre soluciones, demostraciones y novedades de CODIA.
+                  </span>
+                </label>
+              </div>
               
               <button 
                 type="submit" 
                 disabled={loading}
                 className="mt-2 rounded-full text-black font-semibold uppercase tracking-[0.2em] px-8 py-3.5 outline-none w-full transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed text-xs cursor-pointer btn-slide focus-visible:ring-2 focus-visible:ring-blue-400"
               >
-                {loading ? 'Enviando...' : 'Solicitar diagnóstico'}
+                {loading ? 'Enviando solicitud...' : 'Solicitar diagnóstico'}
               </button>
             </form>
           )}

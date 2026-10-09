@@ -59,11 +59,17 @@ export const Footer: React.FC = () => {
               <InstagramIcon className="w-4 h-4" />
             </a>
           </div>
-          <div className="text-white/40 text-xs mt-2 flex flex-col gap-1">
+          <div className="text-white/40 text-xs mt-3 flex flex-col gap-1.5">
             <div>&copy; {new Date().getFullYear()} {siteConfig.name}. Todos los derechos reservados.</div>
-            <Link to="/aviso-de-privacidad" className="text-white/50 hover:text-white transition-colors underline text-[11px] w-fit focus-visible:ring-2 focus-visible:ring-blue-400 outline-none">
-              Aviso de Privacidad
-            </Link>
+            <div className="flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-white/50">
+              <Link to="/aviso-de-privacidad" className="hover:text-white transition-colors underline focus-visible:ring-2 focus-visible:ring-blue-400 outline-none">
+                Aviso de Privacidad
+              </Link>
+              <span>•</span>
+              <Link to="/terminos-y-condiciones" className="hover:text-white transition-colors underline focus-visible:ring-2 focus-visible:ring-blue-400 outline-none">
+                Términos y Condiciones
+              </Link>
+            </div>
           </div>
         </div>
 

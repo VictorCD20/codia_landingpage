@@ -66,10 +66,10 @@ export const WebDevelopmentPage: React.FC = () => {
             'Integración directa con botones inteligentes a WhatsApp y llamadas.',
             'Formulario de contacto conectado con tu correo electrónico y registro en Google Sheets.',
             'Optimización SEO básica en código (títulos, meta descripciones y etiquetas OpenGraph).',
-            'Hosting confiable en n cloud con SSL (candado de seguridad HTTPS).',
+            'Hosting confiable en la nube con SSL (candado de seguridad HTTPS).',
             'Periodo inicial de revisión y ajustes posteriores a la entrega.',
-          ].map((item, idx) => (
-            <div key={idx} className="flex items-start gap-3">
+          ].map((item) => (
+            <div key={item} className="flex items-start gap-3">
               <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
               <span className="text-white/80 text-sm leading-relaxed">{item}</span>
             </div>

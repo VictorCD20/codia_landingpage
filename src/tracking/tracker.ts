@@ -1,5 +1,6 @@
 import type { TelemetryEvent, MetaPixelEventName } from '../types/tracking';
 import { adsStrategyMap } from '../config/ads';
+import { getSavedCookieConsent } from '../services/cookieConsent';
 
 declare global {
   interface Window {
@@ -26,6 +27,7 @@ class TelemetryEngine {
 
   /**
    * Dispara un evento unificado a GA4, GTM, Meta Pixel y Microsoft Clarity
+   * Respetando el consentimiento otorgado por el usuario
    */
   public trackEvent(event: TelemetryEvent): void {
     if (this.isDev) {
@@ -34,17 +36,24 @@ class TelemetryEngine {
 
     if (typeof window === 'undefined') return;
 
-    // 1. GA4 / Google Ads via gtag
-    if (window.gtag) {
-      window.gtag('event', event.action, {
-        event_category: event.category,
-        event_label: event.label,
-        value: event.value,
-        ...event.params
-      });
+    // Verificar consentimiento antes de emitir a herramientas de terceros
+    const consent = getSavedCookieConsent();
+    const allowAnalytics = consent ? consent.analytics : false;
+    const allowMarketing = consent ? consent.marketing : false;
 
-      // Disparar conversión Google Ads si aplica
-      if (event.googleAdsConversionLabel) {
+    // 1. GA4 / Google Ads via gtag (Requiere consentimiento analítico/marketing según aplique)
+    if (window.gtag) {
+      if (allowAnalytics) {
+        window.gtag('event', event.action, {
+          event_category: event.category,
+          event_label: event.label,
+          value: event.value,
+          ...event.params
+        });
+      }
+
+      // Disparar conversión Google Ads si aplica y hay consentimiento de marketing
+      if (event.googleAdsConversionLabel && allowMarketing) {
         window.gtag('event', 'conversion', {
           send_to: event.googleAdsConversionLabel,
           value: event.value || 1.0,
@@ -53,8 +62,8 @@ class TelemetryEngine {
       }
     }
 
-    // 2. Google Tag Manager via dataLayer
-    if (window.dataLayer) {
+    // 2. Google Tag Manager via dataLayer (Si hay consentimiento de analítica)
+    if (window.dataLayer && allowAnalytics) {
       window.dataLayer.push({
         event: event.action,
         category: event.category,
@@ -64,8 +73,8 @@ class TelemetryEngine {
       });
     }
 
-    // 3. Meta Pixel (Facebook Ads)
-    if (window.fbq) {
+    // 3. Meta Pixel (Facebook Ads) (Requiere consentimiento de marketing)
+    if (window.fbq && allowMarketing) {
       const metaEvent: MetaPixelEventName = event.metaPixelEvent || 'PageView';
       if (['PageView', 'ViewContent', 'Lead', 'Contact', 'CompleteRegistration'].includes(metaEvent)) {
         window.fbq('track', metaEvent, {
@@ -80,8 +89,8 @@ class TelemetryEngine {
       }
     }
 
-    // 4. Microsoft Clarity
-    if (window.clarity) {
+    // 4. Microsoft Clarity (Requiere consentimiento analítico)
+    if (window.clarity && allowAnalytics) {
       window.clarity('event', event.action);
     }
   }

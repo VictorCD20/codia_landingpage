@@ -131,3 +131,13 @@ html, body {
   animation: marquee 30s linear infinite;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html, body {
+    scroll-behavior: auto;
+  }
+  .animate-shiny,
+  .animate-marquee {
+    animation: none !important;
+  }
+}
+

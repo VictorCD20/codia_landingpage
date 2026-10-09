@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { AlertCircle, ArrowRight, Database, LayoutGrid, Globe, Zap } from 'lucide-react';
 
 interface ProblemCardProps {
@@ -27,7 +27,7 @@ export const ProblemCard: React.FC<ProblemCardProps> = ({
   const IconComponent = iconMap[iconName] || Database;
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
@@ -65,6 +65,6 @@ export const ProblemCard: React.FC<ProblemCardProps> = ({
           <ArrowRight className="w-3.5 h-3.5" />
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };

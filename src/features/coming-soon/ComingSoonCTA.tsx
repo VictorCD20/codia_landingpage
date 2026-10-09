@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { m } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import { quickAccessServices, type QuickService } from './comingSoon.config';
 import { telemetry } from '../../tracking/tracker';
@@ -18,15 +18,15 @@ export const ComingSoonCTA: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <motion.span
+          <m.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="text-xs font-mono uppercase tracking-widest text-blue-400 font-semibold"
           >
             SOLUCIONES DISPONIBLES HOY
-          </motion.span>
-          <motion.h2
+          </m.span>
+          <m.h2
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -34,8 +34,8 @@ export const ComingSoonCTA: React.FC = () => {
             className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mt-2 mb-4"
           >
             Mientras tanto...
-          </motion.h2>
-          <motion.p
+          </m.h2>
+          <m.p
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -44,7 +44,7 @@ export const ComingSoonCTA: React.FC = () => {
           >
             Explora nuestros servicios activos de ingeniería y transformación digital. 
             Puedes comenzar hoy mismo a estructurar y acelerar tu empresa con nuestro equipo.
-          </motion.p>
+          </m.p>
         </div>
 
         {/* Quick Access Cards Grid */}
@@ -53,7 +53,7 @@ export const ComingSoonCTA: React.FC = () => {
             const IconComponent = service.icon;
 
             return (
-              <motion.div
+              <m.div
                 key={service.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -80,7 +80,7 @@ export const ComingSoonCTA: React.FC = () => {
                   <span>{service.ctaText}</span>
                   <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </div>
-              </motion.div>
+              </m.div>
             );
           })}
         </div>

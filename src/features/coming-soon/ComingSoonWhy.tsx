@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'motion/react';
 import { Layers, Rocket, TrendingUp } from 'lucide-react';
 
 interface ComingSoonWhyProps {
@@ -34,15 +34,15 @@ export const ComingSoonWhy: React.FC<ComingSoonWhyProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left Header */}
           <div className="lg:col-span-5">
-            <motion.span
+            <m.span
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               className="text-xs font-mono uppercase tracking-widest text-blue-400 font-semibold"
             >
               VISIÓN ESTRATÉGICA
-            </motion.span>
-            <motion.h2
+            </m.span>
+            <m.h2
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -50,8 +50,8 @@ export const ComingSoonWhy: React.FC<ComingSoonWhyProps> = ({
               className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mt-2 mb-6"
             >
               {title}
-            </motion.h2>
-            <motion.p
+            </m.h2>
+            <m.p
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -59,7 +59,7 @@ export const ComingSoonWhy: React.FC<ComingSoonWhyProps> = ({
               className="text-base text-white/70 leading-relaxed font-normal"
             >
               {subtitle}
-            </motion.p>
+            </m.p>
           </div>
 
           {/* Right Cards */}
@@ -67,7 +67,7 @@ export const ComingSoonWhy: React.FC<ComingSoonWhyProps> = ({
             {bullets.map((bullet, idx) => {
               const IconComp = icons[idx % icons.length];
               return (
-                <motion.div
+                <m.div
                   key={bullet.title}
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -86,7 +86,7 @@ export const ComingSoonWhy: React.FC<ComingSoonWhyProps> = ({
                       {bullet.text}
                     </p>
                   </div>
-                </motion.div>
+                </m.div>
               );
             })}
           </div>

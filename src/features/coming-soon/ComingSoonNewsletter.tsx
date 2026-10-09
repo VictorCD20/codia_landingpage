@@ -1,39 +1,57 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { m } from 'motion/react';
 import { Mail, User, CheckCircle2, Send, Sparkles } from 'lucide-react';
 import { telemetry } from '../../tracking/tracker';
+import { saveLeadToGoogleSheets } from '../../services/contactService';
 
 export const ComingSoonNewsletter: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !email.trim()) {
       setErrorMsg('Por favor completa todos los campos.');
       return;
     }
 
+    if (!privacyAccepted) {
+      setErrorMsg('Debes leer y aceptar el Aviso de Privacidad para suscribirte.');
+      return;
+    }
+
     setErrorMsg('');
     setIsSubmitting(true);
-    
 
     telemetry.trackFormSubmit('ComingSoonNewsletter', { name, email });
 
-    // Simulated API call readiness
-    setTimeout(() => {
+    try {
+      await saveLeadToGoogleSheets({
+        nombre: name,
+        correo: email,
+        telefono: 'Newsletter',
+        solucion: 'Lista de Espera / Novedades Módulos',
+        mensaje: '[NEWSLETTER / ACCESO PRIORITARIO] Registro para próximos módulos de CODIA.',
+        aviso_privacidad: 'Aceptado el ' + new Date().toISOString(),
+        consentimiento_marketing: 'Aceptado (Newsletter)'
+      });
+    } catch (err) {
+      console.warn('[Newsletter Sync Warning]:', err);
+    } finally {
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 600);
+    }
   };
 
   return (
     <section className="py-16 md:py-24 px-6 relative" id="newsletter">
       <div className="max-w-4xl mx-auto">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.98 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
@@ -62,7 +80,7 @@ export const ComingSoonNewsletter: React.FC = () => {
             </p>
 
             {isSubmitted ? (
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="p-6 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-200 flex flex-col items-center gap-3"
@@ -77,16 +95,17 @@ export const ComingSoonNewsletter: React.FC = () => {
                     setIsSubmitted(false);
                     setName('');
                     setEmail('');
+                    setPrivacyAccepted(false);
                   }}
                   className="mt-2 text-xs underline text-emerald-300 hover:text-white cursor-pointer"
                 >
                   Registrar otro correo
                 </button>
-              </motion.div>
+              </m.div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4 text-left max-w-xl mx-auto">
+              <form onSubmit={handleSubmit} method="post" className="space-y-4 text-left max-w-xl mx-auto">
                 {errorMsg && (
-                  <div className="p-3 rounded-xl bg-red-500/20 border border-red-500/40 text-red-200 text-xs font-medium text-center">
+                  <div role="alert" className="p-3 rounded-xl bg-red-500/20 border border-red-500/40 text-red-200 text-xs font-medium text-center">
                     {errorMsg}
                   </div>
                 )}
@@ -95,7 +114,7 @@ export const ComingSoonNewsletter: React.FC = () => {
                   {/* Name field */}
                   <div>
                     <label htmlFor="coming-soon-name" className="block text-xs font-medium text-white/80 mb-1.5">
-                      Nombre completo
+                      Nombre completo *
                     </label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-white/40">
@@ -103,6 +122,7 @@ export const ComingSoonNewsletter: React.FC = () => {
                       </div>
                       <input
                         id="coming-soon-name"
+                        name="nombre"
                         type="text"
                         required
                         value={name}
@@ -116,7 +136,7 @@ export const ComingSoonNewsletter: React.FC = () => {
                   {/* Email field */}
                   <div>
                     <label htmlFor="coming-soon-email" className="block text-xs font-medium text-white/80 mb-1.5">
-                      Correo electrónico
+                      Correo electrónico *
                     </label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-white/40">
@@ -124,6 +144,7 @@ export const ComingSoonNewsletter: React.FC = () => {
                       </div>
                       <input
                         id="coming-soon-email"
+                        name="email"
                         type="email"
                         required
                         value={email}
@@ -133,6 +154,27 @@ export const ComingSoonNewsletter: React.FC = () => {
                       />
                     </div>
                   </div>
+                </div>
+
+                {/* Mandatory Privacy Checkbox */}
+                <div className="pt-1">
+                  <label className="flex items-start gap-2.5 cursor-pointer text-xs text-white/80 select-none">
+                    <input
+                      type="checkbox"
+                      name="aviso_privacidad_aceptado"
+                      checked={privacyAccepted}
+                      onChange={(e) => setPrivacyAccepted(e.target.checked)}
+                      required
+                      className="mt-0.5 w-4 h-4 rounded border-white/30 bg-black/40 text-blue-500 focus:ring-blue-400 focus:ring-offset-0 shrink-0 cursor-pointer"
+                    />
+                    <span>
+                      He leído y acepto el{' '}
+                      <Link to="/aviso-de-privacidad" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline font-medium">
+                        Aviso de Privacidad
+                      </Link>
+                      . <span className="text-red-400">*</span>
+                    </span>
+                  </label>
                 </div>
 
                 {/* Submit button */}
@@ -152,12 +194,12 @@ export const ComingSoonNewsletter: React.FC = () => {
                 </button>
 
                 <p className="text-[11px] text-white/40 text-center mt-3">
-                  Respetamos tu privacidad. No enviamos spam ni compartimos tus datos con terceros.
+                  Respetamos tu privacidad conforme a la LFPDPPP. Puedes darte de baja en cualquier momento.
                 </p>
               </form>
             )}
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

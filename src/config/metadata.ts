@@ -152,12 +152,34 @@ export const pageMetadataMap: Record<string, PageMetadata> = {
   },
   '/aviso-de-privacidad': {
     ...defaultSEO,
-    title: 'Aviso de Privacidad Legal | CODIA',
-    description: 'Consulta nuestro aviso de privacidad y conoce cómo protegemos tus datos personales conforme a la ley.',
+    title: 'Aviso de Privacidad | Tratamiento y Protección de Datos | CODIA',
+    description: 'Aviso de Privacidad Integral de CODIA. Conoce cómo tratamos, protegemos y conservamos tus datos personales conforme a la LFPDPPP en México.',
     canonical: `${siteConfig.domain}aviso-de-privacidad`,
     breadcrumbs: [
       { name: 'Inicio', url: `${siteConfig.domain}` },
       { name: 'Aviso de Privacidad', url: `${siteConfig.domain}aviso-de-privacidad` }
+    ],
+    jsonLdType: 'WebSite'
+  },
+  '/terminos-y-condiciones': {
+    ...defaultSEO,
+    title: 'Términos y Condiciones de Uso | Servicios y Diagnóstico | CODIA',
+    description: 'Consulta los Términos y Condiciones de uso del sitio web, diagnósticos preliminares, soluciones y consultoría tecnológica de CODIA.',
+    canonical: `${siteConfig.domain}terminos-y-condiciones`,
+    breadcrumbs: [
+      { name: 'Inicio', url: `${siteConfig.domain}` },
+      { name: 'Términos y Condiciones', url: `${siteConfig.domain}terminos-y-condiciones` }
+    ],
+    jsonLdType: 'WebSite'
+  },
+  '/politica-de-cookies': {
+    ...defaultSEO,
+    title: 'Política de Cookies y Preferencias | CODIA',
+    description: 'Descubre qué cookies y tecnologías de almacenamiento utiliza CODIA, sus finalidades, duraciones y cómo gestionar tu consentimiento.',
+    canonical: `${siteConfig.domain}politica-de-cookies`,
+    breadcrumbs: [
+      { name: 'Inicio', url: `${siteConfig.domain}` },
+      { name: 'Política de Cookies', url: `${siteConfig.domain}politica-de-cookies` }
     ],
     jsonLdType: 'WebSite'
   },

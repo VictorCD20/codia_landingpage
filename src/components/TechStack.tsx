@@ -45,7 +45,11 @@ const techItems = [
 ];
 
 // Duplicate items twice to ensure smooth seamless loop
-const marqueeItems = [...techItems, ...techItems, ...techItems];
+const marqueeItems = [
+  ...techItems.map(item => ({ ...item, id: `stack-1-${item.name}` })),
+  ...techItems.map(item => ({ ...item, id: `stack-2-${item.name}` })),
+  ...techItems.map(item => ({ ...item, id: `stack-3-${item.name}` })),
+];
 
 export const TechStack: React.FC = () => {
   return (
@@ -62,11 +66,11 @@ export const TechStack: React.FC = () => {
         <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#0c0c0c] to-transparent z-20 pointer-events-none" />
 
         <div className="animate-marquee gap-5 py-4">
-          {marqueeItems.map((item, index) => {
+          {marqueeItems.map((item) => {
             const IconComponent = item.icon;
             return (
               <div 
-                key={`${item.name}-${index}`}
+                key={item.id}
                 className="flex items-center gap-4 bg-white/[0.02] border border-white/10 rounded-2xl px-6 py-4 shrink-0 transition-all duration-300 hover:border-[#00d2ff]/40 hover:bg-white/[0.04]"
                 style={{ minWidth: '220px' }}
               >

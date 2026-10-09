@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'motion/react';
 import { ChevronDown, HelpCircle } from 'lucide-react';
 import { defaultComingSoonFAQs, type ComingSoonFAQItem } from './comingSoon.config';
 
@@ -25,7 +25,7 @@ export const ComingSoonFAQ: React.FC<ComingSoonFAQProps> = ({ customFaqs }) => {
             <span>Respuestas Rápidas</span>
           </div>
 
-          <motion.h2
+          <m.h2
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -33,8 +33,8 @@ export const ComingSoonFAQ: React.FC<ComingSoonFAQProps> = ({ customFaqs }) => {
             className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4"
           >
             Preguntas Frecuentes
-          </motion.h2>
-          <motion.p
+          </m.h2>
+          <m.p
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -42,7 +42,7 @@ export const ComingSoonFAQ: React.FC<ComingSoonFAQProps> = ({ customFaqs }) => {
             className="text-sm sm:text-base text-white/70 leading-relaxed"
           >
             Resolvemos tus dudas sobre el lanzamiento y la disponibilidad del ecosistema CODIA.
-          </motion.p>
+          </m.p>
         </div>
 
         {/* FAQ Accordion List */}
@@ -51,7 +51,7 @@ export const ComingSoonFAQ: React.FC<ComingSoonFAQProps> = ({ customFaqs }) => {
             const isOpen = openIndex === index;
 
             return (
-              <motion.div
+              <m.div
                 key={faqItem.question}
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -76,7 +76,7 @@ export const ComingSoonFAQ: React.FC<ComingSoonFAQProps> = ({ customFaqs }) => {
 
                 <AnimatePresence initial={false}>
                   {isOpen && (
-                    <motion.div
+                    <m.div
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -86,10 +86,10 @@ export const ComingSoonFAQ: React.FC<ComingSoonFAQProps> = ({ customFaqs }) => {
                       <div className="px-6 pb-6 text-sm text-white/70 leading-relaxed border-t border-white/5 pt-4">
                         {faqItem.answer}
                       </div>
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
-              </motion.div>
+              </m.div>
             );
           })}
         </div>

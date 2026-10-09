@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { SectionEyebrow } from './Primitives';
 import { Eye, HeartPulse, ShoppingBag, Briefcase, Utensils, Settings } from 'lucide-react';
 
@@ -50,16 +50,18 @@ export const BusinessSolutionsSection: React.FC = () => {
         <h2 className="mt-5 text-4xl md:text-6xl font-semibold tracking-tight heading-gradient" style={{ filter: 'url(#c3-noise)' }}>
           Pensadas para distintos tipos de negocio
         </h2>
-        <p className="mt-4 text-white/60 max-w-xl text-sm md:text-base leading-relaxed">
-          Diseñamos herramientas que resuelven los problemas reales de tu industria, sin complicaciones ni desarrollos innecesarios.
-        </p>
+        <div className="mt-4 max-w-2xl px-5 py-3.5 rounded-2xl bg-black/70 border border-white/15 backdrop-blur-md shadow-xl text-center">
+          <p className="text-white/90 text-sm md:text-base font-normal leading-relaxed">
+            Diseñamos herramientas que resuelven los problemas reales de tu industria, sin complicaciones ni desarrollos innecesarios.
+          </p>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {businessTypes.map((item, index) => {
           const IconComponent = item.icon;
           return (
-            <motion.div
+            <m.div
               key={item.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -88,7 +90,7 @@ export const BusinessSolutionsSection: React.FC = () => {
                 <span>Solicitar propuesta</span>
                 <span className="transition-transform group-hover:translate-x-1">→</span>
               </a>
-            </motion.div>
+            </m.div>
           );
         })}
       </div>

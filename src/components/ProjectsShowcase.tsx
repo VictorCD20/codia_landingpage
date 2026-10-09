@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { SectionEyebrow } from './Primitives';
 
 // Import local project assets from the fotos_sitios folder
@@ -96,9 +96,9 @@ export const ProjectsShowcase: React.FC = () => {
       </div>
 
       <div className="flex flex-col gap-32">
-        {projects.map((project, i) => (
-          <motion.div 
-            key={i}
+        {projects.map((project) => (
+          <m.div 
+            key={project.num}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -149,7 +149,7 @@ export const ProjectsShowcase: React.FC = () => {
                   />
                 </div>
             </div>
-          </motion.div>
+          </m.div>
         ))}
       </div>
     </section>

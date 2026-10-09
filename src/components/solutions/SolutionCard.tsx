@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { Check, ArrowRight, Globe, LayoutGrid, Zap, Database, SearchCheck, Sparkles } from 'lucide-react';
 import { telemetry } from '../../tracking/tracker';
 
@@ -46,7 +46,7 @@ export const SolutionCard: React.FC<SolutionCardProps> = ({
   const IconComponent = iconComponents[iconName] || Globe;
 
   return (
-    <motion.div
+    <m.div
       id={id}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -112,8 +112,8 @@ export const SolutionCard: React.FC<SolutionCardProps> = ({
             Módulos & Entregables incluidos:
           </h4>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            {deliverables.map((item, idx) => (
-              <div key={idx} className="flex items-start gap-2.5 text-xs text-white/80">
+            {deliverables.map((item) => (
+              <div key={item} className="flex items-start gap-2.5 text-xs text-white/80">
                 <Check className="w-4 h-4 text-[#00d2ff] shrink-0 mt-0.5" />
                 <span className="font-light">{item}</span>
               </div>
@@ -150,6 +150,6 @@ export const SolutionCard: React.FC<SolutionCardProps> = ({
           ¿No sabes si necesitas esto? Evalúa tu negocio →
         </a>
       </div>
-    </motion.div>
+    </m.div>
   );
 };

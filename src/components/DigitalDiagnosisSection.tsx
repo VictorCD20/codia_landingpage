@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { SectionEyebrow, AppleButton } from './Primitives';
 import { Check } from 'lucide-react';
 
@@ -18,7 +18,7 @@ export const DigitalDiagnosisSection: React.FC = () => {
       <div className="grid md:grid-cols-12 gap-10 md:gap-16 items-center">
         
         {/* Left column (Text & CTA) */}
-        <motion.div 
+        <m.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -38,10 +38,10 @@ export const DigitalDiagnosisSection: React.FC = () => {
           <div className="mt-8">
             <AppleButton label="Solicitar diagnóstico inicial" href="#contacto" />
           </div>
-        </motion.div>
+        </m.div>
 
         {/* Right column (Checking points card) */}
-        <motion.div 
+        <m.div 
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -60,7 +60,7 @@ export const DigitalDiagnosisSection: React.FC = () => {
               </div>
             ))}
           </div>
-        </motion.div>
+        </m.div>
 
       </div>
     </section>

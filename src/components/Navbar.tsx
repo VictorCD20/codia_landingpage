@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'motion/react';
+import { m, AnimatePresence } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import { AppleButton } from './Primitives';
 import { navLinks } from '../config/navigation';
@@ -25,7 +25,7 @@ export const Navbar: React.FC = () => {
         ? 'bg-[#0c0c0c]/80 backdrop-blur-md border-b border-white/10 shadow-lg' 
         : 'bg-transparent'
     }`} role="banner">
-      <motion.nav 
+      <m.nav 
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
@@ -47,7 +47,7 @@ export const Navbar: React.FC = () => {
           {navLinks.map((link, i) => {
             const isHash = link.path.startsWith('/#');
             return (
-              <motion.div
+              <m.div
                 key={link.path}
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -73,7 +73,7 @@ export const Navbar: React.FC = () => {
                     {link.label}
                   </NavLink>
                 )}
-              </motion.div>
+              </m.div>
             );
           })}
         </div>
@@ -102,12 +102,12 @@ export const Navbar: React.FC = () => {
         >
           {isOpen ? <X className="w-5 h-5 text-white" /> : <Menu className="w-5 h-5 text-white" />}
         </button>
-      </motion.nav>
+      </m.nav>
 
       {/* Mobile Menu Panel */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div 
+          <m.div 
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
@@ -162,7 +162,7 @@ export const Navbar: React.FC = () => {
                 <AppleButton label="Evaluar mi negocio" href="#diagnostico" full />
               </div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </header>

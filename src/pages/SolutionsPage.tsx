@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { m, AnimatePresence } from 'motion/react';
 import { SectionEyebrow, AppleButton } from '../components/Primitives';
 import { masterSolutions, painPointsMatrix } from '../data/solutions';
 import { solutionsFaqs } from '../data/faqs';
@@ -24,7 +24,7 @@ export const SolutionsPage: React.FC = () => {
           <SectionEyebrow label="Catálogo Comercial de Soluciones" tag="Enfocadas en tu Operación" />
         </div>
 
-        <motion.h1
+        <m.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
@@ -34,7 +34,7 @@ export const SolutionsPage: React.FC = () => {
           <span 
             className="block animate-shiny mt-1"
             style={{
-              backgroundImage: 'linear-gradient(to right, #091020 0%, #0B2551 12.5%, #A4F4FD 32.5%, #00d2ff 50%, #0B2551 67.5%, #091020 87.5%, #091020 100%)',
+              backgroundImage: 'linear-gradient(to right, #ffffff 0%, #A4F4FD 25%, #00d2ff 50%, #3ecf8e 75%, #ffffff 100%)',
               backgroundSize: '200% auto',
               WebkitBackgroundClip: 'text',
               backgroundClip: 'text',
@@ -45,18 +45,18 @@ export const SolutionsPage: React.FC = () => {
           >
             adaptadas a la forma en que opera tu negocio.
           </span>
-        </motion.h1>
+        </m.h1>
 
-        <motion.p
+        <m.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.7 }}
           className="mt-6 text-white/70 max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed"
         >
           Sin tecnicismos vacíos ni rentas mensuales obligatorias. Diseñamos herramientas prácticas que eliminan el desorden, automatizan tareas repetitivas y aumentan tus ventas.
-        </motion.p>
+        </m.p>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.7 }}
@@ -73,7 +73,7 @@ export const SolutionsPage: React.FC = () => {
             <PhoneCall className="w-4 h-4" />
             <span>Agendar una demostración</span>
           </a>
-        </motion.div>
+        </m.div>
       </section>
 
       {/* 02. PROBLEMAS REALES (DOLORES OPERATIVOS) */}
@@ -83,15 +83,17 @@ export const SolutionsPage: React.FC = () => {
           <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight max-w-3xl">
             Los problemas que frenan a los negocios locales
           </h2>
-          <p className="mt-3 text-white/60 text-sm md:text-base font-light max-w-xl">
-            Cada solución que construimos nace para erradicar una fricción diaria concreta de tu personal o administración.
-          </p>
+          <div className="mt-4 max-w-2xl px-5 py-3.5 rounded-2xl bg-black/70 border border-white/15 backdrop-blur-md shadow-xl text-center">
+            <p className="text-white/90 text-sm md:text-base font-normal leading-relaxed">
+              Cada solución que construimos nace para erradicar una fricción diaria concreta de tu personal o administración.
+            </p>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {painPointsMatrix.map((item, index) => (
             <ProblemCard
-              key={index}
+              key={item.pain}
               pain={item.pain}
               consequence={item.consequence}
               solution={item.solution}
@@ -109,9 +111,11 @@ export const SolutionsPage: React.FC = () => {
           <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight max-w-3xl">
             Nuestras 5 Soluciones Centrales
           </h2>
-          <p className="mt-3 text-white/60 text-sm md:text-base font-light max-w-xl">
-            Herramientas modulares de tu propiedad. Elige la que necesitas hoy y escala tu sistema conforme crezcan tus sucursales.
-          </p>
+          <div className="mt-4 max-w-2xl px-5 py-3.5 rounded-2xl bg-black/70 border border-white/15 backdrop-blur-md shadow-xl text-center">
+            <p className="text-white/90 text-sm md:text-base font-normal leading-relaxed">
+              Herramientas modulares de tu propiedad. Elige la que necesitas hoy y escala tu sistema conforme crezcan tus sucursales.
+            </p>
+          </div>
         </div>
 
         <div className="space-y-10">
@@ -144,9 +148,11 @@ export const SolutionsPage: React.FC = () => {
           <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight max-w-3xl">
             Cómo transformamos tu negocio en 7 pasos
           </h2>
-          <p className="mt-3 text-white/60 text-sm md:text-base font-light max-w-xl">
-            Desde la primera llamada hasta la capacitación en vivo de tus cajeros. Sin sorpresas ni entregas incompletas.
-          </p>
+          <div className="mt-4 max-w-2xl px-5 py-3.5 rounded-2xl bg-black/70 border border-white/15 backdrop-blur-md shadow-xl text-center">
+            <p className="text-white/90 text-sm md:text-base font-normal leading-relaxed">
+              Desde la primera llamada hasta la capacitación en vivo de tus cajeros. Sin sorpresas ni entregas incompletas.
+            </p>
+          </div>
         </div>
 
         <ProcessTimeline />
@@ -159,9 +165,11 @@ export const SolutionsPage: React.FC = () => {
           <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight max-w-3xl">
             Impacto real en la operación diaria
           </h2>
-          <p className="mt-3 text-white/60 text-sm md:text-base font-light max-w-xl">
-            Así es como un sistema adaptado a los procesos del negocio elimina cuellos de botella y ahorra horas de trabajo cada semana.
-          </p>
+          <div className="mt-4 max-w-2xl px-5 py-3.5 rounded-2xl bg-black/70 border border-white/15 backdrop-blur-md shadow-xl text-center">
+            <p className="text-white/90 text-sm md:text-base font-normal leading-relaxed">
+              Así es como un sistema adaptado a los procesos del negocio elimina cuellos de botella y ahorra horas de trabajo cada semana.
+            </p>
+          </div>
         </div>
 
         <CaseStudyCard />
@@ -174,9 +182,11 @@ export const SolutionsPage: React.FC = () => {
           <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight max-w-3xl">
             ¿Por qué elegir CODIA Software?
           </h2>
-          <p className="mt-3 text-white/60 text-sm md:text-base font-light max-w-xl">
-            No somos revendedores de licencias. Somos desarrolladores locales comprometidos con la soberanía digital de tu negocio.
-          </p>
+          <div className="mt-4 max-w-2xl px-5 py-3.5 rounded-2xl bg-black/70 border border-white/15 backdrop-blur-md shadow-xl text-center">
+            <p className="text-white/90 text-sm md:text-base font-normal leading-relaxed">
+              No somos revendedores de licencias. Somos desarrolladores locales comprometidos con la soberanía digital de tu negocio.
+            </p>
+          </div>
         </div>
 
         <BenefitCard />
@@ -196,7 +206,7 @@ export const SolutionsPage: React.FC = () => {
             const isOpen = openFaq === idx;
             return (
               <div
-                key={idx}
+                key={faq.q}
                 className="liquid-glass rounded-2xl border border-white/10 overflow-hidden transition-all"
               >
                 <button
@@ -211,7 +221,7 @@ export const SolutionsPage: React.FC = () => {
 
                 <AnimatePresence initial={false}>
                   {isOpen && (
-                    <motion.div
+                    <m.div
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -220,7 +230,7 @@ export const SolutionsPage: React.FC = () => {
                       <div className="p-6 pt-0 text-white/70 text-sm leading-relaxed border-t border-white/5 bg-black/20 font-light">
                         {faq.a}
                       </div>
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
               </div>

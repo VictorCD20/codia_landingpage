@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'motion/react';
 import { ecosystemModules, type EcosystemModule, type ModuleStatus } from './comingSoon.config';
 
 interface ComingSoonModulesProps {
@@ -27,7 +27,7 @@ export const ComingSoonModules: React.FC<ComingSoonModulesProps> = ({ currentMod
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <motion.h2
+          <m.h2
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -35,8 +35,8 @@ export const ComingSoonModules: React.FC<ComingSoonModulesProps> = ({ currentMod
             className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4"
           >
             ¿Qué estamos preparando?
-          </motion.h2>
-          <motion.p
+          </m.h2>
+          <m.p
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -45,7 +45,7 @@ export const ComingSoonModules: React.FC<ComingSoonModulesProps> = ({ currentMod
           >
             Un ecosistema integral de soluciones creadas para ordenar la operación de tu empresa, 
             potenciar la captura de clientes y acelerar el crecimiento con tecnología moderna.
-          </motion.p>
+          </m.p>
         </div>
 
         {/* Modules Grid */}
@@ -58,7 +58,7 @@ export const ComingSoonModules: React.FC<ComingSoonModulesProps> = ({ currentMod
             );
 
             return (
-              <motion.div
+              <m.div
                 key={moduleItem.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -102,7 +102,7 @@ export const ComingSoonModules: React.FC<ComingSoonModulesProps> = ({ currentMod
                   <span>MODULO CODIA</span>
                   <span className="text-blue-400/80">PRÓXIMAMENTE</span>
                 </div>
-              </motion.div>
+              </m.div>
             );
           })}
         </div>

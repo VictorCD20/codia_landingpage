@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { AppleButton } from '../Primitives';
 import { PhoneCall, FileText } from 'lucide-react';
 import { telemetry } from '../../tracking/tracker';
@@ -15,7 +15,7 @@ export const CTASection: React.FC<CTASectionProps> = ({
 }) => {
   return (
     <section className="max-w-6xl mx-auto px-6 relative z-10 py-12">
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-50px' }}
@@ -58,7 +58,7 @@ export const CTASection: React.FC<CTASectionProps> = ({
           </a>
 
         </div>
-      </motion.div>
+      </m.div>
     </section>
   );
 };

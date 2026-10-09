@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { SectionEyebrow } from './Primitives';
 
 const steps = [
@@ -51,7 +51,7 @@ export const ProcessSection: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {steps.map((step, index) => {
           return (
-            <motion.div
+            <m.div
               key={step.num}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -69,7 +69,7 @@ export const ProcessSection: React.FC = () => {
               <p className="text-white/60 text-sm leading-relaxed">
                 {step.desc}
               </p>
-            </motion.div>
+            </m.div>
           );
         })}
       </div>

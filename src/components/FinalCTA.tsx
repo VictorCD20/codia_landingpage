@@ -1,10 +1,13 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
+import { siteConfig } from '../config/site';
 
 export const FinalCTA: React.FC = () => {
+  const waUrl = `${siteConfig.contact.whatsappUrl}?text=${encodeURIComponent('Hola CODIA, me gustaría agendar una reunión o demostración para mi negocio.')}`;
+
   return (
     <section id="agenda" className="max-w-6xl mx-auto px-6 py-20 md:py-32 relative z-10">
-      <motion.div 
+      <m.div 
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -31,7 +34,7 @@ export const FinalCTA: React.FC = () => {
           
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <a
-              href="https://wa.me/525547087640?text=Hola%20CODIA,%20me%20gustar%C3%ADa%20agendar%20una%20demostraci%C3%B3n%20para%20mi%20negocio"
+              href={waUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 rounded-full font-semibold text-sm px-8 py-4 bg-gradient-to-r from-[#00d2ff] to-[#3ecf8e] text-[#091020] hover:opacity-90 transition-all shadow-xl shadow-[#00d2ff]/20 active:scale-[0.98]"
@@ -47,7 +50,7 @@ export const FinalCTA: React.FC = () => {
             </a>
           </div>
         </div>
-      </motion.div>
+      </m.div>
     </section>
   );
 };

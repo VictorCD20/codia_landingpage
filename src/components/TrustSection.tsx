@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { SectionEyebrow } from './Primitives';
 import { Users, Info, Cloud, Sparkles, ClipboardList, Wrench, CheckCircle2 } from 'lucide-react';
 
@@ -56,16 +56,18 @@ export const TrustSection: React.FC = () => {
         <h2 className="mt-5 text-4xl md:text-6xl font-semibold tracking-tight heading-gradient" style={{ filter: 'url(#c3-noise)' }}>
           Por qué confiar en CODIA
         </h2>
-        <p className="mt-6 text-white/60 max-w-2xl text-sm md:text-base leading-relaxed">
-          Estamos construyendo CODIA con método. No prometemos soluciones para todo. Escuchamos, diagnosticamos y desarrollamos herramientas digitales prácticas según la necesidad real de cada negocio.
-        </p>
+        <div className="mt-4 max-w-2xl px-5 py-3.5 rounded-2xl bg-black/70 border border-white/15 backdrop-blur-md shadow-xl text-center">
+          <p className="text-white/90 text-sm md:text-base font-normal leading-relaxed">
+            Estamos construyendo CODIA con método. No prometemos soluciones para todo. Escuchamos, diagnosticamos y desarrollamos herramientas digitales prácticas según la necesidad real de cada negocio.
+          </p>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {reasons.map((item, index) => {
           const IconComponent = item.icon;
           return (
-            <motion.div
+            <m.div
               key={item.title}
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -82,7 +84,7 @@ export const TrustSection: React.FC = () => {
                   {item.desc}
                 </p>
               </div>
-            </motion.div>
+            </m.div>
           );
         })}
       </div>

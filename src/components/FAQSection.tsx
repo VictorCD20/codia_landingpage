@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { m, AnimatePresence } from 'motion/react';
 import { SectionEyebrow } from './Primitives';
 import { Plus, Minus } from 'lucide-react';
 
@@ -47,7 +47,7 @@ export const FAQSection: React.FC = () => {
           const isOpen = openIndex === index;
           return (
             <div
-              key={index}
+              key={faq.q}
               className="liquid-glass rounded-2xl border border-white/10 overflow-hidden transition-all duration-300"
             >
               <button
@@ -62,7 +62,7 @@ export const FAQSection: React.FC = () => {
 
               <AnimatePresence initial={false}>
                 {isOpen && (
-                  <motion.div
+                  <m.div
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
@@ -71,7 +71,7 @@ export const FAQSection: React.FC = () => {
                     <div className="p-6 pt-0 text-white/70 text-sm md:text-base leading-relaxed border-t border-white/5 bg-black/10">
                       {faq.a}
                     </div>
-                  </motion.div>
+                  </m.div>
                 )}
               </AnimatePresence>
             </div>

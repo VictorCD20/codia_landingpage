@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { SectionEyebrow } from './Primitives';
 import { SearchCheck, Layers, Terminal, Sparkles } from 'lucide-react';
 
@@ -47,7 +47,7 @@ export const WhatWeDoSection: React.FC = () => {
         {blocks.map((item, index) => {
           const IconComponent = item.icon;
           return (
-            <motion.div
+            <m.div
               key={item.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -67,7 +67,7 @@ export const WhatWeDoSection: React.FC = () => {
                   {item.desc}
                 </p>
               </div>
-            </motion.div>
+            </m.div>
           );
         })}
       </div>

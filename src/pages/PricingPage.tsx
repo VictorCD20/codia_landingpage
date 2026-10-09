@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { Link } from 'react-router-dom';
+import { m, AnimatePresence } from 'motion/react';
 import { SectionEyebrow, AppleButton } from '../components/Primitives';
 import { 
-  Check, 
   Sparkles, 
   Plus, 
   Minus, 
@@ -16,47 +16,14 @@ import {
   Calendar,
   Send,
   CheckCircle2,
-  Clock
+  Clock,
+  Info,
+  Wrench
 } from 'lucide-react';
 import { telemetry } from '../tracking/tracker';
 import { saveLeadToGoogleSheets } from '../services/contactService';
-
-interface PlanFeature {
-  name: string;
-  start: boolean | string;
-  business: boolean | string;
-  enterprise: boolean | string;
-  category: string;
-}
-
-const comparisonFeatures: PlanFeature[] = [
-  // Presencia & Ventas
-  { category: 'Presencia & Ventas Online', name: 'Sitio Web Responsivo de Alta Conversión', start: true, business: true, enterprise: true },
-  { category: 'Presencia & Ventas Online', name: 'Catálogo de Productos con Buscador', start: true, business: true, enterprise: true },
-  { category: 'Presencia & Ventas Online', name: 'Recepción de Pedidos directos a WhatsApp', start: true, business: true, enterprise: true },
-  { category: 'Presencia & Ventas Online', name: 'Pasarela de Cobros (Stripe / Mercado Pago)', start: false, business: true, enterprise: true },
-  { category: 'Presencia & Ventas Online', name: 'Dominio Propio y Hosting de Alta Velocidad', start: true, business: true, enterprise: true },
-
-  // Control Operativo & POS
-  { category: 'Control Operativo & Caja', name: 'Punto de Venta (POS) para Tablet / PC', start: false, business: true, enterprise: true },
-  { category: 'Control Operativo & Caja', name: 'Arqueo de Caja y Cierre de Turno', start: false, business: true, enterprise: true },
-  { category: 'Control Operativo & Caja', name: 'Control de Inventario y Alertas de Stock', start: false, business: true, enterprise: true },
-  { category: 'Control Operativo & Caja', name: 'Módulo de Comandas / Cocina (Alimentos)', start: false, business: true, enterprise: true },
-  { category: 'Control Operativo & Caja', name: 'Multi-sucursal y Multi-almacén', start: false, business: false, enterprise: true },
-
-  // Automatización & Reportes
-  { category: 'Automatización & Métricas', name: 'Alertas Automáticas de Reposición', start: false, business: true, enterprise: true },
-  { category: 'Automatización & Métricas', name: 'Notificaciones a Clientes por WhatsApp', start: false, business: true, enterprise: true },
-  { category: 'Automatización & Métricas', name: 'Dashboard de Ventas y Ganancia Real', start: 'Básico', business: 'Completo', enterprise: 'Avanzado con IA' },
-  { category: 'Automatización & Métricas', name: 'Exportación de Reportes en Excel y PDF', start: false, business: true, enterprise: true },
-  { category: 'Automatización & Métricas', name: 'Integración API personalizada y Webhooks', start: false, business: false, enterprise: true },
-
-  // Propiedad & Soporte
-  { category: 'Propiedad & Garantía', name: 'Código Fuente y Base de Datos 100% Propios', start: true, business: true, enterprise: true },
-  { category: 'Propiedad & Garantía', name: 'Cero rentas mensuales forzosas', start: true, business: true, enterprise: true },
-  { category: 'Propiedad & Garantía', name: 'Capacitación al Personal', start: '1 Sesión', business: '3 Sesiones', enterprise: 'Ilimitada' },
-  { category: 'Propiedad & Garantía', name: 'Soporte Técnico Local Directo', start: '30 días', business: '60 días', enterprise: 'SLA Prioritario 24/7' },
-];
+import { masterPlans, comparisonFeatures, plansNotice } from '../data/plans';
+import { PlanCard } from '../components/solutions/PlanCard';
 
 const industryUseCases = [
   {
@@ -145,9 +112,13 @@ export const PricingPage: React.FC = () => {
   const [formData, setFormData] = useState({
     businessName: '',
     name: '',
+    email: '',
     whatsapp: '',
     notes: '',
   });
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
+  const [marketingAccepted, setMarketingAccepted] = useState(false);
+  const [modalError, setModalError] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -155,23 +126,32 @@ export const PricingPage: React.FC = () => {
 
   const handleModalSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setModalError('');
+
+    if (!privacyAccepted) {
+      setModalError('Debes leer y aceptar el Aviso de Privacidad para continuar.');
+      return;
+    }
+
     setIsSubmitting(true);
     telemetry.trackCTAClick(
       modalState.type === 'consultoria' ? 'Industry_Consulting_Request' : 'Industry_Waitlist_Request',
       `${modalState.industryTitle}: ${JSON.stringify(formData)}`
     );
 
-    const messageText = `[${modalState.type === 'consultoria' ? 'SOLICITUD DE CONSULTORÍA PERSONALIZADA' : 'LISTA DE ESPERA PRIORITARIA'}]\nSector: ${modalState.industryTitle}\nNegocio: ${formData.businessName}\nNotas: ${formData.notes}`;
+    const messageText = `[${modalState.type === 'consultoria' ? 'SOLICITUD DE CONSULTORÍA PERSONALIZADA' : 'LISTA DE ESPERA PRIORITARIA'}]\nSector: ${modalState.industryTitle}\nNegocio: ${formData.businessName}\nCorreo: ${formData.email || 'No proporcionado'}\nNotas: ${formData.notes}`;
 
     try {
       // 1. Direct Save to Google Sheets Database
       await saveLeadToGoogleSheets({
         nombre: formData.name,
         negocio: formData.businessName,
-        correo: `${formData.businessName.replace(/\s+/g, '').toLowerCase()}@lead.request`,
+        correo: formData.email || `${formData.businessName.replace(/\s+/g, '').toLowerCase()}@lead.request`,
         telefono: formData.whatsapp,
         solucion: `${modalState.type === 'consultoria' ? 'Consultoría' : 'Lista Espera'}: ${modalState.industryTitle}`,
         mensaje: messageText,
+        aviso_privacidad: 'Aceptado el ' + new Date().toISOString(),
+        consentimiento_marketing: marketingAccepted ? 'Aceptado' : 'No aceptado'
       });
 
       // 2. Send email via Resend serverless endpoint
@@ -181,10 +161,12 @@ export const PricingPage: React.FC = () => {
         body: JSON.stringify({
           name: formData.name,
           business_name: formData.businessName,
-          email: `${formData.businessName.replace(/\s+/g, '').toLowerCase()}@lead.request`,
+          email: formData.email || `${formData.businessName.replace(/\s+/g, '').toLowerCase()}@lead.request`,
           phone: formData.whatsapp,
           solution_type: `${modalState.type === 'consultoria' ? 'Consultoría' : 'Lista Espera'}: ${modalState.industryTitle}`,
           message: messageText,
+          privacy_accepted: true,
+          marketing_accepted: marketingAccepted
         }),
       });
     } catch (err) {
@@ -204,7 +186,7 @@ export const PricingPage: React.FC = () => {
           <SectionEyebrow label="Product & Pricing Experience" tag="Inversión con Retorno Real" />
         </div>
 
-        <motion.h1
+        <m.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
@@ -214,7 +196,7 @@ export const PricingPage: React.FC = () => {
           <span 
             className="block animate-shiny mt-1"
             style={{
-              backgroundImage: 'linear-gradient(to right, #091020 0%, #0B2551 12.5%, #A4F4FD 32.5%, #00d2ff 50%, #0B2551 67.5%, #091020 87.5%, #091020 100%)',
+              backgroundImage: 'linear-gradient(to right, #ffffff 0%, #A4F4FD 25%, #00d2ff 50%, #3ecf8e 75%, #ffffff 100%)',
               backgroundSize: '200% auto',
               WebkitBackgroundClip: 'text',
               backgroundClip: 'text',
@@ -225,18 +207,23 @@ export const PricingPage: React.FC = () => {
           >
             Diseñamos soluciones digitales adaptadas a tu operación.
           </span>
-        </motion.h1>
+        </m.h1>
 
-        <motion.p
+        <m.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.7 }}
           className="mt-6 text-white/70 max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed"
         >
           Elige el nivel de herramienta que resuelve el cuello de botella actual de tu negocio. Código 100% propio, sin rentas ocultas y con soporte técnico local garantizado.
-        </motion.p>
+        </m.p>
 
-        <motion.div
+        <div className="mt-4 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-white/70 text-xs font-light">
+          <Info className="w-3.5 h-3.5 text-[#00d2ff] shrink-0" />
+          <span>{plansNotice}</span>
+        </div>
+
+        <m.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.7 }}
@@ -249,151 +236,15 @@ export const PricingPage: React.FC = () => {
           >
             Agendar una demostración
           </a>
-        </motion.div>
+        </m.div>
       </section>
 
-      {/* 02. RESUMEN DE LOS 3 PLANES PRINCIPALES */}
+      {/* 02. RESUMEN DE LOS 4 PLANES */}
       <section className="max-w-6xl mx-auto px-6 mb-24 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
-          
-          {/* PLAN ESENCIAL */}
-          <div className="liquid-glass rounded-3xl p-6 sm:p-8 border border-white/10 flex flex-col justify-between hover:border-white/20 transition-all">
-            <div>
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-xs uppercase tracking-widest font-semibold text-[#00d2ff]">Start</span>
-              </div>
-              <h3 className="text-white text-3xl font-bold mb-2">Esencial</h3>
-              <p className="text-white/60 text-xs sm:text-sm font-light leading-relaxed mb-6">
-                Para negocios que necesitan establecer su presencia digital profesional y recibir pedidos directos a WhatsApp.
-              </p>
-              
-              <div className="h-px w-full bg-white/10 mb-6"></div>
-
-              <div className="space-y-3 mb-8">
-                <div className="flex items-start gap-2.5 text-xs text-white/80">
-                  <Check className="w-4 h-4 text-[#00d2ff] shrink-0 mt-0.5" />
-                  <span>Sitio Web / Catálogo Online responsivo</span>
-                </div>
-                <div className="flex items-start gap-2.5 text-xs text-white/80">
-                  <Check className="w-4 h-4 text-[#00d2ff] shrink-0 mt-0.5" />
-                  <span>Recepción de pedidos por WhatsApp</span>
-                </div>
-                <div className="flex items-start gap-2.5 text-xs text-white/80">
-                  <Check className="w-4 h-4 text-[#00d2ff] shrink-0 mt-0.5" />
-                  <span>Optimización SEO local y dominio propio</span>
-                </div>
-                <div className="flex items-start gap-2.5 text-xs text-white/80">
-                  <Check className="w-4 h-4 text-[#00d2ff] shrink-0 mt-0.5" />
-                  <span>Tiempo de entrega: 1 a 2 semanas</span>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <a
-                href="/#diagnostico"
-                className="w-full text-center block py-3.5 px-4 rounded-full text-sm font-medium border border-white/20 text-white hover:bg-white/5 transition-all"
-              >
-                Solicitar una propuesta
-              </a>
-            </div>
-          </div>
-
-          {/* PLAN AVANZADO (BUSINESS) */}
-          <div className="liquid-glass rounded-3xl p-6 sm:p-8 border border-[#00d2ff]/50 bg-gradient-to-b from-[#00d2ff]/10 via-black/40 to-black/60 flex flex-col justify-between relative shadow-2xl shadow-[#00d2ff]/10">
-            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#00d2ff] to-[#3ecf8e] text-[#091020] text-[11px] font-bold uppercase tracking-wider px-3.5 py-1 rounded-full flex items-center gap-1 shadow-md">
-              <Sparkles className="w-3 h-3" />
-              <span>Recomendado para PyMEs</span>
-            </div>
-
-            <div>
-              <div className="flex items-center justify-between mb-3 mt-1">
-                <span className="text-xs uppercase tracking-widest font-semibold text-[#00d2ff]">Business</span>
-              </div>
-              <h3 className="text-white text-3xl font-bold mb-2">Avanzado</h3>
-              <p className="text-white/60 text-xs sm:text-sm font-light leading-relaxed mb-6">
-                Para empresas que requieren control total de su operación: punto de venta, inventarios, cobros y métricas.
-              </p>
-              
-              <div className="h-px w-full bg-white/10 mb-6"></div>
-
-              <div className="space-y-3 mb-8">
-                <div className="flex items-start gap-2.5 text-xs text-white/90">
-                  <Check className="w-4 h-4 text-[#00d2ff] shrink-0 mt-0.5 font-bold" />
-                  <span>Todo lo del Plan Esencial</span>
-                </div>
-                <div className="flex items-start gap-2.5 text-xs text-white/90">
-                  <Check className="w-4 h-4 text-[#00d2ff] shrink-0 mt-0.5 font-bold" />
-                  <span>Punto de Venta (POS) para tablets y PCs</span>
-                </div>
-                <div className="flex items-start gap-2.5 text-xs text-white/90">
-                  <Check className="w-4 h-4 text-[#00d2ff] shrink-0 mt-0.5 font-bold" />
-                  <span>Control de stock con alertas automáticas</span>
-                </div>
-                <div className="flex items-start gap-2.5 text-xs text-white/90">
-                  <Check className="w-4 h-4 text-[#00d2ff] shrink-0 mt-0.5 font-bold" />
-                  <span>Dashboard con métricas de ventas y margen</span>
-                </div>
-                <div className="flex items-start gap-2.5 text-xs text-white/90">
-                  <Check className="w-4 h-4 text-[#00d2ff] shrink-0 mt-0.5 font-bold" />
-                  <span>Comandas / Cocina o Pasarela de Tarjetas</span>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <a
-                href="/#diagnostico"
-                className="w-full text-center block py-3.5 px-4 rounded-full text-sm font-semibold bg-[#00d2ff] text-[#091020] hover:bg-[#A4F4FD] transition-all shadow-lg shadow-[#00d2ff]/20"
-              >
-                Solicitar una propuesta
-              </a>
-            </div>
-          </div>
-
-          {/* PLAN EVOLUCIÓN (ENTERPRISE) */}
-          <div className="liquid-glass rounded-3xl p-6 sm:p-8 border border-white/10 flex flex-col justify-between hover:border-white/20 transition-all">
-            <div>
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-xs uppercase tracking-widest font-semibold text-[#00d2ff]">Enterprise</span>
-              </div>
-              <h3 className="text-white text-3xl font-bold mb-2">Evolución</h3>
-              <p className="text-white/60 text-xs sm:text-sm font-light leading-relaxed mb-6">
-                Desarrollo 100% a la medida para operaciones complejas, multi-sucursal o con integraciones especiales.
-              </p>
-              
-              <div className="h-px w-full bg-white/10 mb-6"></div>
-
-              <div className="space-y-3 mb-8">
-                <div className="flex items-start gap-2.5 text-xs text-white/80">
-                  <Check className="w-4 h-4 text-[#00d2ff] shrink-0 mt-0.5" />
-                  <span>Arquitectura de software 100% personalizada</span>
-                </div>
-                <div className="flex items-start gap-2.5 text-xs text-white/80">
-                  <Check className="w-4 h-4 text-[#00d2ff] shrink-0 mt-0.5" />
-                  <span>Multi-sucursal con roles y permisos avanzados</span>
-                </div>
-                <div className="flex items-start gap-2.5 text-xs text-white/80">
-                  <Check className="w-4 h-4 text-[#00d2ff] shrink-0 mt-0.5" />
-                  <span>Automatizaciones complejas & API Webhooks</span>
-                </div>
-                <div className="flex items-start gap-2.5 text-xs text-white/80">
-                  <Check className="w-4 h-4 text-[#00d2ff] shrink-0 mt-0.5" />
-                  <span>Soporte prioritario 24/7 y capacitación continua</span>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <a
-                href="/#agenda"
-                className="w-full text-center block py-3.5 px-4 rounded-full text-sm font-medium border border-white/20 text-white hover:bg-white/5 transition-all"
-              >
-                Hablar con un asesor
-              </a>
-            </div>
-          </div>
-
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+          {masterPlans.map((plan, idx) => (
+            <PlanCard key={plan.id} plan={plan} index={idx} />
+          ))}
         </div>
       </section>
 
@@ -404,9 +255,11 @@ export const PricingPage: React.FC = () => {
           <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight">
             ¿Cómo se traduce cada solución en tu industria?
           </h2>
-          <p className="mt-3 text-white/60 text-sm md:text-base font-light max-w-xl">
-            Conoce el estado actual de cada sector. Hoy contamos con entrega inmediata para Alimentos y soluciones en desarrollo consultivo para los demás giros.
-          </p>
+          <div className="mt-4 max-w-2xl px-5 py-3.5 rounded-2xl bg-black/70 border border-white/15 backdrop-blur-md shadow-xl text-center">
+            <p className="text-white/90 text-sm md:text-base font-normal leading-relaxed">
+              Conoce el estado actual de cada sector. Hoy contamos con <strong className="text-[#00d2ff] font-semibold">entrega inmediata para Alimentos</strong> y soluciones en desarrollo consultivo para los demás giros.
+            </p>
+          </div>
 
           {/* Industry Tabs with clear Status Badges */}
           <div className="mt-8 flex flex-wrap justify-center gap-3">
@@ -472,8 +325,8 @@ export const PricingPage: React.FC = () => {
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-              {selectedCase.benefits?.map((b, i) => (
-                <div key={i} className="flex items-start gap-3 p-3.5 rounded-xl bg-white/[0.02] border border-white/5">
+              {selectedCase.benefits?.map((b) => (
+                <div key={b} className="flex items-start gap-3 p-3.5 rounded-xl bg-white/[0.02] border border-white/5">
                   <span className="w-5 h-5 rounded-full bg-[#00d2ff]/10 text-[#00d2ff] text-xs flex items-center justify-center shrink-0 mt-0.5 font-bold">
                     ✓
                   </span>
@@ -504,7 +357,8 @@ export const PricingPage: React.FC = () => {
           /* Upcoming Industry Elegant Card */
           <div className="liquid-glass rounded-3xl p-8 sm:p-12 border border-amber-500/30 max-w-4xl mx-auto text-center relative overflow-hidden shadow-2xl">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold uppercase tracking-wider mb-4">
-              <span>🚧 Solución en Desarrollo</span>
+              <Wrench className="w-3.5 h-3.5 text-amber-300" />
+              <span>Solución en Desarrollo</span>
             </div>
 
             <h3 className="text-white text-2xl sm:text-3xl font-bold mb-3">
@@ -559,75 +413,94 @@ export const PricingPage: React.FC = () => {
           <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight">
             Tabla detallada de características
           </h2>
-          <p className="mt-3 text-white/60 text-sm md:text-base font-light max-w-xl">
-            Compara cada función incluida para asegurarte de que tu plan cubra todos los requerimientos de tu operación.
-          </p>
+          <div className="mt-4 max-w-2xl px-5 py-3.5 rounded-2xl bg-black/70 border border-white/15 backdrop-blur-md shadow-xl text-center">
+            <p className="text-white/90 text-sm md:text-base font-normal leading-relaxed">
+              Compara cada función incluida para asegurarte de que tu plan cubra todos los requerimientos de tu operación.
+            </p>
+          </div>
         </div>
 
         <div className="liquid-glass rounded-3xl border border-white/10 overflow-hidden shadow-2xl">
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse min-w-[650px]">
+            <table className="w-full text-left border-collapse min-w-[720px]">
               <thead>
                 <tr className="border-b border-white/15 bg-white/[0.03]">
-                  <th className="p-5 sm:p-6 text-sm font-semibold text-white w-2/5">Características & Módulos</th>
-                  <th className="p-5 sm:p-6 text-center text-sm font-semibold text-white/90 w-1/5">
-                    <div className="text-xs uppercase text-white/50 mb-0.5">Start</div>
-                    <div>Esencial</div>
+                  <th className="p-4 sm:p-5 text-sm font-semibold text-white w-1/3">Características & Módulos</th>
+                  <th className="p-4 sm:p-5 text-center text-sm font-semibold text-white/90">
+                    <div className="text-[10px] uppercase text-white/50 mb-0.5">Start</div>
+                    <div>Básico</div>
                   </th>
-                  <th className="p-5 sm:p-6 text-center text-sm font-semibold text-[#00d2ff] w-1/5 bg-[#00d2ff]/5">
-                    <div className="text-xs uppercase text-[#00d2ff]/70 mb-0.5">Business</div>
-                    <div>Avanzado</div>
+                  <th className="p-4 sm:p-5 text-center text-sm font-semibold text-white/90">
+                    <div className="text-[10px] uppercase text-white/50 mb-0.5">Control</div>
+                    <div>Intermedio</div>
                   </th>
-                  <th className="p-5 sm:p-6 text-center text-sm font-semibold text-white/90 w-1/5">
-                    <div className="text-xs uppercase text-white/50 mb-0.5">Enterprise</div>
-                    <div>Evolución</div>
+                  <th className="p-4 sm:p-5 text-center text-sm font-semibold text-[#00d2ff] bg-[#00d2ff]/5">
+                    <div className="text-[10px] uppercase text-[#00d2ff]/70 mb-0.5">Integral</div>
+                    <div>Completo</div>
+                  </th>
+                  <th className="p-4 sm:p-5 text-center text-sm font-semibold text-purple-300">
+                    <div className="text-[10px] uppercase text-purple-400/70 mb-0.5">A Medida</div>
+                    <div>Personalizado</div>
                   </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5 text-xs sm:text-sm font-light">
-                {comparisonFeatures.map((feat, index) => (
-                  <tr key={index} className="hover:bg-white/[0.02] transition-colors">
+                {comparisonFeatures.map((feat) => (
+                  <tr key={feat.name} className="hover:bg-white/[0.02] transition-colors">
                     <td className="p-4 sm:p-5 text-white/80">
                       <div>{feat.name}</div>
                       <span className="text-[10px] text-white/40 uppercase tracking-wider">{feat.category}</span>
                     </td>
                     
-                    {/* Start */}
+                    {/* Básico */}
                     <td className="p-4 sm:p-5 text-center text-white/70">
-                      {typeof feat.start === 'boolean' ? (
-                        feat.start ? (
+                      {typeof feat.basico === 'boolean' ? (
+                        feat.basico ? (
                           <span className="inline-block w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold leading-5">✓</span>
                         ) : (
                           <span className="text-white/20">—</span>
                         )
                       ) : (
-                        <span className="text-white/80 text-xs font-medium">{feat.start}</span>
+                        <span className="text-white/80 text-xs font-medium">{feat.basico}</span>
                       )}
                     </td>
 
-                    {/* Business */}
+                    {/* Intermedio */}
+                    <td className="p-4 sm:p-5 text-center text-white/70">
+                      {typeof feat.intermedio === 'boolean' ? (
+                        feat.intermedio ? (
+                          <span className="inline-block w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold leading-5">✓</span>
+                        ) : (
+                          <span className="text-white/20">—</span>
+                        )
+                      ) : (
+                        <span className="text-white/80 text-xs font-medium">{feat.intermedio}</span>
+                      )}
+                    </td>
+
+                    {/* Completo */}
                     <td className="p-4 sm:p-5 text-center text-white/90 bg-[#00d2ff]/5 font-medium">
-                      {typeof feat.business === 'boolean' ? (
-                        feat.business ? (
+                      {typeof feat.completo === 'boolean' ? (
+                        feat.completo ? (
                           <span className="inline-block w-5 h-5 rounded-full bg-[#00d2ff]/20 text-[#00d2ff] text-xs font-bold leading-5">✓</span>
                         ) : (
                           <span className="text-white/20">—</span>
                         )
                       ) : (
-                        <span className="text-[#00d2ff] text-xs font-semibold">{feat.business}</span>
+                        <span className="text-[#00d2ff] text-xs font-semibold">{feat.completo}</span>
                       )}
                     </td>
 
-                    {/* Enterprise */}
+                    {/* Personalizado */}
                     <td className="p-4 sm:p-5 text-center text-white/70">
-                      {typeof feat.enterprise === 'boolean' ? (
-                        feat.enterprise ? (
+                      {typeof feat.personalizado === 'boolean' ? (
+                        feat.personalizado ? (
                           <span className="inline-block w-5 h-5 rounded-full bg-purple-500/20 text-purple-300 text-xs font-bold leading-5">✓</span>
                         ) : (
                           <span className="text-white/20">—</span>
                         )
                       ) : (
-                        <span className="text-purple-300 text-xs font-medium">{feat.enterprise}</span>
+                        <span className="text-purple-300 text-xs font-medium">{feat.personalizado}</span>
                       )}
                     </td>
                   </tr>
@@ -684,7 +557,7 @@ export const PricingPage: React.FC = () => {
             const isOpen = openFaq === idx;
             return (
               <div
-                key={idx}
+                key={faq.q}
                 className="liquid-glass rounded-2xl border border-white/10 overflow-hidden transition-all"
               >
                 <button
@@ -699,7 +572,7 @@ export const PricingPage: React.FC = () => {
 
                 <AnimatePresence initial={false}>
                   {isOpen && (
-                    <motion.div
+                    <m.div
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -708,7 +581,7 @@ export const PricingPage: React.FC = () => {
                       <div className="p-6 pt-0 text-white/70 text-sm leading-relaxed border-t border-white/5 bg-black/20">
                         {faq.a}
                       </div>
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
               </div>
@@ -723,9 +596,11 @@ export const PricingPage: React.FC = () => {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight max-w-3xl mx-auto leading-tight">
             ¿No estás seguro de cuál plan es el adecuado para tu negocio?
           </h2>
-          <p className="mt-4 text-white/70 max-w-xl mx-auto text-sm sm:text-base font-light">
-            Realiza la evaluación en 2 minutos o agenda una llamada estratégica con nuestro equipo de desarrollo para recibir una recomendación personalizada.
-          </p>
+          <div className="mt-4 max-w-2xl mx-auto px-5 py-3.5 rounded-2xl bg-black/70 border border-white/15 backdrop-blur-md shadow-xl text-center">
+            <p className="text-white/90 text-sm sm:text-base font-normal leading-relaxed">
+              Realiza la evaluación en 2 minutos o agenda una llamada estratégica con nuestro equipo de desarrollo para recibir una recomendación personalizada.
+            </p>
+          </div>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <AppleButton label="Evaluar mi negocio" href="/#diagnostico" />
@@ -744,7 +619,7 @@ export const PricingPage: React.FC = () => {
       <AnimatePresence>
         {modalState.open && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
@@ -762,7 +637,7 @@ export const PricingPage: React.FC = () => {
               </button>
 
               {!isSubmitted ? (
-                <form onSubmit={handleModalSubmit} className="space-y-4">
+                <form onSubmit={handleModalSubmit} method="post" className="space-y-4 text-left">
                   <div className="text-left mb-6">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold mb-2">
                       <Clock className="w-3.5 h-3.5" />
@@ -780,9 +655,17 @@ export const PricingPage: React.FC = () => {
                     </p>
                   </div>
 
+                  {modalError && (
+                    <div role="alert" className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 text-xs text-center font-medium">
+                      {modalError}
+                    </div>
+                  )}
+
                   <div>
-                    <label className="block text-xs text-white/70 mb-1 font-medium">Nombre de tu Negocio *</label>
+                    <label htmlFor="pricing-input-negocio" className="block text-xs text-white/70 mb-1 font-medium">Nombre de tu Negocio *</label>
                     <input
+                      id="pricing-input-negocio"
+                      name="nombre_negocio"
                       type="text"
                       required
                       value={formData.businessName}
@@ -794,8 +677,10 @@ export const PricingPage: React.FC = () => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs text-white/70 mb-1 font-medium">Tu Nombre *</label>
+                      <label htmlFor="pricing-input-name" className="block text-xs text-white/70 mb-1 font-medium">Tu Nombre *</label>
                       <input
+                        id="pricing-input-name"
+                        name="nombre"
                         type="text"
                         required
                         value={formData.name}
@@ -805,8 +690,10 @@ export const PricingPage: React.FC = () => {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs text-white/70 mb-1 font-medium">WhatsApp *</label>
+                      <label htmlFor="pricing-input-phone" className="block text-xs text-white/70 mb-1 font-medium">WhatsApp *</label>
                       <input
+                        id="pricing-input-phone"
+                        name="telefono"
                         type="tel"
                         required
                         value={formData.whatsapp}
@@ -818,10 +705,25 @@ export const PricingPage: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-xs text-white/70 mb-1 font-medium">
+                    <label htmlFor="pricing-input-email" className="block text-xs text-white/70 mb-1 font-medium">Correo Electrónico (Opcional)</label>
+                    <input
+                      id="pricing-input-email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={e => setFormData({ ...formData, email: e.target.value })}
+                      placeholder="sofia@empresa.com"
+                      className="w-full px-4 py-2.5 rounded-xl bg-black/50 border border-white/15 text-white placeholder-white/30 text-sm focus:border-[#00d2ff] focus:outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="pricing-input-notes" className="block text-xs text-white/70 mb-1 font-medium">
                       ¿Qué proceso te gustaría resolver o digitalizar primero? (Opcional)
                     </label>
                     <textarea
+                      id="pricing-input-notes"
+                      name="notas"
                       rows={3}
                       value={formData.notes}
                       onChange={e => setFormData({ ...formData, notes: e.target.value })}
@@ -830,11 +732,47 @@ export const PricingPage: React.FC = () => {
                     />
                   </div>
 
+                  {/* Consent Checkboxes */}
+                  <div className="flex flex-col gap-2.5 pt-1">
+                    {/* 1. Mandatory Privacy Consent */}
+                    <label className="flex items-start gap-2.5 cursor-pointer text-xs text-white/80 select-none">
+                      <input
+                        type="checkbox"
+                        name="aviso_privacidad_aceptado"
+                        checked={privacyAccepted}
+                        onChange={(e) => setPrivacyAccepted(e.target.checked)}
+                        required
+                        className="mt-0.5 w-4 h-4 rounded border-white/30 bg-black/40 text-blue-500 focus:ring-blue-400 focus:ring-offset-0 shrink-0 cursor-pointer"
+                      />
+                      <span>
+                        He leído y acepto el{' '}
+                        <Link to="/aviso-de-privacidad" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline font-medium">
+                          Aviso de Privacidad
+                        </Link>
+                        . <span className="text-red-400">*</span>
+                      </span>
+                    </label>
+
+                    {/* 2. Optional Marketing Consent */}
+                    <label className="flex items-start gap-2.5 cursor-pointer text-xs text-white/60 select-none">
+                      <input
+                        type="checkbox"
+                        name="consentimiento_marketing"
+                        checked={marketingAccepted}
+                        onChange={(e) => setMarketingAccepted(e.target.checked)}
+                        className="mt-0.5 w-4 h-4 rounded border-white/30 bg-black/40 text-blue-500 focus:ring-blue-400 focus:ring-offset-0 shrink-0 cursor-pointer"
+                      />
+                      <span>
+                        Deseo recibir información sobre soluciones, demostraciones y novedades de CODIA.
+                      </span>
+                    </label>
+                  </div>
+
                   <div className="pt-2">
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-[#00d2ff] to-[#3ecf8e] text-[#091020] text-sm font-bold uppercase tracking-wider hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-lg disabled:opacity-50"
+                      className="w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-[#00d2ff] to-[#3ecf8e] text-[#091020] text-sm font-bold uppercase tracking-wider hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-lg disabled:opacity-50 cursor-pointer"
                     >
                       {isSubmitting ? (
                         <span>Enviando solicitud...</span>
@@ -868,7 +806,7 @@ export const PricingPage: React.FC = () => {
                   </button>
                 </div>
               )}
-            </motion.div>
+            </m.div>
           </div>
         )}
       </AnimatePresence>

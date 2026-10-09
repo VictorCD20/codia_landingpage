@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { Link } from 'react-router-dom';
+import { m, AnimatePresence } from 'motion/react';
 import { SectionEyebrow } from './Primitives';
 import { Sparkles, CheckCircle2, Clock, Calendar, ShieldCheck, Send, Volume2, VolumeX, Play, Pause, Maximize2 } from 'lucide-react';
 import { telemetry } from '../tracking/tracker';
@@ -12,11 +13,15 @@ export const DemoCenterSection: React.FC = () => {
   const [isBooked, setIsBooked] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
+  const [marketingAccepted, setMarketingAccepted] = useState(false);
+  const [bookingError, setBookingError] = useState('');
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const [bookingData, setBookingData] = useState({
     businessName: '',
     name: '',
+    email: '',
     whatsapp: '',
     industry: 'Alimentos & Bebidas',
     mainGoal: 'Inventario & Stock',
@@ -60,19 +65,28 @@ export const DemoCenterSection: React.FC = () => {
 
   const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setBookingError('');
+
+    if (!privacyAccepted) {
+      setBookingError('Debes leer y aceptar el Aviso de Privacidad para agendar tu demostración.');
+      return;
+    }
+
     setIsSubmitting(true);
     telemetry.trackCTAClick('Demo_Assisted_Booking', JSON.stringify(bookingData));
-    const messageText = `[SOLICITUD DE DEMOSTRACIÓN GUIADA]\nNegocio: ${bookingData.businessName}\nGiro: ${bookingData.industry}\nObjetivo a resolver: ${bookingData.mainGoal}\nTamaño de equipo: ${bookingData.teamSize}\nHorario preferido: ${bookingData.preferredTime}`;
+    const messageText = `[SOLICITUD DE DEMOSTRACIÓN GUIADA]\nNegocio: ${bookingData.businessName}\nCorreo: ${bookingData.email || 'No proporcionado'}\nGiro: ${bookingData.industry}\nObjetivo a resolver: ${bookingData.mainGoal}\nTamaño de equipo: ${bookingData.teamSize}\nHorario preferido: ${bookingData.preferredTime}`;
 
     try {
       // 1. Direct Save to Google Sheets Database
       await saveLeadToGoogleSheets({
         nombre: bookingData.name,
         negocio: bookingData.businessName,
-        correo: `${bookingData.businessName.replace(/\s+/g, '').toLowerCase()}@demo.request`,
+        correo: bookingData.email || `${bookingData.businessName.replace(/\s+/g, '').toLowerCase()}@demo.request`,
         telefono: bookingData.whatsapp,
         solucion: `Demostración: ${bookingData.industry}`,
         mensaje: messageText,
+        aviso_privacidad: 'Aceptado el ' + new Date().toISOString(),
+        consentimiento_marketing: marketingAccepted ? 'Aceptado' : 'No aceptado'
       });
 
       // 2. Send email via Resend serverless endpoint
@@ -82,10 +96,12 @@ export const DemoCenterSection: React.FC = () => {
         body: JSON.stringify({
           name: bookingData.name,
           business_name: bookingData.businessName,
-          email: `${bookingData.businessName.replace(/\s+/g, '').toLowerCase()}@demo.request`,
+          email: bookingData.email || `${bookingData.businessName.replace(/\s+/g, '').toLowerCase()}@demo.request`,
           phone: bookingData.whatsapp,
           solution_type: `Demostración: ${bookingData.industry}`,
           message: messageText,
+          privacy_accepted: true,
+          marketing_accepted: marketingAccepted
         }),
       });
     } catch (err) {
@@ -104,9 +120,11 @@ export const DemoCenterSection: React.FC = () => {
           Conoce cómo funciona el sistema{' '}
           <span className="text-[#00d2ff]">adaptado a tu negocio.</span>
         </h2>
-        <p className="mt-4 text-white/60 text-base md:text-lg max-w-2xl font-light">
-          Mira el video explicativo de 60 segundos o agenda una sesión de 20 minutos con uno de nuestros desarrolladores para evaluar tu caso específico.
-        </p>
+        <div className="mt-4 max-w-2xl px-5 py-3.5 rounded-2xl bg-black/70 border border-white/15 backdrop-blur-md shadow-xl text-center">
+          <p className="text-white/90 text-sm md:text-base font-normal leading-relaxed">
+            Mira el video explicativo de 60 segundos o agenda una sesión de 20 minutos con uno de nuestros desarrolladores para evaluar tu caso específico.
+          </p>
+        </div>
 
         {/* Sectors Availability Pill Bar */}
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
@@ -122,7 +140,7 @@ export const DemoCenterSection: React.FC = () => {
       </div>
 
       {/* Main Showcase & Video Experience Card */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-50px' }}
@@ -263,7 +281,7 @@ export const DemoCenterSection: React.FC = () => {
                     className="absolute top-4 right-4 z-20 flex items-center gap-2 px-3.5 py-2 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-white text-xs font-medium hover:bg-[#00d2ff] hover:text-[#091020] transition-all shadow-lg animate-bounce"
                   >
                     <Volume2 className="w-4 h-4" />
-                    <span>🔊 Clic para escuchar</span>
+                    <span>Clic para escuchar</span>
                   </button>
                 )}
 
@@ -315,13 +333,13 @@ export const DemoCenterSection: React.FC = () => {
           </div>
 
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Booking Modal */}
       <AnimatePresence>
         {showBookingModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
@@ -339,7 +357,7 @@ export const DemoCenterSection: React.FC = () => {
               </button>
 
               {!isBooked ? (
-                <form onSubmit={handleBookingSubmit} className="space-y-4">
+                <form onSubmit={handleBookingSubmit} method="post" className="space-y-4 text-left">
                   <div className="text-left mb-6">
                     <span className="text-xs uppercase tracking-widest text-[#00d2ff] font-semibold">
                       Demostración Personalizada
@@ -352,9 +370,17 @@ export const DemoCenterSection: React.FC = () => {
                     </p>
                   </div>
 
+                  {bookingError && (
+                    <div role="alert" className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 text-xs text-center font-medium">
+                      {bookingError}
+                    </div>
+                  )}
+
                   <div>
-                    <label className="block text-xs text-white/70 mb-1 font-medium">Nombre de tu Negocio *</label>
+                    <label htmlFor="demo-input-negocio" className="block text-xs text-white/70 mb-1 font-medium">Nombre de tu Negocio *</label>
                     <input
+                      id="demo-input-negocio"
+                      name="nombre_negocio"
                       type="text"
                       required
                       value={bookingData.businessName}
@@ -366,8 +392,10 @@ export const DemoCenterSection: React.FC = () => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs text-white/70 mb-1 font-medium">Tu Nombre *</label>
+                      <label htmlFor="demo-input-name" className="block text-xs text-white/70 mb-1 font-medium">Tu Nombre *</label>
                       <input
+                        id="demo-input-name"
+                        name="nombre"
                         type="text"
                         required
                         value={bookingData.name}
@@ -377,8 +405,10 @@ export const DemoCenterSection: React.FC = () => {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs text-white/70 mb-1 font-medium">WhatsApp *</label>
+                      <label htmlFor="demo-input-phone" className="block text-xs text-white/70 mb-1 font-medium">WhatsApp *</label>
                       <input
+                        id="demo-input-phone"
+                        name="telefono"
                         type="tel"
                         required
                         value={bookingData.whatsapp}
@@ -389,10 +419,25 @@ export const DemoCenterSection: React.FC = () => {
                     </div>
                   </div>
 
+                  <div>
+                    <label htmlFor="demo-input-email" className="block text-xs text-white/70 mb-1 font-medium">Correo Electrónico (Opcional)</label>
+                    <input
+                      id="demo-input-email"
+                      name="email"
+                      type="email"
+                      value={bookingData.email}
+                      onChange={e => setBookingData({ ...bookingData, email: e.target.value })}
+                      placeholder="carlos@empresa.com"
+                      className="w-full px-4 py-2.5 rounded-xl bg-black/50 border border-white/15 text-white placeholder-white/30 text-sm focus:border-[#00d2ff] focus:outline-none"
+                    />
+                  </div>
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs text-white/70 mb-1 font-medium">Giro de tu Negocio</label>
+                      <label htmlFor="demo-select-industry" className="block text-xs text-white/70 mb-1 font-medium">Giro de tu Negocio</label>
                       <select
+                        id="demo-select-industry"
+                        name="giro_negocio"
                         value={bookingData.industry}
                         onChange={e => setBookingData({ ...bookingData, industry: e.target.value })}
                         className="w-full px-4 py-2.5 rounded-xl bg-black/50 border border-white/15 text-white text-sm focus:border-[#00d2ff] focus:outline-none"
@@ -406,8 +451,10 @@ export const DemoCenterSection: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-xs text-white/70 mb-1 font-medium">¿Qué quieres resolver?</label>
+                      <label htmlFor="demo-select-goal" className="block text-xs text-white/70 mb-1 font-medium">¿Qué quieres resolver?</label>
                       <select
+                        id="demo-select-goal"
+                        name="objetivo"
                         value={bookingData.mainGoal}
                         onChange={e => setBookingData({ ...bookingData, mainGoal: e.target.value })}
                         className="w-full px-4 py-2.5 rounded-xl bg-black/50 border border-white/15 text-white text-sm focus:border-[#00d2ff] focus:outline-none"
@@ -423,8 +470,10 @@ export const DemoCenterSection: React.FC = () => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs text-white/70 mb-1 font-medium">Tamaño del Equipo</label>
+                      <label htmlFor="demo-select-team" className="block text-xs text-white/70 mb-1 font-medium">Tamaño del Equipo</label>
                       <select
+                        id="demo-select-team"
+                        name="tamano_equipo"
                         value={bookingData.teamSize}
                         onChange={e => setBookingData({ ...bookingData, teamSize: e.target.value })}
                         className="w-full px-4 py-2.5 rounded-xl bg-black/50 border border-white/15 text-white text-sm focus:border-[#00d2ff] focus:outline-none"
@@ -437,8 +486,10 @@ export const DemoCenterSection: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-xs text-white/70 mb-1 font-medium">Horario de Preferencia</label>
+                      <label htmlFor="demo-select-time" className="block text-xs text-white/70 mb-1 font-medium">Horario de Preferencia</label>
                       <select
+                        id="demo-select-time"
+                        name="horario_preferencia"
                         value={bookingData.preferredTime}
                         onChange={e => setBookingData({ ...bookingData, preferredTime: e.target.value })}
                         className="w-full px-4 py-2.5 rounded-xl bg-black/50 border border-white/15 text-white text-sm focus:border-[#00d2ff] focus:outline-none"
@@ -450,11 +501,47 @@ export const DemoCenterSection: React.FC = () => {
                     </div>
                   </div>
 
+                  {/* Consent Checkboxes */}
+                  <div className="flex flex-col gap-2.5 pt-1">
+                    {/* 1. Mandatory Privacy Consent */}
+                    <label className="flex items-start gap-2.5 cursor-pointer text-xs text-white/80 select-none">
+                      <input
+                        type="checkbox"
+                        name="aviso_privacidad_aceptado"
+                        checked={privacyAccepted}
+                        onChange={(e) => setPrivacyAccepted(e.target.checked)}
+                        required
+                        className="mt-0.5 w-4 h-4 rounded border-white/30 bg-black/40 text-blue-500 focus:ring-blue-400 focus:ring-offset-0 shrink-0 cursor-pointer"
+                      />
+                      <span>
+                        He leído y acepto el{' '}
+                        <Link to="/aviso-de-privacidad" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline font-medium">
+                          Aviso de Privacidad
+                        </Link>
+                        . <span className="text-red-400">*</span>
+                      </span>
+                    </label>
+
+                    {/* 2. Optional Marketing Consent */}
+                    <label className="flex items-start gap-2.5 cursor-pointer text-xs text-white/60 select-none">
+                      <input
+                        type="checkbox"
+                        name="consentimiento_marketing"
+                        checked={marketingAccepted}
+                        onChange={(e) => setMarketingAccepted(e.target.checked)}
+                        className="mt-0.5 w-4 h-4 rounded border-white/30 bg-black/40 text-blue-500 focus:ring-blue-400 focus:ring-offset-0 shrink-0 cursor-pointer"
+                      />
+                      <span>
+                        Deseo recibir información sobre soluciones, demostraciones y novedades de CODIA.
+                      </span>
+                    </label>
+                  </div>
+
                   <div className="pt-2">
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-[#00d2ff] to-[#3ecf8e] text-[#091020] text-sm font-bold uppercase tracking-wider hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-lg disabled:opacity-50"
+                      className="w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-[#00d2ff] to-[#3ecf8e] text-[#091020] text-sm font-bold uppercase tracking-wider hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-lg disabled:opacity-50 cursor-pointer"
                     >
                       {isSubmitting ? (
                         <span>Agendando...</span>
@@ -488,7 +575,7 @@ export const DemoCenterSection: React.FC = () => {
                   </button>
                 </div>
               )}
-            </motion.div>
+            </m.div>
           </div>
         )}
       </AnimatePresence>

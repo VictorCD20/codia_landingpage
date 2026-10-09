@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { m } from 'motion/react';
 import { ArrowRight, Sparkles, ShieldCheck, Cpu } from 'lucide-react';
 import { AppleButton } from '../../components/Primitives';
 import { telemetry } from '../../tracking/tracker';
@@ -47,7 +47,7 @@ export const ComingSoonHero: React.FC<ComingSoonHeroProps> = ({
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
         {/* Left Column: Copy and CTAs */}
         <div className="lg:col-span-7 flex flex-col items-start text-left">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -57,9 +57,9 @@ export const ComingSoonHero: React.FC<ComingSoonHeroProps> = ({
             <span className="text-xs font-semibold uppercase tracking-wider text-blue-300">
               {badge}
             </span>
-          </motion.div>
+          </m.div>
 
-          <motion.h1
+          <m.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
@@ -68,18 +68,18 @@ export const ComingSoonHero: React.FC<ComingSoonHeroProps> = ({
             <span className="bg-gradient-to-r from-blue-400 via-sky-300 to-white bg-clip-text text-transparent">
               {title}
             </span>
-          </motion.h1>
+          </m.h1>
 
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-base sm:text-lg text-white/70 max-w-2xl font-normal leading-relaxed mb-8"
           >
             {subtitle}
-          </motion.p>
+          </m.p>
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
@@ -98,10 +98,10 @@ export const ComingSoonHero: React.FC<ComingSoonHeroProps> = ({
                 <ArrowRight className="w-4 h-4 text-white/70" />
               </button>
             ) : null}
-          </motion.div>
+          </m.div>
 
           {/* Value Badges */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -119,11 +119,11 @@ export const ComingSoonHero: React.FC<ComingSoonHeroProps> = ({
               <Sparkles className="w-4 h-4 text-blue-400 flex-shrink-0" />
               <span>Escalabilidad Modular</span>
             </div>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Right Column: Dynamic Preview Mockup Card */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
@@ -169,7 +169,7 @@ export const ComingSoonHero: React.FC<ComingSoonHeroProps> = ({
                   <span className="text-blue-400 font-semibold font-mono">EN FASE BETA</span>
                 </div>
                 <div className="w-full bg-white/10 h-2 rounded-full overflow-hidden">
-                  <motion.div
+                  <m.div
                     initial={{ width: '0%' }}
                     animate={{ width: '78%' }}
                     transition={{ duration: 1.5, ease: 'easeOut' }}
@@ -197,7 +197,7 @@ export const ComingSoonHero: React.FC<ComingSoonHeroProps> = ({
               </div>
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

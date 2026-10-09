@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { masterProcess } from '../../data/process';
 import { CheckCircle2 } from 'lucide-react';
 
@@ -7,7 +7,7 @@ export const ProcessTimeline: React.FC = () => {
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
       {masterProcess.map((item, index) => (
-        <motion.div
+        <m.div
           key={item.step}
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -41,7 +41,7 @@ export const ProcessTimeline: React.FC = () => {
               <span>{item.deliverable}</span>
             </div>
           </div>
-        </motion.div>
+        </m.div>
       ))}
     </div>
   );

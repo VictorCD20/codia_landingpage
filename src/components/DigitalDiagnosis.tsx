@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { Link } from 'react-router-dom';
+import { m, AnimatePresence } from 'motion/react';
 import { SectionEyebrow } from './Primitives';
 import { 
   Utensils, 
@@ -10,10 +11,14 @@ import {
   ArrowRight, 
   ArrowLeft, 
   Send, 
-  CheckCircle2
+  CheckCircle2,
+  Clock,
+  ShieldCheck,
+  AlertCircle
 } from 'lucide-react';
 import { telemetry } from '../tracking/tracker';
 import { saveLeadToGoogleSheets } from '../services/contactService';
+import { siteConfig } from '../config/site';
 
 interface AssessmentState {
   industry: string;
@@ -31,6 +36,9 @@ export const DigitalDiagnosis: React.FC = () => {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
+  const [marketingAccepted, setMarketingAccepted] = useState(false);
+  const [formError, setFormError] = useState('');
 
   const [formData, setFormData] = useState<AssessmentState>({
     industry: '',
@@ -45,11 +53,11 @@ export const DigitalDiagnosis: React.FC = () => {
   });
 
   const industries = [
-    { label: 'Alimentos & Bebidas', desc: 'Cafetería, restaurante, dark kitchen, repostería', icon: Utensils },
-    { label: 'Comercio & Retail', desc: 'Boutique, tienda de ropa, minisúper, refaccionaria', icon: Store },
-    { label: 'Servicios Profesionales', desc: 'Consultoría, despacho, agencia, taller', icon: Briefcase },
-    { label: 'Salud & Óptica', desc: 'Clínica, consultorio, óptica, laboratorio', icon: Stethoscope },
-    { label: 'Otro Giro', desc: 'Operaciones comerciales o industriales personalizadas', icon: Sparkles },
+    { label: 'Alimentos & Bebidas', desc: 'Cafetería, restaurante, dark kitchen, repostería', icon: Utensils, status: 'available', statusLabel: 'Disponible hoy' },
+    { label: 'Comercio & Retail', desc: 'Boutique, tienda de ropa, minisúper, refaccionaria', icon: Store, status: 'upcoming', statusLabel: 'Próximamente' },
+    { label: 'Servicios Profesionales', desc: 'Consultoría, despacho, agencia, taller', icon: Briefcase, status: 'upcoming', statusLabel: 'Próximamente' },
+    { label: 'Salud & Óptica', desc: 'Clínica, consultorio, óptica, laboratorio', icon: Stethoscope, status: 'upcoming', statusLabel: 'Próximamente' },
+    { label: 'Otro Giro', desc: 'Operaciones comerciales o industriales personalizadas', icon: Sparkles, status: 'upcoming', statusLabel: 'Próximamente' },
   ];
 
   const teamSizes = [
@@ -112,6 +120,13 @@ export const DigitalDiagnosis: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setFormError('');
+
+    if (!privacyAccepted) {
+      setFormError('Debes leer y aceptar el Aviso de Privacidad para generar tu propuesta.');
+      return;
+    }
+
     setIsSubmitting(true);
     telemetry.trackCTAClick('Assessment_Submit', JSON.stringify({ industry: formData.industry, plan: recommendation.plan }));
 
@@ -126,6 +141,8 @@ export const DigitalDiagnosis: React.FC = () => {
         telefono: formData.whatsapp,
         solucion: recommendation.plan,
         mensaje: messageText,
+        aviso_privacidad: 'Aceptado el ' + new Date().toISOString(),
+        consentimiento_marketing: marketingAccepted ? 'Aceptado' : 'No aceptado'
       });
 
       // 2. Send email via Resend serverless endpoint
@@ -138,6 +155,8 @@ export const DigitalDiagnosis: React.FC = () => {
           phone: formData.whatsapp,
           solution_type: recommendation.plan,
           message: messageText,
+          privacy_accepted: true,
+          marketing_accepted: marketingAccepted
         }),
       });
     } catch (err) {
@@ -157,7 +176,7 @@ export const DigitalDiagnosis: React.FC = () => {
           <span className="text-[#00d2ff]">resolverá tu operación.</span>
         </h2>
         <p className="mt-4 text-white/60 text-base md:text-lg max-w-xl font-light">
-          Responde 5 preguntas rápidas y obtén una recomendación personalizada con los módulos exactos que tu negocio necesita.
+          Responde 5 preguntas clave y obtén una recomendación personalizada con la propuesta adaptada a tu negocio.
         </p>
       </div>
 
@@ -167,14 +186,14 @@ export const DigitalDiagnosis: React.FC = () => {
         {!isSubmitted && (
           <div className="mb-8">
             <div className="flex items-center justify-between text-xs text-white/50 mb-2 font-medium">
-              <span>Paso {step} de 6</span>
-              <span>{Math.round((step / 6) * 100)}% completado</span>
+              <span>{step <= 5 ? `Pregunta ${step} de 5` : 'Diagnóstico Generado & Propuesta'}</span>
+              <span>{step <= 5 ? `${Math.round((step / 5) * 100)}% de preguntas` : '100% completado'}</span>
             </div>
             <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
-              <motion.div
+              <m.div
                 className="h-full bg-gradient-to-r from-[#00d2ff] to-[#3ecf8e]"
-                initial={{ width: '16%' }}
-                animate={{ width: `${(step / 6) * 100}%` }}
+                initial={{ width: '20%' }}
+                animate={{ width: `${Math.min(100, (step / 5) * 100)}%` }}
                 transition={{ duration: 0.3 }}
               />
             </div>
@@ -185,7 +204,7 @@ export const DigitalDiagnosis: React.FC = () => {
           
           {/* STEP 1: INDUSTRY */}
           {step === 1 && (
-            <motion.div
+            <m.div
               key="step1"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -200,37 +219,47 @@ export const DigitalDiagnosis: React.FC = () => {
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {industries.map((item, idx) => {
+                {industries.map((item) => {
                   const Icon = item.icon;
                   const isSelected = formData.industry === item.label;
+                  const isAvailable = item.status === 'available';
                   return (
                     <button
-                      key={idx}
+                      key={item.label}
                       type="button"
                       onClick={() => handleSelect('industry', item.label)}
-                      className={`p-4 rounded-2xl border text-left flex items-start gap-3.5 transition-all ${
+                      className={`p-4 rounded-2xl border text-left flex items-start justify-between gap-3.5 transition-all ${
                         isSelected 
                           ? 'border-[#00d2ff] bg-[#00d2ff]/10' 
                           : 'border-white/10 hover:border-white/20 bg-white/[0.02] hover:bg-white/[0.05]'
                       }`}
                     >
-                      <div className="w-9 h-9 rounded-xl bg-[#00d2ff]/10 border border-[#00d2ff]/20 flex items-center justify-center text-[#00d2ff] shrink-0 mt-0.5">
-                        <Icon className="w-5 h-5" />
+                      <div className="flex items-start gap-3.5">
+                        <div className="w-9 h-9 rounded-xl bg-[#00d2ff]/10 border border-[#00d2ff]/20 flex items-center justify-center text-[#00d2ff] shrink-0 mt-0.5">
+                          <Icon className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <div className="text-white text-sm font-medium mb-0.5">{item.label}</div>
+                          <div className="text-white/50 text-xs font-light">{item.desc}</div>
+                        </div>
                       </div>
-                      <div>
-                        <div className="text-white text-sm font-medium mb-0.5">{item.label}</div>
-                        <div className="text-white/50 text-xs font-light">{item.desc}</div>
-                      </div>
+                      <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold shrink-0 mt-0.5 ${
+                        isAvailable 
+                          ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' 
+                          : 'bg-white/5 text-white/40 border border-white/10'
+                      }`}>
+                        {item.statusLabel}
+                      </span>
                     </button>
                   );
                 })}
               </div>
-            </motion.div>
+            </m.div>
           )}
 
           {/* STEP 2: TEAM SIZE */}
           {step === 2 && (
-            <motion.div
+            <m.div
               key="step2"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -245,9 +274,9 @@ export const DigitalDiagnosis: React.FC = () => {
               </p>
 
               <div className="space-y-3">
-                {teamSizes.map((item, idx) => (
+                {teamSizes.map((item) => (
                   <button
-                    key={idx}
+                    key={item.label}
                     type="button"
                     onClick={() => handleSelect('teamSize', item.label)}
                     className="w-full p-4 rounded-2xl border border-white/10 hover:border-white/20 bg-white/[0.02] hover:bg-white/[0.05] text-left flex items-center justify-between transition-all group"
@@ -271,12 +300,12 @@ export const DigitalDiagnosis: React.FC = () => {
                   <span>Regresar</span>
                 </button>
               </div>
-            </motion.div>
+            </m.div>
           )}
 
           {/* STEP 3: CURRENT CONTROL */}
           {step === 3 && (
-            <motion.div
+            <m.div
               key="step3"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -291,9 +320,9 @@ export const DigitalDiagnosis: React.FC = () => {
               </p>
 
               <div className="space-y-3">
-                {currentControls.map((item, idx) => (
+                {currentControls.map((item) => (
                   <button
-                    key={idx}
+                    key={item.label}
                     type="button"
                     onClick={() => handleSelect('currentControl', item.label)}
                     className="w-full p-4 rounded-2xl border border-white/10 hover:border-white/20 bg-white/[0.02] hover:bg-white/[0.05] text-left flex items-center justify-between transition-all group"
@@ -317,12 +346,12 @@ export const DigitalDiagnosis: React.FC = () => {
                   <span>Regresar</span>
                 </button>
               </div>
-            </motion.div>
+            </m.div>
           )}
 
           {/* STEP 4: MAIN PAIN */}
           {step === 4 && (
-            <motion.div
+            <m.div
               key="step4"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -337,9 +366,9 @@ export const DigitalDiagnosis: React.FC = () => {
               </p>
 
               <div className="space-y-3">
-                {mainPains.map((item, idx) => (
+                {mainPains.map((item) => (
                   <button
-                    key={idx}
+                    key={item.label}
                     type="button"
                     onClick={() => handleSelect('mainPain', item.label)}
                     className="w-full p-4 rounded-2xl border border-white/10 hover:border-white/20 bg-white/[0.02] hover:bg-white/[0.05] text-left flex items-center justify-between transition-all group"
@@ -363,12 +392,12 @@ export const DigitalDiagnosis: React.FC = () => {
                   <span>Regresar</span>
                 </button>
               </div>
-            </motion.div>
+            </m.div>
           )}
 
           {/* STEP 5: GOAL */}
           {step === 5 && (
-            <motion.div
+            <m.div
               key="step5"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -383,9 +412,9 @@ export const DigitalDiagnosis: React.FC = () => {
               </p>
 
               <div className="space-y-3">
-                {goals.map((item, idx) => (
+                {goals.map((item) => (
                   <button
-                    key={idx}
+                    key={item.label}
                     type="button"
                     onClick={() => handleSelect('goal', item.label)}
                     className="w-full p-4 rounded-2xl border border-white/10 hover:border-white/20 bg-white/[0.02] hover:bg-white/[0.05] text-left flex items-center justify-between transition-all group"
@@ -409,12 +438,12 @@ export const DigitalDiagnosis: React.FC = () => {
                   <span>Regresar</span>
                 </button>
               </div>
-            </motion.div>
+            </m.div>
           )}
 
           {/* STEP 6: RECOMMENDATION + CONTACT CAPTURE */}
           {step === 6 && !isSubmitted && (
-            <motion.div
+            <m.div
               key="step6"
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -472,8 +501,8 @@ export const DigitalDiagnosis: React.FC = () => {
                       Módulos recomendados para resolverlo:
                     </span>
                     <div className="flex flex-wrap gap-1.5">
-                      {recommendation.priorityModules.map((mod, i) => (
-                        <span key={i} className="px-2.5 py-1 rounded-lg bg-[#3ecf8e]/10 text-[#3ecf8e] text-[11px] font-medium border border-[#3ecf8e]/20">
+                      {recommendation.priorityModules.map((mod) => (
+                        <span key={mod} className="px-2.5 py-1 rounded-lg bg-[#3ecf8e]/10 text-[#3ecf8e] text-[11px] font-medium border border-[#3ecf8e]/20">
                           ✓ {mod}
                         </span>
                       ))}
@@ -484,17 +513,33 @@ export const DigitalDiagnosis: React.FC = () => {
                 <p className="text-white/80 text-xs sm:text-sm font-light leading-relaxed">
                   {recommendation.summary}
                 </p>
+
+                {/* Transparency disclaimer */}
+                <div className="mt-4 pt-3 border-t border-white/10 flex items-start gap-2 text-[11px] text-white/50">
+                  <AlertCircle className="w-3.5 h-3.5 text-[#00d2ff] shrink-0 mt-0.5" />
+                  <span>
+                    <strong>Nota orientativa:</strong> Este diagnóstico es preliminar y no constituye una cotización formal ni auditoría técnica. El alcance definitivo se validará en la sesión demostrativa.
+                  </span>
+                </div>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} method="post" className="space-y-4 text-left">
                 <h4 className="text-white text-base font-semibold">
                   ¿A dónde te enviamos la propuesta personalizada y el agendamiento?
                 </h4>
 
+                {formError && (
+                  <div role="alert" className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 text-xs text-center font-medium">
+                    {formError}
+                  </div>
+                )}
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs text-white/70 mb-1 font-medium">Nombre de tu Negocio *</label>
+                    <label htmlFor="diag-input-negocio" className="block text-xs text-white/70 mb-1 font-medium">Nombre de tu Negocio *</label>
                     <input
+                      id="diag-input-negocio"
+                      name="nombre_negocio"
                       type="text"
                       required
                       value={formData.name}
@@ -505,8 +550,10 @@ export const DigitalDiagnosis: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-xs text-white/70 mb-1 font-medium">WhatsApp / Teléfono *</label>
+                    <label htmlFor="diag-input-phone" className="block text-xs text-white/70 mb-1 font-medium">WhatsApp / Teléfono *</label>
                     <input
+                      id="diag-input-phone"
+                      name="telefono"
                       type="tel"
                       required
                       value={formData.whatsapp}
@@ -518,8 +565,10 @@ export const DigitalDiagnosis: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs text-white/70 mb-1 font-medium">Correo Electrónico *</label>
+                  <label htmlFor="diag-input-email" className="block text-xs text-white/70 mb-1 font-medium">Correo Electrónico *</label>
                   <input
+                    id="diag-input-email"
+                    name="email"
                     type="email"
                     required
                     value={formData.email}
@@ -530,14 +579,52 @@ export const DigitalDiagnosis: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs text-white/70 mb-1 font-medium">Detalles adicionales (Opcional)</label>
+                  <label htmlFor="diag-input-notes" className="block text-xs text-white/70 mb-1 font-medium">Detalles adicionales (Opcional)</label>
                   <textarea
+                    id="diag-input-notes"
+                    name="notas"
                     rows={2}
                     value={formData.notes}
                     onChange={e => setFormData({ ...formData, notes: e.target.value })}
                     placeholder="¿Algún requerimiento especial o fecha estimada?"
                     className="w-full px-4 py-3 rounded-xl bg-black/40 border border-white/15 text-white placeholder-white/30 text-sm focus:border-[#00d2ff] focus:outline-none resize-none"
                   />
+                </div>
+
+                {/* Consent Checkboxes */}
+                <div className="flex flex-col gap-2.5 pt-1">
+                  {/* 1. Mandatory Privacy Consent */}
+                  <label className="flex items-start gap-2.5 cursor-pointer text-xs text-white/80 select-none">
+                    <input
+                      type="checkbox"
+                      name="aviso_privacidad_aceptado"
+                      checked={privacyAccepted}
+                      onChange={(e) => setPrivacyAccepted(e.target.checked)}
+                      required
+                      className="mt-0.5 w-4 h-4 rounded border-white/30 bg-black/40 text-blue-500 focus:ring-blue-400 focus:ring-offset-0 shrink-0 cursor-pointer"
+                    />
+                    <span>
+                      He leído y acepto el{' '}
+                      <Link to="/aviso-de-privacidad" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline font-medium">
+                        Aviso de Privacidad
+                      </Link>
+                      . <span className="text-red-400">*</span>
+                    </span>
+                  </label>
+
+                  {/* 2. Optional Marketing Consent */}
+                  <label className="flex items-start gap-2.5 cursor-pointer text-xs text-white/60 select-none">
+                    <input
+                      type="checkbox"
+                      name="consentimiento_marketing"
+                      checked={marketingAccepted}
+                      onChange={(e) => setMarketingAccepted(e.target.checked)}
+                      className="mt-0.5 w-4 h-4 rounded border-white/30 bg-black/40 text-blue-500 focus:ring-blue-400 focus:ring-offset-0 shrink-0 cursor-pointer"
+                    />
+                    <span>
+                      Deseo recibir información sobre soluciones, demostraciones y novedades de CODIA.
+                    </span>
+                  </label>
                 </div>
 
                 <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -553,7 +640,7 @@ export const DigitalDiagnosis: React.FC = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full font-semibold text-sm px-7 py-3.5 bg-gradient-to-r from-[#00d2ff] to-[#3ecf8e] text-[#091020] hover:opacity-90 transition-all shadow-lg active:scale-[0.98] disabled:opacity-50"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full font-semibold text-sm px-7 py-3.5 bg-gradient-to-r from-[#00d2ff] to-[#3ecf8e] text-[#091020] hover:opacity-90 transition-all shadow-lg active:scale-[0.98] disabled:opacity-50 cursor-pointer"
                   >
                     {isSubmitting ? (
                       <span>Generando Propuesta...</span>
@@ -566,12 +653,12 @@ export const DigitalDiagnosis: React.FC = () => {
                   </button>
                 </div>
               </form>
-            </motion.div>
+            </m.div>
           )}
 
           {/* SUCCESS STATE — "¿QUÉ SIGUE?" ROADMAP */}
           {isSubmitted && (
-            <motion.div
+            <m.div
               key="success"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -631,9 +718,9 @@ export const DigitalDiagnosis: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="mt-4 pt-4 border-t border-white/5 flex items-center justify-between text-[11px] text-white/50">
-                  <span>⏱️ Duración: 20 minutos</span>
-                  <span>🛡️ Costo: 100% Gratuito y sin compromiso</span>
+                <div className="mt-4 pt-4 border-t border-white/5 flex flex-wrap items-center justify-between gap-2 text-[11px] text-white/60">
+                  <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-[#00d2ff]" /> Duración: 20 minutos</span>
+                  <span className="flex items-center gap-1.5"><ShieldCheck className="w-3.5 h-3.5 text-emerald-400" /> Costo: 100% Gratuito y sin compromiso</span>
                 </div>
               </div>
 
@@ -643,7 +730,7 @@ export const DigitalDiagnosis: React.FC = () => {
                 return (
                   <div className="flex flex-wrap justify-center gap-4">
                     <a
-                      href={`https://wa.me/525547087640?text=${waText}`}
+                      href={`${siteConfig.contact.whatsappUrl}?text=${waText}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-gradient-to-r from-[#00d2ff] to-[#3ecf8e] text-[#091020] font-bold text-sm hover:opacity-95 transition-all shadow-lg active:scale-[0.98]"
@@ -665,7 +752,7 @@ export const DigitalDiagnosis: React.FC = () => {
                   </div>
                 );
               })()}
-            </motion.div>
+            </m.div>
           )}
 
         </AnimatePresence>

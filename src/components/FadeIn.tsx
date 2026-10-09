@@ -1,5 +1,5 @@
 import React, { type ReactNode, useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'motion/react';
 
 interface FadeInProps {
   children: ReactNode;
@@ -12,7 +12,7 @@ interface FadeInProps {
 }
 
 export const FadeIn: React.FC<FadeInProps> = ({ children, delay = 0, duration = 0.7, x = 0, y = 30, className = '', as = 'div' }) => {
-  const Component = useMemo(() => motion.create(as), [as]);
+  const Component = useMemo(() => m.create(as), [as]);
   
   return (
     <Component

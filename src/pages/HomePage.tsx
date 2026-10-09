@@ -1,7 +1,5 @@
 import React from 'react';
 import { Hero } from '../components/Hero';
-import { ProblemsSection } from '../components/ProblemsSection';
-import { SolutionsGrid } from '../components/SolutionsGrid';
 import { DemoCenterSection } from '../components/DemoCenterSection';
 import { PricingSummary } from '../components/PricingSummary';
 import { DigitalDiagnosis } from '../components/DigitalDiagnosis';
@@ -15,13 +13,7 @@ export const HomePage: React.FC = () => {
       {/* 01. Hero (Propuesta de valor en < 15s + 2 CTAs) */}
       <Hero />
 
-      {/* 02. Problemas que Resolvemos (Dolor real vs Solución) */}
-      <ProblemsSection />
-
-      {/* 03. Soluciones por Resultados (Web, POS, Automatización, Software) */}
-      <SolutionsGrid />
-
-      {/* 04. Demo Center (Showcase interactivo MVP Cafetería + Sectores) */}
+      {/* 02. Demo Center (Showcase interactivo MVP Cafetería + Sectores) */}
       <DemoCenterSection />
 
       {/* 05. Resumen de Planes (Start, Business, Enterprise + Link a /planes) */}

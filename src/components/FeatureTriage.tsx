@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { SectionEyebrow } from './Primitives';
 
 export const FeatureTriage: React.FC = () => {
@@ -8,7 +8,7 @@ export const FeatureTriage: React.FC = () => {
       <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
         
         {/* Left Column */}
-        <motion.div 
+        <m.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -31,10 +31,10 @@ export const FeatureTriage: React.FC = () => {
               </span>
             ))}
           </div>
-        </motion.div>
+        </m.div>
 
         {/* Right Column (Cards) */}
-        <motion.div 
+        <m.div 
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -112,7 +112,7 @@ export const FeatureTriage: React.FC = () => {
               </div>
             </div>
           </div>
-        </motion.div>
+        </m.div>
 
       </div>
     </section>

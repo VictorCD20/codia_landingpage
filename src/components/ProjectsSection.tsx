@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { m, useScroll, useTransform } from 'motion/react';
 import { LiveProjectButton } from './LiveProjectButton';
 import { FadeIn } from './FadeIn';
 
@@ -44,7 +44,7 @@ const Card = ({ project, index, progress, range, targetScale }: any) => {
 
   return (
     <div ref={containerRef} className="h-[85vh] flex items-center justify-center sticky top-24 md:top-32 w-full" style={{ top: `calc(6rem + ${index * 28}px)` }}>
-      <motion.div 
+      <m.div 
         style={{ scale }}
         className="flex flex-col relative w-full max-w-6xl rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-[#D7E2EA] bg-[#0C0C0C] p-4 sm:p-6 md:p-8 transform-gpu origin-top"
       >
@@ -74,7 +74,7 @@ const Card = ({ project, index, progress, range, targetScale }: any) => {
         <div className="mt-6 sm:hidden">
           <LiveProjectButton />
         </div>
-      </motion.div>
+      </m.div>
     </div>
   );
 };
@@ -100,7 +100,7 @@ export const ProjectsSection: React.FC = () => {
           const range = [i * 0.25, 1];
           return (
             <Card 
-              key={i} 
+              key={project.num} 
               index={i} 
               project={project} 
               progress={scrollYProgress} 

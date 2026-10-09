@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { ExternalLink, Code2, Palette, Database } from 'lucide-react';
 import { SectionEyebrow } from './Primitives';
 
@@ -72,7 +72,7 @@ export const TeamSection: React.FC = () => {
         {teamMembers.map((member, i) => {
           const IconComponent = member.icon;
           return (
-            <motion.div
+            <m.div
               key={member.name}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -143,7 +143,7 @@ export const TeamSection: React.FC = () => {
                 <span>Explorar Portafolio</span>
                 <ExternalLink className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 duration-300" />
               </a>
-            </motion.div>
+            </m.div>
           );
         })}
       </div>
