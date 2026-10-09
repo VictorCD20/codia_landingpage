@@ -52,10 +52,10 @@ export const SolutionCard: React.FC<SolutionCardProps> = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className={`liquid-glass rounded-3xl p-6 sm:p-8 md:p-10 border transition-all duration-300 relative overflow-hidden flex flex-col justify-between ${
+      className={`liquid-glass rounded-3xl p-6 sm:p-8 md:p-10 transition-all duration-300 relative overflow-hidden flex flex-col justify-between ${
         featured 
-          ? 'border-[#00d2ff]/50 bg-gradient-to-b from-[#00d2ff]/10 via-black/40 to-black/70 shadow-2xl shadow-[#00d2ff]/10' 
-          : 'border-white/10 hover:border-white/20'
+          ? 'border border-[#00d2ff]/50 bg-gradient-to-b from-[#00d2ff]/10 via-black/40 to-black/70 shadow-2xl shadow-[#00d2ff]/10' 
+          : ''
       }`}
     >
       {featured && (

@@ -7,18 +7,9 @@ export const CustomSystemsPage: React.FC = () => {
   return (
     <div className="pt-28 pb-20 max-w-5xl mx-auto px-6 relative z-10">
       
-      {/* Breadcrumb */}
-      <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-white/50 mb-8">
-        <Link to="/" className="hover:text-white transition-colors no-underline">Inicio</Link>
-        <span>/</span>
-        <Link to="/servicios" className="hover:text-white transition-colors no-underline">Servicios</Link>
-        <span>/</span>
-        <span className="text-emerald-400">Sistemas a Medida</span>
-      </div>
-
       {/* Hero Header */}
       <FadeIn>
-        <div className="mb-14">
+        <div className="mb-14 liquid-glass liquid-glass-clear rounded-[28px] px-6 py-10 sm:px-12">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-xs font-semibold uppercase tracking-widest mb-6">
             <Cpu className="w-4 h-4" />
             <span>Orden Operativo & Control</span>
@@ -34,21 +25,21 @@ export const CustomSystemsPage: React.FC = () => {
 
       {/* Feature Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-        <div className="liquid-glass rounded-2xl p-6 border border-white/10">
+        <div className="surface-card rounded-2xl p-6 border border-white/10">
           <Database className="w-8 h-8 text-emerald-400 mb-4" />
           <h3 className="text-lg font-semibold text-white mb-2">Centralización de Datos</h3>
           <p className="text-white/60 text-sm font-light leading-relaxed">
             Olvídate de libretas o archivos de Excel traspapelados. Toda la información disponible en un solo lugar.
           </p>
         </div>
-        <div className="liquid-glass rounded-2xl p-6 border border-white/10">
+        <div className="surface-card rounded-2xl p-6 border border-white/10">
           <Users className="w-8 h-8 text-blue-400 mb-4" />
           <h3 className="text-lg font-semibold text-white mb-2">CRM para Negocios Locales</h3>
           <p className="text-white/60 text-sm font-light leading-relaxed">
             Mantenimiento de historial de clientes, teléfonos, acuerdos y estatus de atención actualizado en tiempo real.
           </p>
         </div>
-        <div className="liquid-glass rounded-2xl p-6 border border-white/10">
+        <div className="surface-card rounded-2xl p-6 border border-white/10">
           <Shield className="w-8 h-8 text-purple-400 mb-4" />
           <h3 className="text-lg font-semibold text-white mb-2">Acceso Seguro</h3>
           <p className="text-white/60 text-sm font-light leading-relaxed">
@@ -58,7 +49,7 @@ export const CustomSystemsPage: React.FC = () => {
       </div>
 
       {/* Typical Use Cases */}
-      <div className="liquid-glass rounded-3xl p-8 sm:p-12 border border-white/10 mb-16">
+      <div className="liquid-glass rounded-3xl p-8 sm:p-12 mb-16">
         <h2 className="text-2xl sm:text-3xl font-bold text-white mb-8">¿Qué tipo de sistemas desarrollamos?</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {[

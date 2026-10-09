@@ -51,13 +51,13 @@ const solutions = [
 export const SolutionsGrid: React.FC = () => {
   return (
     <section id="soluciones" className="max-w-6xl mx-auto px-6 py-20 relative z-10">
-      <div className="flex flex-col items-center text-center mb-16">
+      <div className="liquid-glass liquid-glass-clear rounded-3xl px-6 py-8 sm:px-12 sm:py-10 max-w-4xl mx-auto flex flex-col items-center text-center mb-16">
         <SectionEyebrow label="Nuestras Soluciones" tag="Enfocadas en Resultados" />
         <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-[1.1] max-w-3xl">
           Herramientas construidas para{' '}
           <span className="text-[#00d2ff]">hacer crecer tu operación.</span>
         </h2>
-        <p className="mt-4 text-white/60 text-base md:text-lg max-w-2xl font-light">
+        <p className="mt-4 text-white/80 text-base md:text-lg max-w-2xl font-light">
           No te vendemos tecnología por venderte tecnología. Desarrollamos soluciones directas que resuelven cuellos de botella específicos.
         </p>
       </div>
@@ -73,7 +73,7 @@ export const SolutionsGrid: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`liquid-glass rounded-3xl p-6 sm:p-8 border border-white/10 flex flex-col justify-between group hover:border-[#00d2ff]/40 transition-all duration-300 ${
+              className={`surface-card rounded-3xl p-6 sm:p-8 border border-white/10 flex flex-col justify-between group hover:border-[#00d2ff]/40 transition-all duration-300 ${
                 isSpan ? 'md:col-span-1 lg:col-span-1' : ''
               }`}
             >

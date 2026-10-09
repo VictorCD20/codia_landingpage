@@ -12,7 +12,7 @@ export const CaseStudyCard: React.FC = () => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.7 }}
-      className="liquid-glass rounded-3xl p-6 sm:p-10 md:p-12 border border-white/15 shadow-2xl relative overflow-hidden max-w-5xl mx-auto"
+      className="liquid-glass rounded-3xl p-6 sm:p-10 md:p-12 shadow-2xl relative overflow-hidden max-w-5xl mx-auto"
     >
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10 mb-8">

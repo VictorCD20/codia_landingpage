@@ -32,7 +32,7 @@ export const ProblemCard: React.FC<ProblemCardProps> = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="liquid-glass rounded-2xl sm:rounded-3xl p-6 sm:p-7 border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between group"
+      className="surface-card rounded-2xl sm:rounded-3xl p-6 sm:p-7 border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between group"
     >
       <div>
         {/* Top Pain Warning */}

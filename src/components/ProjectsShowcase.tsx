@@ -103,7 +103,7 @@ export const ProjectsShowcase: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
-            className="flex flex-col relative w-full liquid-glass rounded-[40px] p-6 sm:p-10 border border-white/10 shadow-2xl"
+            className="flex flex-col relative w-full liquid-glass rounded-[40px] p-6 sm:p-10 shadow-2xl"
           >
             <div className="flex flex-col lg:flex-row lg:items-start justify-between mb-10 gap-8">
               <div className="flex items-start gap-6">

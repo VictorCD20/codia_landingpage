@@ -25,7 +25,7 @@ export const ThankYouPage: React.FC = () => {
       </p>
 
       {/* Info Card */}
-      <div className="liquid-glass rounded-3xl p-8 border border-white/10 max-w-lg w-full mb-12 text-left">
+      <div className="liquid-glass rounded-3xl p-8 max-w-lg w-full mb-12 text-left">
         <h3 className="text-white font-semibold text-base mb-4 text-center">¿Qué sucede a continuación?</h3>
         <ul className="space-y-4 text-sm text-white/80">
           <li className="flex items-start gap-3">

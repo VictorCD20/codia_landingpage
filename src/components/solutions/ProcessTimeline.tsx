@@ -13,7 +13,7 @@ export const ProcessTimeline: React.FC = () => {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: '-40px' }}
           transition={{ duration: 0.5, delay: index * 0.08 }}
-          className="liquid-glass rounded-2xl sm:rounded-3xl p-5 sm:p-7 border border-white/10 hover:border-white/20 transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 group"
+          className="surface-card rounded-2xl sm:rounded-3xl p-5 sm:p-7 border border-white/10 hover:border-white/20 transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 group"
         >
           <div className="flex items-start gap-4">
             <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#00d2ff]/20 to-[#3ecf8e]/10 border border-[#00d2ff]/30 flex items-center justify-center text-[#00d2ff] font-mono text-sm font-bold shrink-0">

@@ -196,10 +196,11 @@ export const PricingPage: React.FC = () => {
   };
 
   return (
-    <div className="pt-24 md:pt-32 pb-24 text-white">
+    <div className="pt-16 md:pt-20 pb-24 text-white">
       
       {/* 01. HERO DE FILOSOFÍA & VALOR */}
       <section className="max-w-6xl mx-auto px-6 text-center mb-20 relative z-10">
+        <div className="liquid-glass liquid-glass-clear rounded-[32px] px-6 py-10 sm:px-12 sm:py-14 max-w-4xl mx-auto">
         <div className="flex justify-center mb-4">
           <SectionEyebrow label="Product & Pricing Experience" tag="Inversión con Retorno Real" />
         </div>
@@ -250,6 +251,7 @@ export const PricingPage: React.FC = () => {
             Agendar una demostración
           </a>
         </motion.div>
+        </div>
       </section>
 
       {/* 02. RESUMEN DE LOS 3 PLANES PRINCIPALES */}
@@ -257,7 +259,7 @@ export const PricingPage: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
           
           {/* PLAN ESENCIAL */}
-          <div className="liquid-glass rounded-3xl p-6 sm:p-8 border border-white/10 flex flex-col justify-between hover:border-white/20 transition-all">
+          <div className="liquid-glass rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all">
             <div>
               <div className="flex items-center justify-between mb-3">
                 <span className="text-xs uppercase tracking-widest font-semibold text-[#00d2ff]">Start</span>
@@ -352,7 +354,7 @@ export const PricingPage: React.FC = () => {
           </div>
 
           {/* PLAN EVOLUCIÓN (ENTERPRISE) */}
-          <div className="liquid-glass rounded-3xl p-6 sm:p-8 border border-white/10 flex flex-col justify-between hover:border-white/20 transition-all">
+          <div className="liquid-glass rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all">
             <div>
               <div className="flex items-center justify-between mb-3">
                 <span className="text-xs uppercase tracking-widest font-semibold text-[#00d2ff]">Enterprise</span>
@@ -399,7 +401,7 @@ export const PricingPage: React.FC = () => {
 
       {/* 03. CASOS DE USO POR INDUSTRIA */}
       <section className="max-w-6xl mx-auto px-6 mb-24 relative z-10">
-        <div className="flex flex-col items-center text-center mb-12">
+        <div className="liquid-glass liquid-glass-clear rounded-3xl px-6 py-8 sm:px-12 sm:py-10 max-w-4xl mx-auto flex flex-col items-center text-center mb-12">
           <SectionEyebrow label="Casos de Uso Reales" tag="Por Sector Comercial" />
           <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight">
             ¿Cómo se traduce cada solución en tu industria?
@@ -554,7 +556,7 @@ export const PricingPage: React.FC = () => {
 
       {/* 04. TABLA COMPARATIVA EXHAUSTIVA DE MÓDULOS */}
       <section id="comparador" className="max-w-6xl mx-auto px-6 mb-24 relative z-10">
-        <div className="flex flex-col items-center text-center mb-16">
+        <div className="liquid-glass liquid-glass-clear rounded-3xl px-6 py-8 sm:px-12 sm:py-10 max-w-4xl mx-auto flex flex-col items-center text-center mb-16">
           <SectionEyebrow label="Comparativa Completa" tag="Transparencia Total" />
           <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight">
             Tabla detallada de características
@@ -564,7 +566,7 @@ export const PricingPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="liquid-glass rounded-3xl border border-white/10 overflow-hidden shadow-2xl">
+        <div className="liquid-glass rounded-3xl overflow-hidden shadow-2xl">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse min-w-[650px]">
               <thead>
@@ -640,7 +642,7 @@ export const PricingPage: React.FC = () => {
 
       {/* 05. RETORNO DE INVERSIÓN (ROI ESTIMADO) */}
       <section className="max-w-6xl mx-auto px-6 mb-24 relative z-10">
-        <div className="liquid-glass rounded-3xl p-8 sm:p-12 border border-white/10 bg-gradient-to-r from-black/60 via-[#0B2551]/20 to-black/60 shadow-2xl">
+        <div className="liquid-glass rounded-3xl p-8 sm:p-12 bg-gradient-to-r from-black/60 via-[#0B2551]/20 to-black/60 shadow-2xl">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
             <div className="flex flex-col justify-center">
               <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-[#3ecf8e] font-semibold mb-2">
@@ -672,7 +674,7 @@ export const PricingPage: React.FC = () => {
 
       {/* 06. PREGUNTAS FRECUENTES DE CONTRATACIÓN */}
       <section className="max-w-4xl mx-auto px-6 mb-24 relative z-10">
-        <div className="flex flex-col items-center text-center mb-12">
+        <div className="liquid-glass liquid-glass-clear rounded-3xl px-6 py-8 sm:px-12 sm:py-10 max-w-4xl mx-auto flex flex-col items-center text-center mb-12">
           <SectionEyebrow label="Dudas de Contratación" tag="FAQ de Planes" />
           <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight">
             Preguntas frecuentes sobre los planes
@@ -685,7 +687,7 @@ export const PricingPage: React.FC = () => {
             return (
               <div
                 key={idx}
-                className="liquid-glass rounded-2xl border border-white/10 overflow-hidden transition-all"
+                className="surface-card rounded-2xl border border-white/10 overflow-hidden transition-all"
               >
                 <button
                   onClick={() => setOpenFaq(isOpen ? null : idx)}
@@ -719,7 +721,7 @@ export const PricingPage: React.FC = () => {
 
       {/* 07. CIERRE COMERCIAL */}
       <section className="max-w-6xl mx-auto px-6 relative z-10">
-        <div className="liquid-glass rounded-3xl p-8 sm:p-14 text-center border border-white/15 bg-gradient-to-b from-[#00d2ff]/10 via-black/40 to-black/80 shadow-2xl relative overflow-hidden">
+        <div className="liquid-glass rounded-3xl p-8 sm:p-14 text-center bg-gradient-to-b from-[#00d2ff]/10 via-black/40 to-black/80 shadow-2xl relative overflow-hidden">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight max-w-3xl mx-auto leading-tight">
             ¿No estás seguro de cuál plan es el adecuado para tu negocio?
           </h2>
@@ -748,7 +750,7 @@ export const PricingPage: React.FC = () => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="liquid-glass rounded-3xl p-6 sm:p-8 border border-white/20 max-w-lg w-full shadow-2xl relative"
+              className="liquid-glass rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl relative"
             >
               <button
                 type="button"
