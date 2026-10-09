@@ -1,8 +1,8 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { LazyMotion, domAnimation, MotionConfig } from 'motion/react';
 import { MainLayout } from './layouts/MainLayout';
 import { LegalLayout } from './layouts/LegalLayout';
-import { HomePage } from './pages/HomePage'; // Archived full homepage view
+import { HomePage } from './pages/HomePage';
 import { PricingPage } from './pages/PricingPage';
 import { SolutionsPage } from './pages/SolutionsPage';
 import { DemoPage } from './pages/DemoPage';
@@ -29,15 +29,24 @@ function App() {
           <Routes>
             <Route element={<MainLayout />}>
               <Route path="/" element={<HomePage />} />
-              <Route path="/home" element={<HomePage />} />
+              
+              {/* Canonical Redirects */}
+              <Route path="/home" element={<Navigate to="/" replace />} />
+              <Route path="/servicios" element={<Navigate to="/soluciones" replace />} />
+              <Route path="/demostracion" element={<Navigate to="/demo" replace />} />
+              <Route path="/proximamente" element={<Navigate to="/coming-soon" replace />} />
+
+              {/* Main Commercial Pages */}
               <Route path="/soluciones" element={<SolutionsPage />} />
               <Route path="/planes" element={<PricingPage />} />
               <Route path="/demo" element={<DemoPage />} />
-              <Route path="/demostracion" element={<DemoPage />} />
-              <Route path="/servicios" element={<SolutionsPage />} />
+
+              {/* Service Pages */}
               <Route path="/servicios/desarrollo-web" element={<WebDevelopmentPage />} />
               <Route path="/servicios/sistemas-a-medida" element={<CustomSystemsPage />} />
               <Route path="/servicios/automatizacion" element={<AutomationPage />} />
+              
+              {/* Informational Pages */}
               <Route path="/como-trabajamos" element={<ProcessPage />} />
               <Route path="/nosotros" element={<AboutPage />} />
               <Route path="/contacto" element={<ContactPage />} />
@@ -45,7 +54,6 @@ function App() {
               
               {/* Future Modules Coming Soon Routes */}
               <Route path="/coming-soon" element={<ComingSoonPage />} />
-              <Route path="/proximamente" element={<ComingSoonPage />} />
               <Route path="/crm" element={<ComingSoonPage moduleKey="crm" />} />
               <Route path="/ia" element={<ComingSoonPage moduleKey="ia" />} />
               <Route path="/herramientas" element={<ComingSoonPage moduleKey="herramientas" />} />

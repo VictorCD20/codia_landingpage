@@ -1,4 +1,26 @@
 {
+  "redirects": [
+    {
+      "source": "/home",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/demostracion",
+      "destination": "/demo",
+      "permanent": true
+    },
+    {
+      "source": "/servicios",
+      "destination": "/soluciones",
+      "permanent": true
+    },
+    {
+      "source": "/proximamente",
+      "destination": "/coming-soon",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/(.*)",
