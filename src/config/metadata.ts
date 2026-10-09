@@ -7,14 +7,16 @@ export const defaultSEO: PageMetadata = {
   canonical: siteConfig.domain,
   keywords: [
     'CODIA',
-    'desarrollo de software',
+    'soluciones digitales',
+    'desarrollo de software para negocios',
+    'software pymes',
     'sitios web profesionales',
     'catálogos digitales',
     'sistemas internos',
+    'punto de venta pos',
     'automatización de procesos',
     'paneles administrativos',
-    'soluciones digitales',
-    'desarrollo web pymes'
+    'soluciones digitales para negocios con más orden'
   ],
   robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
   openGraph: {
@@ -40,29 +42,58 @@ export const defaultSEO: PageMetadata = {
       'es-MX': siteConfig.domain,
       'es': siteConfig.domain
     }
-  },
-  verification: {
-    google: 'google-site-verification-codia-placeholder',
-    bing: 'bing-site-verification-codia-placeholder'
   }
 };
 
 export const pageMetadataMap: Record<string, PageMetadata> = {
   '/': {
     ...defaultSEO,
-    title: 'CODIA | Soluciones Digitales y Desarrollo de Software a Medida',
-    description: 'Soluciones digitales para negocios que quieren crecer. Creamos páginas web profesionales, catálogos digitales, sistemas internos y automatización de procesos.',
+    title: 'CODIA | Soluciones Digitales para Negocios con Más Orden',
+    description: 'Soluciones digitales para negocios con más orden. Creamos páginas web profesionales, catálogos digitales, sistemas internos a medida y automatizaciones para PyMEs.',
     canonical: `${siteConfig.domain}`,
     breadcrumbs: [
       { name: 'Inicio', url: `${siteConfig.domain}` }
     ],
     jsonLdType: 'Organization'
   },
+  '/soluciones': {
+    ...defaultSEO,
+    title: 'Soluciones Digitales para Negocios | Catálogo de Software | CODIA',
+    description: 'Conoce nuestras soluciones digitales diseñadas para ordenar tu operación y multiplicar tus ventas: presencia web, catálogos, sistemas POS y automatizaciones a medida.',
+    canonical: `${siteConfig.domain}soluciones`,
+    breadcrumbs: [
+      { name: 'Inicio', url: `${siteConfig.domain}` },
+      { name: 'Soluciones', url: `${siteConfig.domain}soluciones` }
+    ],
+    jsonLdType: 'Service'
+  },
+  '/planes': {
+    ...defaultSEO,
+    title: 'Planes y Precios Transparentes | Soluciones Digitales | CODIA',
+    description: 'Conoce nuestros planes de software y desarrollo digital para negocios. Software 100% de tu propiedad, sin rentas mensuales forzosas ni costos ocultos.',
+    canonical: `${siteConfig.domain}planes`,
+    breadcrumbs: [
+      { name: 'Inicio', url: `${siteConfig.domain}` },
+      { name: 'Planes', url: `${siteConfig.domain}planes` }
+    ],
+    jsonLdType: 'Service'
+  },
+  '/demo': {
+    ...defaultSEO,
+    title: 'Demostración en Vivo de Software para Negocios | CODIA',
+    description: 'Solicita un recorrido guiado 1 a 1 de nuestras soluciones digitales. Conoce el software en acción adaptado al giro comercial de tu negocio.',
+    canonical: `${siteConfig.domain}demo`,
+    breadcrumbs: [
+      { name: 'Inicio', url: `${siteConfig.domain}` },
+      { name: 'Demostración', url: `${siteConfig.domain}demo` }
+    ],
+    jsonLdType: 'Service'
+  },
   '/servicios': {
     ...defaultSEO,
     title: 'Servicios de Desarrollo Web y Sistemas | CODIA',
     description: 'Catálogo de servicios tecnológicos de CODIA: desarrollo de páginas web corporativas, catálogos digitales interactivos, software a medida y automatizaciones.',
-    canonical: `${siteConfig.domain}servicios`,
+    canonical: `${siteConfig.domain}soluciones`,
     breadcrumbs: [
       { name: 'Inicio', url: `${siteConfig.domain}` },
       { name: 'Servicios', url: `${siteConfig.domain}servicios` }
@@ -186,8 +217,9 @@ export const pageMetadataMap: Record<string, PageMetadata> = {
   '/coming-soon': {
     ...defaultSEO,
     title: 'Próximamente | Ecosistema CODIA',
-    description: 'Estamos haciendo cambios en nuestro sitio web para ofrecerte una mejor experiencia.',
+    description: 'Estamos trabajando en nuevas herramientas y módulos para optimizar la operación de tu negocio.',
     canonical: `${siteConfig.domain}coming-soon`,
+    robots: 'noindex, follow',
     breadcrumbs: [
       { name: 'Inicio', url: `${siteConfig.domain}` },
       { name: 'Próximamente', url: `${siteConfig.domain}coming-soon` }
@@ -197,11 +229,12 @@ export const pageMetadataMap: Record<string, PageMetadata> = {
   '/proximamente': {
     ...defaultSEO,
     title: 'Próximamente | Ecosistema CODIA',
-    description: 'Estamos haciendo cambios en nuestro sitio web para ofrecerte una mejor experiencia.',
-    canonical: `${siteConfig.domain}proximamente`,
+    description: 'Estamos trabajando en nuevas herramientas y módulos para optimizar la operación de tu negocio.',
+    canonical: `${siteConfig.domain}coming-soon`,
+    robots: 'noindex, follow',
     breadcrumbs: [
       { name: 'Inicio', url: `${siteConfig.domain}` },
-      { name: 'Próximamente', url: `${siteConfig.domain}proximamente` }
+      { name: 'Próximamente', url: `${siteConfig.domain}coming-soon` }
     ],
     jsonLdType: 'WebSite'
   },
@@ -210,6 +243,7 @@ export const pageMetadataMap: Record<string, PageMetadata> = {
     title: 'CRM de Negocios | Próximamente | CODIA',
     description: 'Gestión inteligente de prospectos y ventas. CODIA CRM está siendo desarrollado para agilizar el pipeline comercial de pymes.',
     canonical: `${siteConfig.domain}crm`,
+    robots: 'noindex, follow',
     breadcrumbs: [
       { name: 'Inicio', url: `${siteConfig.domain}` },
       { name: 'CRM', url: `${siteConfig.domain}crm` }
@@ -221,6 +255,7 @@ export const pageMetadataMap: Record<string, PageMetadata> = {
     title: 'Inteligencia Artificial | Próximamente | CODIA',
     description: 'Modelos y agentes de IA diseñados para potenciar empresas. Explora el desarrollo de la suite de inteligencia artificial de CODIA.',
     canonical: `${siteConfig.domain}ia`,
+    robots: 'noindex, follow',
     breadcrumbs: [
       { name: 'Inicio', url: `${siteConfig.domain}` },
       { name: 'Inteligencia Artificial', url: `${siteConfig.domain}ia` }
@@ -232,6 +267,7 @@ export const pageMetadataMap: Record<string, PageMetadata> = {
     title: 'Herramientas Digitales | Próximamente | CODIA',
     description: 'Suite de utilidades interactivas para análisis de ROI y madurez tecnológica de tu empresa.',
     canonical: `${siteConfig.domain}herramientas`,
+    robots: 'noindex, follow',
     breadcrumbs: [
       { name: 'Inicio', url: `${siteConfig.domain}` },
       { name: 'Herramientas', url: `${siteConfig.domain}herramientas` }
@@ -243,6 +279,7 @@ export const pageMetadataMap: Record<string, PageMetadata> = {
     title: 'Comunidad CODIA | Próximamente | CODIA',
     description: 'Una red estratégica para conectar fundadores y líderes impulsando la transformación digital.',
     canonical: `${siteConfig.domain}comunidad`,
+    robots: 'noindex, follow',
     breadcrumbs: [
       { name: 'Inicio', url: `${siteConfig.domain}` },
       { name: 'Comunidad', url: `${siteConfig.domain}comunidad` }
@@ -254,6 +291,7 @@ export const pageMetadataMap: Record<string, PageMetadata> = {
     title: 'Dashboard Ejecutivo | Próximamente | CODIA',
     description: 'Panel de control analítico para supervisar métricas operativas y de negocio en tiempo real.',
     canonical: `${siteConfig.domain}dashboard`,
+    robots: 'noindex, follow',
     breadcrumbs: [
       { name: 'Inicio', url: `${siteConfig.domain}` },
       { name: 'Dashboard', url: `${siteConfig.domain}dashboard` }
@@ -265,6 +303,7 @@ export const pageMetadataMap: Record<string, PageMetadata> = {
     title: 'Recursos Exclusivos | Próximamente | CODIA',
     description: 'Descarga plantillas, e-books y guías de automatización diseñadas para líderes de negocio.',
     canonical: `${siteConfig.domain}recursos`,
+    robots: 'noindex, follow',
     breadcrumbs: [
       { name: 'Inicio', url: `${siteConfig.domain}` },
       { name: 'Recursos', url: `${siteConfig.domain}recursos` }

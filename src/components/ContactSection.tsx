@@ -73,9 +73,9 @@ export const ContactSection: React.FC = () => {
         {/* Contact Info */}
         <div className="flex-1">
           <div>
-            <h2 id="contact-heading" className="hero-heading font-black uppercase text-[clamp(2.0rem,6vw,50px)] leading-none mb-6">
+            <h1 id="contact-heading" className="hero-heading font-black uppercase text-[clamp(2.0rem,6vw,50px)] leading-none mb-6">
               Solicita un diagnóstico para tu negocio
-            </h2>
+            </h1>
             <p className="text-[#D7E2EA] font-light leading-relaxed mb-10 text-lg opacity-80 max-w-xl">
               Cuéntanos qué necesitas y te ayudamos a definir si tu negocio requiere una página web, catálogo digital, sistema interno o automatización.
             </p>
