@@ -58,7 +58,7 @@ const teamMembers = [
 export const TeamSection: React.FC = () => {
   return (
     <section id="equipo" className="relative z-20 pt-20 pb-40 px-6 max-w-6xl mx-auto">
-      <div className="mb-20 flex flex-col items-center">
+      <div className="liquid-glass liquid-glass-clear rounded-3xl px-6 py-8 sm:px-12 sm:py-10 max-w-4xl mx-auto mb-20 flex flex-col items-center">
         <SectionEyebrow label="Conoce al Equipo" tag="Talento" />
         <h2 className="mt-5 text-4xl md:text-6xl font-semibold tracking-tight text-center heading-gradient" style={{ filter: 'url(#c3-noise)' }}>
           Nuestros Portafolios
@@ -79,7 +79,7 @@ export const TeamSection: React.FC = () => {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: i * 0.15 }}
               whileHover={{ y: -8 }}
-              className="flex flex-col relative w-full liquid-glass rounded-[32px] p-8 border border-white/10 shadow-xl group transition-all duration-300"
+              className="flex flex-col relative w-full surface-card rounded-[32px] p-8 border border-white/10 shadow-xl group transition-all duration-300"
             >
               {/* Soft glow background on card hover */}
               <div className="absolute inset-0 bg-radial from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-[32px]" />

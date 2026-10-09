@@ -38,7 +38,7 @@ const steps = [
 export const ProcessSection: React.FC = () => {
   return (
     <section id="proceso" className="max-w-6xl mx-auto px-6 py-20 md:py-28 relative z-10">
-      <div className="mb-16 flex flex-col items-center text-center">
+      <div className="liquid-glass liquid-glass-clear rounded-3xl px-6 py-8 sm:px-12 sm:py-10 max-w-4xl mx-auto mb-16 flex flex-col items-center text-center">
         <SectionEyebrow label="Metodología" tag="Paso a paso" />
         <h2 className="mt-5 text-4xl md:text-6xl font-semibold tracking-tight heading-gradient" style={{ filter: 'url(#c3-noise)' }}>
           Así trabajamos tu proyecto
@@ -57,7 +57,7 @@ export const ProcessSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: index * 0.05 }}
-              className="liquid-glass rounded-3xl p-6 sm:p-8 flex flex-col border border-white/10 relative overflow-hidden group min-h-[180px]"
+              className="surface-card rounded-3xl p-6 sm:p-8 flex flex-col border border-white/10 relative overflow-hidden group min-h-[180px]"
             >
               <div className="absolute top-4 right-6 text-5xl font-black text-white/5 select-none transition-transform duration-300 group-hover:scale-110" style={{ color: `${step.color}15` }}>
                 {step.num}

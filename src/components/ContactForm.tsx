@@ -57,7 +57,7 @@ export const ContactForm: React.FC = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="liquid-glass rounded-3xl p-8 md:p-12 border border-white/10 shadow-2xl backdrop-blur-2xl bg-black/40"
+        className="liquid-glass rounded-3xl p-8 md:p-12 shadow-2xl"
       >
         <div className="grid md:grid-cols-2 gap-12 items-center">
           

@@ -63,7 +63,7 @@ export const ServicesPage: React.FC = () => {
     <div className="pt-28 pb-20 max-w-6xl mx-auto px-6 relative z-10">
       
       {/* Header */}
-      <div className="text-center max-w-3xl mx-auto mb-16">
+      <div className="liquid-glass liquid-glass-clear rounded-[28px] px-6 py-10 sm:px-12 sm:py-12 text-center max-w-4xl mx-auto mb-16">
         <SectionEyebrow label="Catálogo Completo" tag="Nuestros Servicios" />
         <h1 className="mt-5 text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight heading-gradient">
           Soluciones Digitales Diseñadas para tu Negocio
@@ -80,7 +80,7 @@ export const ServicesPage: React.FC = () => {
           const isAvailable = svc.badge === 'Disponible';
           return (
             <FadeIn key={svc.id} delay={index * 0.05}>
-              <div className="liquid-glass rounded-3xl p-8 border border-white/10 flex flex-col justify-between h-full group hover:border-white/20 transition-all duration-300">
+              <div className="surface-card rounded-3xl p-8 border border-white/10 flex flex-col justify-between h-full group hover:border-white/20 transition-all duration-300">
                 <div>
                   <div className="flex items-center justify-between mb-6">
                     <div className="p-3 rounded-2xl bg-white/5 border border-white/10" style={{ color: svc.color }}>

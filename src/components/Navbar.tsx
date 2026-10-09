@@ -21,9 +21,11 @@ export const Navbar: React.FC = () => {
 
   return (
     <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-      isScrolled 
-        ? 'bg-[#0c0c0c]/80 backdrop-blur-md border-b border-white/10 shadow-lg' 
-        : 'bg-transparent'
+      isOpen
+        ? 'bg-[#0c0c0c]/95 backdrop-blur-xl'
+        : isScrolled
+          ? 'bg-[#0c0c0c]/80 backdrop-blur-md border-b border-white/10 shadow-lg'
+          : 'bg-transparent'
     }`} role="banner">
       <m.nav 
         initial={{ opacity: 0, y: -10 }}

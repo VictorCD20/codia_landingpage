@@ -10,6 +10,7 @@ export const DemoPage: React.FC = () => {
     <div className="pt-24 md:pt-32 pb-24 text-white">
       {/* Hero Eyebrow for Dedicated Demo Page */}
       <section className="max-w-6xl mx-auto px-6 text-center mb-12 relative z-10">
+        <div className="liquid-glass liquid-glass-clear rounded-[32px] px-6 py-10 sm:px-12 sm:py-14 max-w-4xl mx-auto">
         <div className="flex justify-center mb-4">
           <SectionEyebrow label="Sesión de Demostración Guiada" tag="Recorrido 1 a 1 en Vivo" />
         </div>
@@ -34,7 +35,12 @@ export const DemoPage: React.FC = () => {
           >
             con ejemplos reales de tu giro comercial.
           </span>
+<<<<<<< HEAD
         </m.h1>
+=======
+        </motion.h1>
+        </div>
+>>>>>>> 0ebba1bca87bc65112bc95af9c3ab0b0b94d668b
       </section>
 
       {/* Main Interactive Video & Booking Center */}
@@ -42,7 +48,7 @@ export const DemoPage: React.FC = () => {
 
       {/* Case Study Proof */}
       <section className="max-w-6xl mx-auto px-6 py-16 relative z-10">
-        <div className="flex flex-col items-center text-center mb-12">
+        <div className="liquid-glass liquid-glass-clear rounded-3xl px-6 py-8 sm:px-12 sm:py-10 max-w-4xl mx-auto flex flex-col items-center text-center mb-12">
           <SectionEyebrow label="Evidencia Operativa" tag="Resultados Reales" />
           <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight">
             Lo que verás implementado en tu negocio

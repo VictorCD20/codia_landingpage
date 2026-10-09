@@ -35,7 +35,7 @@ export const FAQSection: React.FC = () => {
 
   return (
     <section className="max-w-4xl mx-auto px-6 py-20 md:py-28 relative z-10">
-      <div className="mb-16 flex flex-col items-center text-center">
+      <div className="liquid-glass liquid-glass-clear rounded-3xl px-6 py-8 sm:px-12 sm:py-10 mb-16 flex flex-col items-center text-center">
         <SectionEyebrow label="Dudas comunes" tag="FAQ" />
         <h2 className="mt-5 text-4xl md:text-5xl font-semibold tracking-tight heading-gradient" style={{ filter: 'url(#c3-noise)' }}>
           Preguntas frecuentes
@@ -47,8 +47,13 @@ export const FAQSection: React.FC = () => {
           const isOpen = openIndex === index;
           return (
             <div
+<<<<<<< HEAD
               key={faq.q}
               className="liquid-glass rounded-2xl border border-white/10 overflow-hidden transition-all duration-300"
+=======
+              key={index}
+              className="surface-card rounded-2xl border border-white/10 overflow-hidden transition-all duration-300"
+>>>>>>> 0ebba1bca87bc65112bc95af9c3ab0b0b94d668b
             >
               <button
                 onClick={() => toggleFAQ(index)}

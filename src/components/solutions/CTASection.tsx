@@ -20,7 +20,7 @@ export const CTASection: React.FC<CTASectionProps> = ({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-50px' }}
         transition={{ duration: 0.7 }}
-        className="liquid-glass rounded-3xl p-8 sm:p-14 text-center border border-white/15 bg-gradient-to-b from-[#00d2ff]/10 via-black/40 to-black/80 shadow-2xl relative overflow-hidden"
+        className="liquid-glass rounded-3xl p-8 sm:p-14 text-center bg-gradient-to-b from-[#00d2ff]/10 via-black/40 to-black/80 shadow-2xl relative overflow-hidden"
       >
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight max-w-3xl mx-auto leading-tight text-white">
           {title}

@@ -51,16 +51,22 @@ const reasons = [
 export const TrustSection: React.FC = () => {
   return (
     <section className="max-w-6xl mx-auto px-6 py-20 md:py-28 relative z-10">
-      <div className="mb-16 flex flex-col items-center text-center">
+      <div className="liquid-glass liquid-glass-clear rounded-3xl px-6 py-8 sm:px-12 sm:py-10 max-w-4xl mx-auto mb-16 flex flex-col items-center text-center">
         <SectionEyebrow label="Por qué confiar en CODIA" tag="Nuestra Filosofía" />
         <h2 className="mt-5 text-4xl md:text-6xl font-semibold tracking-tight heading-gradient" style={{ filter: 'url(#c3-noise)' }}>
           Por qué confiar en CODIA
         </h2>
+<<<<<<< HEAD
         <div className="mt-4 max-w-2xl px-5 py-3.5 rounded-2xl bg-black/70 border border-white/15 backdrop-blur-md shadow-xl text-center">
           <p className="text-white/90 text-sm md:text-base font-normal leading-relaxed">
             Estamos construyendo CODIA con método. No prometemos soluciones para todo. Escuchamos, diagnosticamos y desarrollamos herramientas digitales prácticas según la necesidad real de cada negocio.
           </p>
         </div>
+=======
+        <p className="mt-6 text-white/80 max-w-2xl text-sm md:text-base leading-relaxed">
+          Estamos construyendo CODIA con método. No prometemos soluciones para todo. Escuchamos, diagnosticamos y desarrollamos herramientas digitales prácticas según la necesidad real de cada negocio.
+        </p>
+>>>>>>> 0ebba1bca87bc65112bc95af9c3ab0b0b94d668b
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -73,14 +79,14 @@ export const TrustSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: index * 0.05 }}
-              className="flex gap-4 items-start p-5 rounded-2xl bg-white/[0.01] border border-white/5"
+              className="liquid-glass liquid-glass-clear flex gap-4 items-start p-5 rounded-2xl"
             >
-              <div className="p-3 rounded-xl bg-white/5 border border-white/10 shrink-0" style={{ color: item.color }}>
+              <div className="p-3 rounded-xl bg-white/10 border border-white/15 shrink-0" style={{ color: item.color }}>
                 <IconComponent className="w-5 h-5" />
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-white mb-2">{item.title}</h3>
-                <p className="text-white/60 text-xs sm:text-sm leading-relaxed">
+                <p className="text-white/80 text-xs sm:text-sm leading-relaxed">
                   {item.desc}
                 </p>
               </div>

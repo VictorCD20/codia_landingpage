@@ -114,25 +114,31 @@ export const DemoCenterSection: React.FC = () => {
 
   return (
     <section id="demo" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 relative z-10">
-      <div className="flex flex-col items-center text-center mb-12 sm:mb-16">
+      <div className="liquid-glass liquid-glass-clear rounded-3xl px-5 py-8 sm:px-12 sm:py-10 max-w-4xl mx-auto flex flex-col items-center text-center mb-12 sm:mb-16">
         <SectionEyebrow label="Demostración en Video & Asistida" tag="Recorrido 1 a 1" />
         <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-[1.1] max-w-3xl">
           Conoce cómo funciona el sistema{' '}
           <span className="text-[#00d2ff]">adaptado a tu negocio.</span>
         </h2>
+<<<<<<< HEAD
         <div className="mt-4 max-w-2xl px-5 py-3.5 rounded-2xl bg-black/70 border border-white/15 backdrop-blur-md shadow-xl text-center">
           <p className="text-white/90 text-sm md:text-base font-normal leading-relaxed">
             Mira el video explicativo de 60 segundos o agenda una sesión de 20 minutos con uno de nuestros desarrolladores para evaluar tu caso específico.
           </p>
         </div>
+=======
+        <p className="mt-4 text-white/80 text-base md:text-lg max-w-2xl font-light">
+          Mira el video explicativo de 60 segundos o agenda una sesión de 20 minutos con uno de nuestros desarrolladores para evaluar tu caso específico.
+        </p>
+>>>>>>> 0ebba1bca87bc65112bc95af9c3ab0b0b94d668b
 
         {/* Sectors Availability Pill Bar */}
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-medium">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-400/40 text-emerald-300 text-xs font-medium">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
             <span>Disponible hoy: Sector Alimenticio (Cafetería / Restaurante)</span>
           </div>
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-medium">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-200 text-xs font-medium">
             <span className="w-2 h-2 rounded-full bg-amber-400"></span>
             <span>Próximamente: Ópticas & Retail</span>
           </div>
@@ -145,7 +151,7 @@ export const DemoCenterSection: React.FC = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-50px' }}
         transition={{ duration: 0.7 }}
-        className="liquid-glass rounded-[28px] md:rounded-[40px] p-5 sm:p-8 md:p-10 border border-white/15 shadow-2xl relative overflow-hidden"
+        className="liquid-glass rounded-[28px] md:rounded-[40px] p-5 sm:p-8 md:p-10 shadow-2xl relative overflow-hidden"
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           
@@ -269,6 +275,9 @@ export const DemoCenterSection: React.FC = () => {
                   muted={isMuted}
                   playsInline
                   controls={false}
+                  controlsList="nodownload noplaybackrate"
+                  disablePictureInPicture
+                  onContextMenu={(e) => e.preventDefault()}
                   onClick={togglePlay}
                   className="w-full h-full object-contain cursor-pointer"
                 />
@@ -343,7 +352,7 @@ export const DemoCenterSection: React.FC = () => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="liquid-glass rounded-3xl p-6 sm:p-8 border border-white/20 max-w-lg w-full shadow-2xl relative"
+              className="liquid-glass rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl relative"
             >
               <button
                 type="button"

@@ -46,7 +46,7 @@ export const DigitalDiagnosisSection: React.FC = () => {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="md:col-span-5 liquid-glass rounded-3xl p-6 sm:p-8 border border-white/10"
+          className="md:col-span-5 liquid-glass rounded-3xl p-6 sm:p-8"
         >
           <h3 className="text-lg font-semibold text-white mb-6">¿Qué evaluamos en tu negocio?</h3>
           

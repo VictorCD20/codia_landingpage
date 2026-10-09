@@ -12,7 +12,7 @@ export const FinalCTA: React.FC = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="liquid-glass relative overflow-hidden rounded-3xl px-8 py-16 md:py-24 text-center border border-white/10 shadow-2xl"
+        className="liquid-glass relative overflow-hidden rounded-3xl px-8 py-16 md:py-24 text-center shadow-2xl"
       >
         <div 
           className="absolute inset-0 z-0 pointer-events-none" 

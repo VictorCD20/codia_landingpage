@@ -16,10 +16,11 @@ export const SolutionsPage: React.FC = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
-    <div className="pt-24 md:pt-32 pb-24 text-white">
+    <div className="pt-16 md:pt-20 pb-24 text-white">
       
       {/* 01. HERO */}
       <section className="max-w-6xl mx-auto px-6 text-center mb-24 relative z-10">
+        <div className="liquid-glass liquid-glass-clear rounded-[32px] px-6 py-10 sm:px-12 sm:py-14 max-w-4xl mx-auto">
         <div className="flex justify-center mb-4">
           <SectionEyebrow label="Catálogo Comercial de Soluciones" tag="Enfocadas en tu Operación" />
         </div>
@@ -73,12 +74,17 @@ export const SolutionsPage: React.FC = () => {
             <PhoneCall className="w-4 h-4" />
             <span>Agendar una demostración</span>
           </a>
+<<<<<<< HEAD
         </m.div>
+=======
+        </motion.div>
+        </div>
+>>>>>>> 0ebba1bca87bc65112bc95af9c3ab0b0b94d668b
       </section>
 
       {/* 02. PROBLEMAS REALES (DOLORES OPERATIVOS) */}
       <section className="max-w-6xl mx-auto px-6 mb-28 relative z-10">
-        <div className="flex flex-col items-center text-center mb-14">
+        <div className="liquid-glass liquid-glass-clear rounded-3xl px-6 py-8 sm:px-12 sm:py-10 max-w-4xl mx-auto flex flex-col items-center text-center mb-14">
           <SectionEyebrow label="Diagnóstico Operativo" tag="¿Te identificas con esto?" />
           <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight max-w-3xl">
             Los problemas que frenan a los negocios locales
@@ -106,7 +112,7 @@ export const SolutionsPage: React.FC = () => {
 
       {/* 03. NUESTRAS SOLUCIONES DETALLADAS */}
       <section id="catalogo" className="max-w-6xl mx-auto px-6 mb-28 relative z-10">
-        <div className="flex flex-col items-center text-center mb-16">
+        <div className="liquid-glass liquid-glass-clear rounded-3xl px-6 py-8 sm:px-12 sm:py-10 max-w-4xl mx-auto flex flex-col items-center text-center mb-16">
           <SectionEyebrow label="Catálogo Completo" tag="Arquitectura Modular" />
           <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight max-w-3xl">
             Nuestras 5 Soluciones Centrales
@@ -143,7 +149,7 @@ export const SolutionsPage: React.FC = () => {
 
       {/* 04. CÓMO TRABAJAMOS (PROCESO EN 7 PASOS) */}
       <section className="max-w-6xl mx-auto px-6 mb-28 relative z-10">
-        <div className="flex flex-col items-center text-center mb-16">
+        <div className="liquid-glass liquid-glass-clear rounded-3xl px-6 py-8 sm:px-12 sm:py-10 max-w-4xl mx-auto flex flex-col items-center text-center mb-16">
           <SectionEyebrow label="Metodología CODIA" tag="Transparencia Paso a Paso" />
           <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight max-w-3xl">
             Cómo transformamos tu negocio en 7 pasos
@@ -160,7 +166,7 @@ export const SolutionsPage: React.FC = () => {
 
       {/* 05. CASOS DE USO REALES (ANTES VS DESPUÉS) */}
       <section className="max-w-6xl mx-auto px-6 mb-28 relative z-10">
-        <div className="flex flex-col items-center text-center mb-14">
+        <div className="liquid-glass liquid-glass-clear rounded-3xl px-6 py-8 sm:px-12 sm:py-10 max-w-4xl mx-auto flex flex-col items-center text-center mb-14">
           <SectionEyebrow label="Resultados Comprobados" tag="Antes y Después" />
           <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight max-w-3xl">
             Impacto real en la operación diaria
@@ -177,7 +183,7 @@ export const SolutionsPage: React.FC = () => {
 
       {/* 06. ¿POR QUÉ CODIA? (VENTAJAS PARA EL CLIENTE) */}
       <section className="max-w-6xl mx-auto px-6 mb-28 relative z-10">
-        <div className="flex flex-col items-center text-center mb-16">
+        <div className="liquid-glass liquid-glass-clear rounded-3xl px-6 py-8 sm:px-12 sm:py-10 max-w-4xl mx-auto flex flex-col items-center text-center mb-16">
           <SectionEyebrow label="Nuestra Promesa Comercial" tag="Pensado para el Cliente" />
           <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight max-w-3xl">
             ¿Por qué elegir CODIA Software?
@@ -194,7 +200,7 @@ export const SolutionsPage: React.FC = () => {
 
       {/* 07. FAQ ESPECÍFICO DE SOLUCIONES */}
       <section className="max-w-4xl mx-auto px-6 mb-24 relative z-10">
-        <div className="flex flex-col items-center text-center mb-12">
+        <div className="liquid-glass liquid-glass-clear rounded-3xl px-6 py-8 sm:px-12 sm:py-10 max-w-4xl mx-auto flex flex-col items-center text-center mb-12">
           <SectionEyebrow label="Resolución de Dudas" tag="FAQ de Soluciones" />
           <h2 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight">
             Preguntas frecuentes sobre nuestras soluciones
@@ -206,8 +212,13 @@ export const SolutionsPage: React.FC = () => {
             const isOpen = openFaq === idx;
             return (
               <div
+<<<<<<< HEAD
                 key={faq.q}
                 className="liquid-glass rounded-2xl border border-white/10 overflow-hidden transition-all"
+=======
+                key={idx}
+                className="surface-card rounded-2xl border border-white/10 overflow-hidden transition-all"
+>>>>>>> 0ebba1bca87bc65112bc95af9c3ab0b0b94d668b
               >
                 <button
                   onClick={() => setOpenFaq(isOpen ? null : idx)}

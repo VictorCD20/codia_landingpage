@@ -9,7 +9,7 @@ export const ProcessPage: React.FC = () => {
     <div className="pt-28 pb-20 max-w-6xl mx-auto px-6 relative z-10">
       
       {/* Header */}
-      <div className="text-center max-w-3xl mx-auto mb-12">
+      <div className="liquid-glass liquid-glass-clear rounded-[28px] px-6 py-10 sm:px-12 text-center max-w-4xl mx-auto mb-12">
         <SectionEyebrow label="Transparencia & Certeza" tag="Metodología CODIA" />
         <h1 className="mt-5 text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight heading-gradient">
           Cómo Trabajamos Tu Proyecto Paso a Paso

@@ -10,7 +10,7 @@ export const AboutPage: React.FC = () => {
     <div className="pt-28 pb-20 max-w-6xl mx-auto px-6 relative z-10">
       
       {/* Header */}
-      <div className="text-center max-w-3xl mx-auto mb-16">
+      <div className="liquid-glass liquid-glass-clear rounded-[28px] px-6 py-10 sm:px-12 sm:py-12 text-center max-w-4xl mx-auto mb-16">
         <SectionEyebrow label="Conoce CODIA" tag="Sobre Nosotros" />
         <h1 className="mt-5 text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight heading-gradient">
           Desarrollo de Software Transparente & Cercano
@@ -23,7 +23,7 @@ export const AboutPage: React.FC = () => {
       {/* Philosophy Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
         <FadeIn delay={0.1}>
-          <div className="liquid-glass rounded-2xl p-6 border border-white/10 h-full">
+          <div className="surface-card rounded-2xl p-6 border border-white/10 h-full">
             <MessageSquare className="w-7 h-7 text-blue-400 mb-4" />
             <h3 className="text-lg font-semibold text-white mb-2">Atención Directa</h3>
             <p className="text-white/60 text-xs sm:text-sm font-light leading-relaxed">
@@ -32,7 +32,7 @@ export const AboutPage: React.FC = () => {
           </div>
         </FadeIn>
         <FadeIn delay={0.2}>
-          <div className="liquid-glass rounded-2xl p-6 border border-white/10 h-full">
+          <div className="surface-card rounded-2xl p-6 border border-white/10 h-full">
             <Zap className="w-7 h-7 text-emerald-400 mb-4" />
             <h3 className="text-lg font-semibold text-white mb-2">Soluciones Claras</h3>
             <p className="text-white/60 text-xs sm:text-sm font-light leading-relaxed">
@@ -41,7 +41,7 @@ export const AboutPage: React.FC = () => {
           </div>
         </FadeIn>
         <FadeIn delay={0.3}>
-          <div className="liquid-glass rounded-2xl p-6 border border-white/10 h-full">
+          <div className="surface-card rounded-2xl p-6 border border-white/10 h-full">
             <Cpu className="w-7 h-7 text-purple-400 mb-4" />
             <h3 className="text-lg font-semibold text-white mb-2">Código Eficiente</h3>
             <p className="text-white/60 text-xs sm:text-sm font-light leading-relaxed">
@@ -50,7 +50,7 @@ export const AboutPage: React.FC = () => {
           </div>
         </FadeIn>
         <FadeIn delay={0.4}>
-          <div className="liquid-glass rounded-2xl p-6 border border-white/10 h-full">
+          <div className="surface-card rounded-2xl p-6 border border-white/10 h-full">
             <ShieldCheck className="w-7 h-7 text-amber-400 mb-4" />
             <h3 className="text-lg font-semibold text-white mb-2">Garantía de Ajustes</h3>
             <p className="text-white/60 text-xs sm:text-sm font-light leading-relaxed">

@@ -80,7 +80,7 @@ const validationItems = [
 export const ValidationSolutionsSection: React.FC = () => {
   return (
     <section className="max-w-6xl mx-auto px-6 py-20 md:py-28 relative z-10">
-      <div className="mb-16 flex flex-col items-center text-center">
+      <div className="liquid-glass liquid-glass-clear rounded-3xl px-6 py-8 sm:px-12 sm:py-10 max-w-4xl mx-auto mb-16 flex flex-col items-center text-center">
         <SectionEyebrow label="Validación" tag="En Desarrollo" />
         <h2 className="mt-5 text-4xl md:text-6xl font-semibold tracking-tight heading-gradient" style={{ filter: 'url(#c3-noise)' }}>
           Soluciones que estamos validando
@@ -103,7 +103,7 @@ export const ValidationSolutionsSection: React.FC = () => {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: index * 0.05 }}
               whileHover={{ y: -5 }}
-              className="liquid-glass rounded-3xl p-6 sm:p-8 flex flex-col justify-between border border-white/10 group transition-all duration-300 min-h-[190px]"
+              className="surface-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between border border-white/10 group transition-all duration-300 min-h-[190px]"
             >
               <div>
                 <div className="flex items-center gap-3 mb-4">

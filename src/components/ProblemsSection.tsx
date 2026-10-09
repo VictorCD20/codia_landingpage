@@ -41,17 +41,23 @@ const problems = [
 export const ProblemsSection: React.FC = () => {
   return (
     <section id="problemas" className="max-w-6xl mx-auto px-6 py-20 relative z-10">
-      <div className="flex flex-col items-center text-center mb-16">
+      <div className="liquid-glass liquid-glass-clear rounded-3xl px-6 py-8 sm:px-12 sm:py-10 max-w-4xl mx-auto flex flex-col items-center text-center mb-16">
         <SectionEyebrow label="¿Te identificas con esto?" tag="Problemas Reales" />
         <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-[1.1] max-w-3xl">
           Operar un negocio no debería significar{' '}
           <span className="text-[#00d2ff]">vivir en el desorden.</span>
         </h2>
+<<<<<<< HEAD
         <div className="mt-4 max-w-2xl px-5 py-3.5 rounded-2xl bg-black/70 border border-white/15 backdrop-blur-md shadow-xl text-center">
           <p className="text-white/90 text-sm md:text-base font-normal leading-relaxed">
             La mayoría de los negocios no necesitan software genérico y complicado. Necesitan herramientas prácticas que resuelvan su problema específico.
           </p>
         </div>
+=======
+        <p className="mt-4 text-white/80 text-base md:text-lg max-w-2xl font-light">
+          La mayoría de los negocios no necesitan software genérico y complicado. Necesitan herramientas prácticas que resuelvan su problema específico.
+        </p>
+>>>>>>> 0ebba1bca87bc65112bc95af9c3ab0b0b94d668b
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -64,7 +70,7 @@ export const ProblemsSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="liquid-glass rounded-3xl p-6 sm:p-8 border border-white/10 flex flex-col justify-between group hover:border-[#00d2ff]/40 transition-all duration-300"
+              className="surface-card rounded-3xl p-6 sm:p-8 border border-white/10 flex flex-col justify-between group hover:border-[#00d2ff]/40 transition-all duration-300"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -109,7 +115,7 @@ export const ProblemsSection: React.FC = () => {
       <div className="mt-12 text-center">
         <a 
           href="#soluciones"
-          className="inline-flex items-center gap-2 text-sm text-[#00d2ff] hover:text-[#A4F4FD] transition-colors group"
+          className="inline-flex items-center gap-2 text-sm text-[#00d2ff] hover:text-[#A4F4FD] transition-all group px-5 py-2.5 rounded-full border border-[#00d2ff]/30 bg-[#00d2ff]/10 backdrop-blur-md hover:bg-[#00d2ff]/15 hover:border-[#00d2ff]/50"
         >
           <span>Conoce cómo estructuramos estas soluciones</span>
           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
