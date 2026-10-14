@@ -33,22 +33,32 @@ export const GOOGLE_SHEETS_SCRIPT_URL =
   import.meta.env.VITE_GOOGLE_SHEETS_URL || 
   'https://script.google.com/macros/s/AKfycbw_0gV0-h6SZceJ65CW9uucl27kb6-dqMNS8Cc2k60gtl01UhYAB0uLt1Tvgva56zYx/exec';
 
-/**
- * Universal direct sync to Google Sheets database.
- * Supports Google Apps Script e.parameter via URLSearchParams & mode: no-cors.
- */
-export async function saveLeadToGoogleSheets(payload: {
+export interface GoogleSheetsLeadPayload {
   nombre: string;
   negocio?: string;
   correo?: string;
   telefono: string;
   solucion?: string;
   mensaje?: string;
+  giro?: string;
+  tamano_equipo?: string;
+  control_actual?: string;
+  dolor_principal?: string;
+  meta?: string;
+  modulos_sugeridos?: string;
+  horario_preferido?: string;
+  notas?: string;
   consentimiento?: ConsentAuditRecord;
   aviso_privacidad?: string;
   consentimiento_marketing?: string;
   source?: string;
-}): Promise<boolean> {
+}
+
+/**
+ * Universal direct sync to Google Sheets database.
+ * Supports Google Apps Script e.parameter via URLSearchParams & mode: no-cors.
+ */
+export async function saveLeadToGoogleSheets(payload: GoogleSheetsLeadPayload): Promise<boolean> {
   try {
     const isPrivacyAccepted = payload.consentimiento ? payload.consentimiento.privacyAccepted : (payload.aviso_privacidad === 'Aceptado' || Boolean(payload.aviso_privacidad));
     const isMarketingAccepted = payload.consentimiento ? payload.consentimiento.marketingConsent : (payload.consentimiento_marketing === 'Aceptado');
@@ -63,6 +73,14 @@ export async function saveLeadToGoogleSheets(payload: {
     formData.append('telefono', payload.telefono || '');
     formData.append('solucion', payload.solucion || '');
     formData.append('mensaje', payload.mensaje || '');
+    formData.append('giro', payload.giro || '');
+    formData.append('tamano_equipo', payload.tamano_equipo || '');
+    formData.append('control_actual', payload.control_actual || '');
+    formData.append('dolor_principal', payload.dolor_principal || '');
+    formData.append('meta', payload.meta || '');
+    formData.append('modulos_sugeridos', payload.modulos_sugeridos || '');
+    formData.append('horario_preferido', payload.horario_preferido || '');
+    formData.append('notas', payload.notas || '');
     formData.append('aviso_privacidad', isPrivacyAccepted ? 'Aceptado' : 'No aceptado');
     formData.append('consentimiento_marketing', isMarketingAccepted ? 'Aceptado' : 'No aceptado');
     formData.append('consent_version', consentVersion);
@@ -79,7 +97,7 @@ export async function saveLeadToGoogleSheets(payload: {
       body: formData.toString(),
     });
 
-    console.log('[Google Sheets]: Lead successfully dispatched to database with consent audit.');
+    console.log('[Google Sheets]: Lead successfully dispatched to database with consent audit and detailed attributes.');
     return true;
   } catch (err) {
     console.warn('[Google Sheets Sync Warning]:', err);

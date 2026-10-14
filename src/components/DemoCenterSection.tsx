@@ -85,6 +85,11 @@ export const DemoCenterSection: React.FC = () => {
         telefono: bookingData.whatsapp,
         solucion: `Demostración: ${bookingData.industry}`,
         mensaje: messageText,
+        giro: bookingData.industry,
+        tamano_equipo: bookingData.teamSize,
+        meta: bookingData.mainGoal,
+        horario_preferido: bookingData.preferredTime,
+        source: 'demostraciones',
         aviso_privacidad: 'Aceptado el ' + new Date().toISOString(),
         consentimiento_marketing: marketingAccepted ? 'Aceptado' : 'No aceptado'
       });

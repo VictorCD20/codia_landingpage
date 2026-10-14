@@ -14,7 +14,9 @@ import {
   CheckCircle2,
   Clock,
   ShieldCheck,
-  AlertCircle
+  AlertCircle,
+  Download,
+  FileText
 } from 'lucide-react';
 import { telemetry } from '../tracking/tracker';
 import { saveLeadToGoogleSheets } from '../services/contactService';
@@ -118,6 +120,161 @@ export const DigitalDiagnosis: React.FC = () => {
 
   const recommendation = calculateRecommendation();
 
+  const handleDownloadReport = () => {
+    telemetry.trackCTAClick('Assessment_Download_Report', JSON.stringify({ industry: formData.industry, plan: recommendation.plan }));
+    const dateFormatted = new Date().toLocaleDateString('es-MX', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+    const folio = `COD-DIAG-${Date.now().toString().slice(-6)}`;
+
+    const reportHtml = `<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Diagnóstico Digital CODIA — ${formData.name || 'Empresa'}</title>
+  <style>
+    @page { size: letter; margin: 12mm; }
+    * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+    body { color: #0f172a; background: #ffffff; margin: 0; padding: 24px; font-size: 13px; line-height: 1.5; }
+    .no-print-bar { background: #091020; color: #ffffff; padding: 12px 20px; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    .print-btn { background: #00d2ff; color: #091020; border: none; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer; font-size: 13px; }
+    .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #00d2ff; padding-bottom: 16px; margin-bottom: 20px; }
+    .brand-title { font-size: 26px; font-weight: 900; color: #091020; letter-spacing: -0.5px; }
+    .brand-title span { color: #0284c7; }
+    .brand-sub { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: #64748b; font-weight: 700; margin-top: 2px; }
+    .meta-box { text-align: right; font-size: 11px; color: #64748b; }
+    .folio-tag { display: inline-block; background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; font-weight: 700; padding: 3px 8px; border-radius: 4px; margin-top: 4px; font-size: 11px; }
+    .section-title { font-size: 13px; font-weight: 800; text-transform: uppercase; color: #0284c7; letter-spacing: 0.5px; margin: 20px 0 10px; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; }
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 12px; }
+    .card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 14px; }
+    .card-label { font-size: 10px; text-transform: uppercase; color: #64748b; font-weight: 700; margin-bottom: 2px; }
+    .card-value { font-size: 13px; font-weight: 600; color: #0f172a; }
+    .rec-box { background: linear-gradient(135deg, #f0fdfa, #f8fafc); border: 1.5px solid #00d2ff; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+    .rec-title { font-size: 16px; font-weight: 800; color: #0f172a; margin-bottom: 6px; }
+    .rec-desc { font-size: 12px; color: #334155; line-height: 1.6; margin-bottom: 12px; }
+    .modules-title { font-size: 11px; font-weight: 700; text-transform: uppercase; color: #0f172a; margin-bottom: 6px; }
+    .modules-container { display: flex; flex-wrap: wrap; gap: 6px; }
+    .module-item { background: #0284c7; color: #ffffff; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+    .steps-list { margin: 10px 0; padding-left: 20px; font-size: 12px; color: #334155; }
+    .steps-list li { margin-bottom: 6px; }
+    .footer { margin-top: 30px; padding-top: 14px; border-top: 1px solid #e2e8f0; font-size: 11px; color: #64748b; display: flex; justify-content: space-between; align-items: center; }
+    @media print {
+      .no-print-bar { display: none !important; }
+      body { padding: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="no-print-bar">
+    <span>💡 <strong>Tip:</strong> Puedes guardar este diagnóstico en PDF seleccionando <em>"Guardar como PDF"</em> en tu navegador.</span>
+    <button class="print-btn" onclick="window.print()">Imprimir / Guardar en PDF</button>
+  </div>
+
+  <div class="header">
+    <div>
+      <div class="brand-title">CODIA<span>.</span></div>
+      <div class="brand-sub">Sistemas Operativos & Automatización de Negocios</div>
+    </div>
+    <div class="meta-box">
+      <div>Fecha de emisión: <strong>${dateFormatted}</strong></div>
+      <div>Folio Oficial: <span class="folio-tag">${folio}</span></div>
+    </div>
+  </div>
+
+  <div class="section-title">1. Datos del Negocio Evaluado</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-label">Negocio / Solicitante</div>
+      <div class="card-value">${formData.name || 'Sin especificar'}</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Giro Operativo</div>
+      <div class="card-value">${formData.industry || 'General'}</div>
+    </div>
+    <div class="card">
+      <div class="card-label">WhatsApp / Teléfono</div>
+      <div class="card-value">${formData.whatsapp || 'Sin registrar'}</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Correo Electrónico</div>
+      <div class="card-value">${formData.email || 'Sin registrar'}</div>
+    </div>
+  </div>
+
+  <div class="section-title">2. Radiografía Operativa Actual</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-label">Tamaño del Equipo</div>
+      <div class="card-value">${formData.teamSize || 'No especificado'}</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Sistema o Control Actual</div>
+      <div class="card-value">${formData.currentControl || 'Libretas o Excel'}</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Dolor o Fricción Principal</div>
+      <div class="card-value" style="color: #b91c1c;">${formData.mainPain || 'Descontrol operativo'}</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Meta Primordial</div>
+      <div class="card-value" style="color: #15803d;">${formData.goal || 'Automatizar procesos'}</div>
+    </div>
+  </div>
+
+  <div class="section-title">3. Dictamen & Recomendación Tecnológica CODIA</div>
+  <div class="rec-box">
+    <div class="rec-title">Solución Recomendada: ${recommendation.plan}</div>
+    <div class="rec-desc">${recommendation.summary}</div>
+    <div class="modules-title">Módulos de Software Prioritarios:</div>
+    <div class="modules-container">
+      ${recommendation.priorityModules.map(m => `<span class="module-item">✓ ${m}</span>`).join('')}
+    </div>
+  </div>
+
+  ${formData.notes ? `
+    <div class="card" style="margin-bottom: 14px;">
+      <div class="card-label">Notas Adicionales del Solicitante</div>
+      <div class="card-value" style="font-weight: 400; font-style: italic;">"${formData.notes}"</div>
+    </div>
+  ` : ''}
+
+  <div class="section-title">4. Próximos Pasos para Implementación</div>
+  <ol class="steps-list">
+    <li><strong>Sesión de Demostración Guiada (20 min):</strong> Presentación en vivo del sistema con productos y dinámica real de tu giro.</li>
+    <li><strong>Afinación de Flujos de Cobro & Catálogo:</strong> Validación de impresoras térmicas, lectores de barras y pasarela de cobro.</li>
+    <li><strong>Puesta en Marcha & Capacitación:</strong> Migración de inventarios y entrenamiento de tu equipo para operar desde el primer día.</li>
+  </ol>
+
+  <div class="footer">
+    <div><strong>CODIA Software</strong> • www.codiasoftware.online • contacto@codiasoftware.online</div>
+    <div>Soporte WhatsApp: +52 771 432 4668</div>
+  </div>
+</body>
+</html>`;
+
+    const printWin = window.open('', '_blank');
+    if (printWin) {
+      printWin.document.write(reportHtml);
+      printWin.document.close();
+      printWin.focus();
+      setTimeout(() => {
+        printWin.print();
+      }, 500);
+    } else {
+      const blob = new Blob([reportHtml], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Diagnostico_Digital_CODIA_${(formData.name || 'Negocio').replace(/\s+/g, '_')}.html`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormError('');
@@ -133,14 +290,22 @@ export const DigitalDiagnosis: React.FC = () => {
     const messageText = `[DIAGNÓSTICO DIGITAL]\nGiro: ${formData.industry}\nEquipo: ${formData.teamSize}\nControl actual: ${formData.currentControl}\nDolor principal: ${formData.mainPain}\nMeta: ${formData.goal}\nRecomendación: ${recommendation.plan}\nNotas: ${formData.notes}`;
 
     try {
-      // 1. Direct Save to Google Sheets Database
+      // 1. Direct Save to Google Sheets Database with all granular diagnostic attributes
       await saveLeadToGoogleSheets({
         nombre: formData.name,
-        negocio: formData.industry,
+        negocio: formData.name,
         correo: formData.email,
         telefono: formData.whatsapp,
         solucion: recommendation.plan,
         mensaje: messageText,
+        giro: formData.industry,
+        tamano_equipo: formData.teamSize,
+        control_actual: formData.currentControl,
+        dolor_principal: formData.mainPain,
+        meta: formData.goal,
+        modulos_sugeridos: recommendation.priorityModules.join(', '),
+        notas: formData.notes,
+        source: 'diagnostico-digital',
         aviso_privacidad: 'Aceptado el ' + new Date().toISOString(),
         consentimiento_marketing: marketingAccepted ? 'Aceptado' : 'No aceptado'
       });
@@ -463,15 +628,26 @@ export const DigitalDiagnosis: React.FC = () => {
                     </h4>
                   </div>
 
-                  {/* Digitalization Level Gauge */}
-                  <div className="flex items-center gap-3 bg-white/5 border border-white/10 px-4 py-2.5 rounded-2xl shrink-0">
-                    <div className="text-right">
-                      <div className="text-[10px] uppercase font-semibold text-white/40 tracking-wider">Nivel Digital Actual</div>
-                      <div className="text-white text-xs font-medium">Oportunidad de mejora</div>
+                  {/* Digitalization Level Gauge & Download Report */}
+                  <div className="flex flex-wrap items-center gap-3">
+                    <div className="flex items-center gap-3 bg-white/5 border border-white/10 px-4 py-2.5 rounded-2xl shrink-0">
+                      <div className="text-right">
+                        <div className="text-[10px] uppercase font-semibold text-white/40 tracking-wider">Nivel Digital Actual</div>
+                        <div className="text-white text-xs font-medium">Oportunidad de mejora</div>
+                      </div>
+                      <div className="text-2xl font-black text-[#00d2ff]">
+                        38%
+                      </div>
                     </div>
-                    <div className="text-2xl font-black text-[#00d2ff]">
-                      38%
-                    </div>
+                    <button
+                      type="button"
+                      onClick={handleDownloadReport}
+                      className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-2xl bg-white/10 hover:bg-white/15 text-white text-xs font-medium border border-white/15 transition-all cursor-pointer shadow-sm hover:border-[#00d2ff]/40"
+                      title="Descargar diagnóstico en PDF"
+                    >
+                      <Download className="w-4 h-4 text-[#00d2ff]" />
+                      <span>Descargar PDF</span>
+                    </button>
                   </div>
                 </div>
 
@@ -738,6 +914,15 @@ export const DigitalDiagnosis: React.FC = () => {
                       <span>Confirmar Demostración por WhatsApp</span>
                       <Sparkles className="w-4 h-4" />
                     </a>
+
+                    <button
+                      type="button"
+                      onClick={handleDownloadReport}
+                      className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/15 text-white font-medium text-sm border border-white/20 transition-all shadow-md active:scale-[0.98] cursor-pointer"
+                    >
+                      <FileText className="w-4 h-4 text-[#00d2ff]" />
+                      <span>Descargar Diagnóstico (PDF)</span>
+                    </button>
 
                     <button
                       type="button"

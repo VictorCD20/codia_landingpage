@@ -150,6 +150,9 @@ export const PricingPage: React.FC = () => {
         telefono: formData.whatsapp,
         solucion: `${modalState.type === 'consultoria' ? 'Consultoría' : 'Lista Espera'}: ${modalState.industryTitle}`,
         mensaje: messageText,
+        giro: modalState.industryTitle,
+        notas: formData.notes,
+        source: `precios-${modalState.type}`,
         aviso_privacidad: 'Aceptado el ' + new Date().toISOString(),
         consentimiento_marketing: marketingAccepted ? 'Aceptado' : 'No aceptado'
       });
