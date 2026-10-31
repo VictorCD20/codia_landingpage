@@ -114,6 +114,26 @@ export const masterSolutions: SolutionItem[] = [
     ctaHref: '/#diagnostico',
     ctaType: 'assessment',
   },
+  {
+    id: 'apps-moviles',
+    title: 'Aplicaciones Móviles & PWA',
+    category: 'Movilidad & Acceso Digital',
+    tagline: 'Tu operación en el bolsillo de tu equipo y tus clientes, sin tiendas de apps obligatorias.',
+    problem: 'Mi equipo trabaja desde varios lugares y no tiene una app propia; dependo de soluciones genéricas que no se adaptan a mis procesos ni a mi marca.',
+    benefit: 'Diseñamos y desarrollamos aplicaciones web progresivas (PWA) o apps nativas para iOS y Android adaptadas a tu operación, accesibles desde cualquier dispositivo sin rentas mensuales de plataforma.',
+    deliverables: [
+      'App iOS y Android o PWA instalable desde el navegador',
+      'Funcionalidad offline con sincronización automática',
+      'Notificaciones push para pedidos, citas o alertas operativas',
+      'Panel de administración y actualizaciones remotas',
+      'Código fuente y app 100% de tu propiedad',
+    ],
+    sectors: 'Servicios a Domicilio, Logística, Franquicias y Equipos de Campo',
+    iconName: 'Smartphone',
+    ctaText: 'Solicitar una propuesta',
+    ctaHref: '/#diagnostico',
+    ctaType: 'proposal',
+  },
 ];
 
 export const painPointsMatrix = [

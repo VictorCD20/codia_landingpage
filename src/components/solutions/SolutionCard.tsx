@@ -1,6 +1,6 @@
 import React from 'react';
 import { m } from 'motion/react';
-import { Check, ArrowRight, Globe, LayoutGrid, Zap, Database, SearchCheck, Sparkles } from 'lucide-react';
+import { Check, ArrowRight, Globe, LayoutGrid, Zap, Database, SearchCheck, Sparkles, Smartphone } from 'lucide-react';
 import { telemetry } from '../../tracking/tracker';
 
 interface SolutionCardProps {
@@ -26,6 +26,7 @@ const iconComponents: Record<string, React.FC<{ className?: string }>> = {
   Zap,
   Database,
   SearchCheck,
+  Smartphone,
 };
 
 export const SolutionCard: React.FC<SolutionCardProps> = ({
