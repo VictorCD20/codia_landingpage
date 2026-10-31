@@ -17,6 +17,8 @@ import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 import { TermsPage } from './pages/TermsPage';
 import { CookiePolicyPage } from './pages/CookiePolicyPage';
 import { ComingSoonPage } from './pages/ComingSoonPage';
+import { ProductsPage } from './pages/ProductsPage';
+import { ProductDetailPage } from './pages/ProductDetailPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { CookieBanner } from './components/CookieBanner';
 import { Analytics } from '@vercel/analytics/react';
@@ -38,6 +40,8 @@ function App() {
 
               {/* Main Commercial Pages */}
               <Route path="/soluciones" element={<SolutionsPage />} />
+              <Route path="/productos" element={<ProductsPage />} />
+              <Route path="/productos/:slug" element={<ProductDetailPage />} />
               <Route path="/planes" element={<PricingPage />} />
               <Route path="/demo" element={<DemoPage />} />
 

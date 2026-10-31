@@ -4,7 +4,7 @@ import { SectionEyebrow, AppleButton } from '../components/Primitives';
 import { masterSolutions, painPointsMatrix } from '../data/solutions';
 import { solutionsFaqs } from '../data/faqs';
 import { ProblemCard } from '../components/solutions/ProblemCard';
-import { SolutionCard } from '../components/solutions/SolutionCard';
+import { ServiceGridCard } from '../components/solutions/ServiceGridCard';
 import { ProcessTimeline } from '../components/solutions/ProcessTimeline';
 import { CaseStudyCard } from '../components/solutions/CaseStudyCard';
 import { BenefitCard } from '../components/solutions/BenefitCard';
@@ -111,7 +111,7 @@ export const SolutionsPage: React.FC = () => {
         <div className="liquid-glass liquid-glass-clear rounded-3xl px-6 py-8 sm:px-12 sm:py-10 max-w-4xl mx-auto flex flex-col items-center text-center mb-16">
           <SectionEyebrow label="Catálogo Completo" tag="Arquitectura Modular" />
           <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight max-w-3xl">
-            Nuestras 5 Soluciones Centrales
+            Nuestras Soluciones Profesionales
           </h2>
           <div className="mt-4 max-w-2xl px-5 py-3.5 rounded-2xl bg-black/70 border border-white/15 backdrop-blur-md shadow-xl text-center">
             <p className="text-white/90 text-sm md:text-base font-normal leading-relaxed">
@@ -120,24 +120,20 @@ export const SolutionsPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="space-y-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {masterSolutions.map((sol, index) => (
-            <SolutionCard
+            <ServiceGridCard
               key={sol.id}
               id={sol.id}
               title={sol.title}
               category={sol.category}
               tagline={sol.tagline}
-              problem={sol.problem}
-              benefit={sol.benefit}
               deliverables={sol.deliverables}
-              sectors={sol.sectors}
               iconName={sol.iconName}
               ctaText={sol.ctaText}
               ctaHref={sol.ctaHref}
               ctaType={sol.ctaType}
               index={index}
-              featured={sol.id === 'pos-inventario'}
             />
           ))}
         </div>

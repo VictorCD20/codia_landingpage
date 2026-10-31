@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { m, AnimatePresence } from 'motion/react';
 import { SectionEyebrow } from './Primitives';
 import { Sparkles, CheckCircle2, Clock, Calendar, ShieldCheck, Send, Volume2, VolumeX, Play, Pause, Maximize2 } from 'lucide-react';
@@ -7,7 +7,19 @@ import { telemetry } from '../tracking/tracker';
 import { saveLeadToGoogleSheets } from '../services/contactService';
 import videoCafeteria from '../../assets/videos/video_cafeteria.mp4';
 
+const productContextMap: Record<string, { mainGoal: string; industry: string; label: string }> = {
+  'pos-cafeteria': { mainGoal: 'Punto de Venta / Caja', industry: 'Alimentos & Bebidas', label: 'POS Cafetería & Restaurante' },
+  'ecommerce': { mainGoal: 'Sitio Web & Ventas Online', industry: 'Comercio & Retail', label: 'Tienda en Línea & Catálogo Digital' },
+  'delivery': { mainGoal: 'Automatización WhatsApp', industry: 'Alimentos & Bebidas', label: 'Sistema de Delivery & Pedidos' },
+  'crm': { mainGoal: 'Software a la Medida', industry: 'Servicios Profesionales', label: 'CRM Inteligente' },
+  'gimnasios': { mainGoal: 'Software a la Medida', industry: 'Servicios Profesionales', label: 'Gestión de Gimnasios & Estudios' },
+};
+
 export const DemoCenterSection: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const productoParam = searchParams.get('producto') ?? '';
+  const productCtx = productoParam ? productContextMap[productoParam] : null;
+
   const [showBookingModal, setShowBookingModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isBooked, setIsBooked] = useState(false);
@@ -23,11 +35,21 @@ export const DemoCenterSection: React.FC = () => {
     name: '',
     email: '',
     whatsapp: '',
-    industry: 'Alimentos & Bebidas',
-    mainGoal: 'Inventario & Stock',
+    industry: productCtx?.industry ?? 'Alimentos & Bebidas',
+    mainGoal: productCtx?.mainGoal ?? 'Inventario & Stock',
     teamSize: '2 a 5 personas',
     preferredTime: 'Por la mañana (10:00 - 13:00)',
   });
+
+  useEffect(() => {
+    if (productCtx) {
+      setBookingData((prev) => ({
+        ...prev,
+        industry: productCtx.industry,
+        mainGoal: productCtx.mainGoal,
+      }));
+    }
+  }, [productoParam]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const toggleSound = (e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
@@ -83,13 +105,13 @@ export const DemoCenterSection: React.FC = () => {
         negocio: bookingData.businessName,
         correo: bookingData.email || `${bookingData.businessName.replace(/\s+/g, '').toLowerCase()}@demo.request`,
         telefono: bookingData.whatsapp,
-        solucion: `Demostración: ${bookingData.industry}`,
+        solucion: productCtx ? `Demostración: ${productCtx.label}` : `Demostración: ${bookingData.industry}`,
         mensaje: messageText,
         giro: bookingData.industry,
         tamano_equipo: bookingData.teamSize,
         meta: bookingData.mainGoal,
         horario_preferido: bookingData.preferredTime,
-        source: 'demostraciones',
+        source: productoParam ? 'productos-demo' : 'demostraciones',
         aviso_privacidad: 'Aceptado el ' + new Date().toISOString(),
         consentimiento_marketing: marketingAccepted ? 'Aceptado' : 'No aceptado'
       });
@@ -368,7 +390,7 @@ export const DemoCenterSection: React.FC = () => {
                 <form onSubmit={handleBookingSubmit} method="post" className="space-y-4 text-left">
                   <div className="text-left mb-6">
                     <span className="text-xs uppercase tracking-widest text-[#00d2ff] font-semibold">
-                      Demostración Personalizada
+                      {productCtx ? `Demostración para: ${productCtx.label}` : 'Demostración Personalizada'}
                     </span>
                     <h3 className="text-white text-xl sm:text-2xl font-bold mt-1">
                       Agenda tu sesión guiada de 20 min
