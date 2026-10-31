@@ -3,6 +3,7 @@ import type { NavLink } from '../types/navigation';
 export const navLinks: NavLink[] = [
   { label: 'Inicio', path: '/' },
   { label: 'Soluciones', path: '/soluciones' },
+  { label: 'Productos', path: '/productos' },
   { label: 'Planes', path: '/planes' },
   { label: 'Demostración', path: '/demo' },
   { label: 'Nosotros', path: '/nosotros' },

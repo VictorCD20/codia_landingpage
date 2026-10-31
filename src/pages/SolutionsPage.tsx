@@ -4,7 +4,7 @@ import { SectionEyebrow, AppleButton } from '../components/Primitives';
 import { masterSolutions, painPointsMatrix } from '../data/solutions';
 import { solutionsFaqs } from '../data/faqs';
 import { ProblemCard } from '../components/solutions/ProblemCard';
-import { SolutionCard } from '../components/solutions/SolutionCard';
+import { ServiceGridCard } from '../components/solutions/ServiceGridCard';
 import { ProcessTimeline } from '../components/solutions/ProcessTimeline';
 import { CaseStudyCard } from '../components/solutions/CaseStudyCard';
 import { BenefitCard } from '../components/solutions/BenefitCard';
@@ -120,24 +120,20 @@ export const SolutionsPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="space-y-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {masterSolutions.map((sol, index) => (
-            <SolutionCard
+            <ServiceGridCard
               key={sol.id}
               id={sol.id}
               title={sol.title}
               category={sol.category}
               tagline={sol.tagline}
-              problem={sol.problem}
-              benefit={sol.benefit}
               deliverables={sol.deliverables}
-              sectors={sol.sectors}
               iconName={sol.iconName}
               ctaText={sol.ctaText}
               ctaHref={sol.ctaHref}
               ctaType={sol.ctaType}
               index={index}
-              featured={sol.id === 'pos-inventario'}
             />
           ))}
         </div>
