@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { m, AnimatePresence } from 'motion/react';
 import { SectionEyebrow, AppleButton } from '../components/Primitives';
-import { masterSolutions, painPointsMatrix } from '../data/solutions';
+import { masterSolutions } from '../data/solutions';
 import { solutionsFaqs } from '../data/faqs';
-import { ProblemCard } from '../components/solutions/ProblemCard';
 import { ServiceGridCard } from '../components/solutions/ServiceGridCard';
 import { ProcessTimeline } from '../components/solutions/ProcessTimeline';
-import { CaseStudyCard } from '../components/solutions/CaseStudyCard';
-import { BenefitCard } from '../components/solutions/BenefitCard';
 import { CTASection } from '../components/solutions/CTASection';
 import { Plus, Minus, PhoneCall } from 'lucide-react';
 import { telemetry } from '../tracking/tracker';
@@ -22,7 +19,7 @@ export const SolutionsPage: React.FC = () => {
       <section className="max-w-6xl mx-auto px-6 text-center mb-24 relative z-10">
         <div className="liquid-glass liquid-glass-clear rounded-[32px] px-6 py-10 sm:px-12 sm:py-14 max-w-4xl mx-auto">
         <div className="flex justify-center mb-4">
-          <SectionEyebrow label="Catálogo Comercial de Soluciones" tag="Enfocadas en tu Operación" />
+          <SectionEyebrow label="Servicios CODIA" tag="Para negocios locales" />
         </div>
 
         <m.h1
@@ -78,44 +75,16 @@ export const SolutionsPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 02. PROBLEMAS REALES (DOLORES OPERATIVOS) */}
-      <section className="max-w-6xl mx-auto px-6 mb-28 relative z-10">
-        <div className="liquid-glass liquid-glass-clear rounded-3xl px-6 py-8 sm:px-12 sm:py-10 max-w-4xl mx-auto flex flex-col items-center text-center mb-14">
-          <SectionEyebrow label="Diagnóstico Operativo" tag="¿Te identificas con esto?" />
-          <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight max-w-3xl">
-            Los problemas que frenan a los negocios locales
-          </h2>
-          <div className="mt-4 max-w-2xl px-5 py-3.5 rounded-2xl bg-black/70 border border-white/15 backdrop-blur-md shadow-xl text-center">
-            <p className="text-white/90 text-sm md:text-base font-normal leading-relaxed">
-              Cada solución que construimos nace para erradicar una fricción diaria concreta de tu personal o administración.
-            </p>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {painPointsMatrix.map((item, index) => (
-            <ProblemCard
-              key={item.pain}
-              pain={item.pain}
-              consequence={item.consequence}
-              solution={item.solution}
-              iconName={item.icon}
-              index={index}
-            />
-          ))}
-        </div>
-      </section>
-
       {/* 03. NUESTRAS SOLUCIONES DETALLADAS */}
       <section id="catalogo" className="max-w-6xl mx-auto px-6 mb-28 relative z-10">
-        <div className="liquid-glass liquid-glass-clear rounded-3xl px-6 py-8 sm:px-12 sm:py-10 max-w-4xl mx-auto flex flex-col items-center text-center mb-16">
-          <SectionEyebrow label="Catálogo Completo" tag="Arquitectura Modular" />
+        <div className="liquid-glass liquid-glass-clear rounded-3xl px-6 py-8 sm:px-12 sm:py-10 max-w-4xl mx-auto flex flex-col items-center text-center mb-12">
+          <SectionEyebrow label="Servicios" tag="Elige lo que necesitas hoy" />
           <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight max-w-3xl">
-            Nuestras Soluciones Profesionales
+            Lo que hacemos por tu negocio
           </h2>
           <div className="mt-4 max-w-2xl px-5 py-3.5 rounded-2xl bg-black/70 border border-white/15 backdrop-blur-md shadow-xl text-center">
             <p className="text-white/90 text-sm md:text-base font-normal leading-relaxed">
-              Herramientas modulares de tu propiedad. Elige la que necesitas hoy y escala tu sistema conforme crezcan tus sucursales.
+              Soluciones de tu propiedad, sin rentas obligatorias. Empieza con una y suma más cuando tu negocio crezca.
             </p>
           </div>
         </div>
@@ -154,40 +123,6 @@ export const SolutionsPage: React.FC = () => {
         </div>
 
         <ProcessTimeline />
-      </section>
-
-      {/* 05. CASOS DE USO REALES (ANTES VS DESPUÉS) */}
-      <section className="max-w-6xl mx-auto px-6 mb-28 relative z-10">
-        <div className="liquid-glass liquid-glass-clear rounded-3xl px-6 py-8 sm:px-12 sm:py-10 max-w-4xl mx-auto flex flex-col items-center text-center mb-14">
-          <SectionEyebrow label="Resultados Comprobados" tag="Antes y Después" />
-          <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight max-w-3xl">
-            Impacto real en la operación diaria
-          </h2>
-          <div className="mt-4 max-w-2xl px-5 py-3.5 rounded-2xl bg-black/70 border border-white/15 backdrop-blur-md shadow-xl text-center">
-            <p className="text-white/90 text-sm md:text-base font-normal leading-relaxed">
-              Así es como un sistema adaptado a los procesos del negocio elimina cuellos de botella y ahorra horas de trabajo cada semana.
-            </p>
-          </div>
-        </div>
-
-        <CaseStudyCard />
-      </section>
-
-      {/* 06. ¿POR QUÉ CODIA? (VENTAJAS PARA EL CLIENTE) */}
-      <section className="max-w-6xl mx-auto px-6 mb-28 relative z-10">
-        <div className="liquid-glass liquid-glass-clear rounded-3xl px-6 py-8 sm:px-12 sm:py-10 max-w-4xl mx-auto flex flex-col items-center text-center mb-16">
-          <SectionEyebrow label="Nuestra Promesa Comercial" tag="Pensado para el Cliente" />
-          <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight max-w-3xl">
-            ¿Por qué elegir CODIA Software?
-          </h2>
-          <div className="mt-4 max-w-2xl px-5 py-3.5 rounded-2xl bg-black/70 border border-white/15 backdrop-blur-md shadow-xl text-center">
-            <p className="text-white/90 text-sm md:text-base font-normal leading-relaxed">
-              No somos revendedores de licencias. Somos desarrolladores locales comprometidos con la soberanía digital de tu negocio.
-            </p>
-          </div>
-        </div>
-
-        <BenefitCard />
       </section>
 
       {/* 07. FAQ ESPECÍFICO DE SOLUCIONES */}
