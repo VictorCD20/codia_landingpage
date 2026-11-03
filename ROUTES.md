@@ -1,22 +1,37 @@
-# Mapa de Rutas Definitivas — CODIA
+# Mapa de Rutas — CODIA
 
-| Ruta | Componente / Página | Layout | Descripción |
+Fuente de verdad: `src/App.tsx`. Si agregas una ruta, actualiza también:
+`vercel.json` (lista de rewrites, o devolverá 404), `public/sitemap.xml` y `src/config/metadata.ts`.
+
+| Ruta | Página | Layout | Notas |
 | :--- | :--- | :--- | :--- |
-| `/` | `HomePage` | `MainLayout` | Página principal comercial. Hero, soluciones, diagnóstico y proyectos destacados. |
-| `/servicios` | `ServicesPage` | `MainLayout` | Catálogo completo de servicios disponibles y en validación. |
-| `/servicios/desarrollo-web` | `WebDevelopmentPage` | `MainLayout` | Página detallada de Sitios Web Profesionales & Landing Pages. |
-| `/servicios/sistemas-a-medida` | `CustomSystemsPage` | `MainLayout` | Página detallada de Sistemas Internos & Control Operativo. |
-| `/servicios/automatizacion` | `AutomationPage` | `MainLayout` | Página detallada de Automatización de Procesos y Notificaciones. |
-| `/como-trabajamos` | `ProcessPage` | `MainLayout` | Explicación del proceso de trabajo en 6 pasos y metodología. |
-| `/nosotros` | `AboutPage` | `MainLayout` | Filosofía de trabajo y portafolios del equipo de desarrollo. |
-| `/contacto` | `ContactPage` | `MainLayout` | Formulario oficial de solicitud de diagnóstico y datos de contacto. |
-| `/gracias` | `ThankYouPage` | `MainLayout` | Página de confirmación tras el envío exitoso de un formulario. |
-| `/aviso-de-privacidad` | `PrivacyPolicyPage` | `LegalLayout` | Documento de tratamiento de datos personales y derechos ARCO. |
-| `*` | `NotFoundPage` | `MainLayout` | Página de error 404 personalizada con enlace de retorno. |
+| `/` | `HomePage` | `MainLayout` | Hero, diagnóstico digital, demo y planes resumidos. |
+| `/soluciones` | `SolutionsPage` | `MainLayout` | Catálogo de soluciones. |
+| `/productos` | `ProductsPage` | `MainLayout` | Catálogo de productos. |
+| `/productos/:slug` | `ProductDetailPage` | `MainLayout` | Slugs: `pos-cafeteria`, `ecommerce`, `delivery`, `crm`, `gimnasios` (`src/data/products.ts`). Slug inválido muestra `NotFoundPage`. |
+| `/planes` | `PricingPage` | `MainLayout` | Planes Arranque, Operativo y Completo. |
+| `/demo` | `DemoPage` | `MainLayout` | Solicitud de demostración. |
+| `/servicios/desarrollo-web` | `WebDevelopmentPage` | `MainLayout` | |
+| `/servicios/sistemas-a-medida` | `CustomSystemsPage` | `MainLayout` | |
+| `/servicios/automatizacion` | `AutomationPage` | `MainLayout` | |
+| `/como-trabajamos` | `ProcessPage` | `MainLayout` | |
+| `/nosotros` | `AboutPage` | `MainLayout` | |
+| `/contacto` | `ContactPage` | `MainLayout` | Formulario; envía a `/api/send-contact-email`. |
+| `/gracias` | `ThankYouPage` | `MainLayout` | `noindex`. |
+| `/coming-soon`, `/crm`, `/ia`, `/herramientas`, `/comunidad`, `/dashboard`, `/recursos` | `ComingSoonPage` | `MainLayout` | Módulos futuros, `noindex`. |
+| `/aviso-de-privacidad` | `PrivacyPolicyPage` | `LegalLayout` | |
+| `/terminos-y-condiciones` | `TermsPage` | `LegalLayout` | |
+| `/politica-de-cookies` | `CookiePolicyPage` | `LegalLayout` | |
+| `*` | `NotFoundPage` | `MainLayout` | En producción, Vercel responde HTTP 404 con `public/404.html`. |
 
----
+## Redirecciones (301/308, `vercel.json` y `App.tsx`)
 
-## Expansiones Futuras de Ruta (Documentadas)
+`/home` → `/` · `/servicios` → `/soluciones` · `/demostracion` → `/demo` · `/proximamente` → `/coming-soon`
 
-- `/servicios/paneles-administrativos` (Próxima iteración cuando exista contenido dedicado)
-- `/servicios/catalogos-digitales` (Próxima iteración cuando exista contenido dedicado)
+## API
+
+`POST /api/send-contact-email` (Resend). CORS limitado a codiasoftware.online y localhost:5173.
+
+## Código sin uso (sin ruta ni importadores)
+
+`ServicesPage.tsx`, `ContactForm.tsx`, `HeroSection.tsx`.

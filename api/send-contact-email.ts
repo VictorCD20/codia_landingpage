@@ -5,9 +5,28 @@ function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
+function escapeHtml(value: unknown): string {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+const ALLOWED_ORIGINS = [
+  'https://codiasoftware.online',
+  'https://www.codiasoftware.online',
+  'http://localhost:5173',
+];
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Enable CORS
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  const origin = req.headers.origin;
+  if (origin && ALLOWED_ORIGINS.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Vary', 'Origin');
+  }
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader(
     'Access-Control-Allow-Headers',
@@ -56,6 +75,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ error: 'El formato de correo no es válido' });
     }
 
+    const safeName = escapeHtml(name);
+    const safeBusiness = escapeHtml(business_name || 'No especificado');
+    const safeEmail = escapeHtml(email);
+    const safePhone = escapeHtml(phone || 'No especificado');
+    const safeSolution = escapeHtml(solution_type || 'No especificado');
+    const safeMessage = escapeHtml(message);
+
     // Initialize Resend safely inside the handler
     const resend = new Resend(resendApiKey);
 
@@ -71,7 +97,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             <span style="font-size: 24px; font-weight: 800; letter-spacing: 0.1em; color: #1a202c;">CODIA</span>
             <p style="margin: 4px 0 0 0; font-size: 12px; color: #a0aec0; text-transform: uppercase; letter-spacing: 0.15em;">Soluciones Digitales</p>
           </div>
-          <h2 style="color: #2b6cb0; font-size: 20px; font-weight: 700; margin-top: 0; margin-bottom: 16px;">¡Hola, ${name}!</h2>
+          <h2 style="color: #2b6cb0; font-size: 20px; font-weight: 700; margin-top: 0; margin-bottom: 16px;">¡Hola, ${safeName}!</h2>
           <p style="margin-top: 0; margin-bottom: 16px; font-size: 15px;">Gracias por ponerte en contacto con nosotros.</p>
           <p style="margin-top: 0; margin-bottom: 16px; font-size: 15px;">Hemos recibido con éxito los detalles de tu solicitud. Nuestro equipo de ingeniería y diseño los revisará con detalle para ver qué tipo de solución o automatización se adapta mejor a tu negocio.</p>
           <p style="margin-top: 0; margin-bottom: 24px; font-size: 15px;">Nos comunicaremos contigo a la brevedad para agendar una llamada rápida, entender a fondo tus necesidades y prepararte una propuesta clara.</p>
@@ -96,7 +122,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(500).json({
         success: false,
         step: "user_email",
-        error: userEmailResult.error
+        error: 'No se pudo enviar el correo de confirmación'
       });
     }
 
@@ -113,29 +139,29 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
             <tr>
               <td style="padding: 8px 0; font-weight: 600; color: #718096; width: 140px; font-size: 14px; border-bottom: 1px solid #edf2f7;">Nombre:</td>
-              <td style="padding: 8px 0; color: #1a202c; font-size: 14px; border-bottom: 1px solid #edf2f7;">${name}</td>
+              <td style="padding: 8px 0; color: #1a202c; font-size: 14px; border-bottom: 1px solid #edf2f7;">${safeName}</td>
             </tr>
             <tr>
               <td style="padding: 8px 0; font-weight: 600; color: #718096; font-size: 14px; border-bottom: 1px solid #edf2f7;">Negocio:</td>
-              <td style="padding: 8px 0; color: #1a202c; font-size: 14px; border-bottom: 1px solid #edf2f7;">${business_name || 'No especificado'}</td>
+              <td style="padding: 8px 0; color: #1a202c; font-size: 14px; border-bottom: 1px solid #edf2f7;">${safeBusiness}</td>
             </tr>
             <tr>
               <td style="padding: 8px 0; font-weight: 600; color: #718096; font-size: 14px; border-bottom: 1px solid #edf2f7;">Correo:</td>
-              <td style="padding: 8px 0; color: #1a202c; font-size: 14px; border-bottom: 1px solid #edf2f7;"><a href="mailto:${email}" style="color: #3182ce; text-decoration: none;">${email}</a></td>
+              <td style="padding: 8px 0; color: #1a202c; font-size: 14px; border-bottom: 1px solid #edf2f7;"><a href="mailto:${safeEmail}" style="color: #3182ce; text-decoration: none;">${safeEmail}</a></td>
             </tr>
             <tr>
               <td style="padding: 8px 0; font-weight: 600; color: #718096; font-size: 14px; border-bottom: 1px solid #edf2f7;">WhatsApp:</td>
-              <td style="padding: 8px 0; color: #1a202c; font-size: 14px; border-bottom: 1px solid #edf2f7;">${phone || 'No especificado'}</td>
+              <td style="padding: 8px 0; color: #1a202c; font-size: 14px; border-bottom: 1px solid #edf2f7;">${safePhone}</td>
             </tr>
             <tr>
               <td style="padding: 8px 0; font-weight: 600; color: #718096; font-size: 14px; border-bottom: 1px solid #edf2f7;">Solución solicitada:</td>
-              <td style="padding: 8px 0; color: #1a202c; font-size: 14px; border-bottom: 1px solid #edf2f7;">${solution_type || 'No especificado'}</td>
+              <td style="padding: 8px 0; color: #1a202c; font-size: 14px; border-bottom: 1px solid #edf2f7;">${safeSolution}</td>
             </tr>
           </table>
 
           <div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 16px;">
             <p style="margin: 0 0 8px 0; font-weight: 600; color: #718096; font-size: 14px;">Mensaje o requerimientos:</p>
-            <p style="margin: 0; font-size: 14px; color: #2d3748; white-space: pre-wrap; line-height: 1.5;">${message}</p>
+            <p style="margin: 0; font-size: 14px; color: #2d3748; white-space: pre-wrap; line-height: 1.5;">${safeMessage}</p>
           </div>
 
           <div style="text-align: center; margin-top: 24px; font-size: 12px; color: #a0aec0;">
@@ -150,7 +176,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(500).json({
         success: false,
         step: "internal_email",
-        error: internalEmailResult.error
+        error: 'No se pudo enviar la notificación interna'
       });
     }
 
@@ -163,8 +189,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     console.error('Error fatal enviando correo:', error);
     return res.status(500).json({
       success: false,
-      error: 'Error al enviar el correo a través de Resend',
-      details: error?.message || 'Error desconocido'
+      error: 'Error al enviar el correo'
     });
   }
 }

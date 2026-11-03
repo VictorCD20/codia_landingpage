@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useParams, Navigate, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
+import { NotFoundPage } from './NotFoundPage';
 import { m } from 'motion/react';
 import { Check, X, ArrowLeft, Calendar, Mail, Sparkles, LayoutGrid, ShoppingBag, Truck, Users, Dumbbell } from 'lucide-react';
 import { SectionEyebrow } from '../components/Primitives';
@@ -39,7 +40,7 @@ export const ProductDetailPage: React.FC = () => {
   const [notifySubmitted, setNotifySubmitted] = useState(false);
   const [notifyLoading, setNotifyLoading] = useState(false);
 
-  if (!product) return <Navigate to="/404" replace />;
+  if (!product) return <NotFoundPage />;
 
   const IconComponent = iconMap[product.iconName] || LayoutGrid;
   const status = statusConfig[product.status];

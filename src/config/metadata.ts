@@ -1,5 +1,6 @@
 import type { PageMetadata } from '../types/seo';
 import { siteConfig } from './site';
+import { products } from '../data/products';
 
 export const defaultSEO: PageMetadata = {
   title: siteConfig.fullTitle,
@@ -315,7 +316,38 @@ export const pageMetadataMap: Record<string, PageMetadata> = {
 export function getMetadataForRoute(pathname: string): PageMetadata {
   const meta = pageMetadataMap[pathname];
   if (meta) return meta;
-  
+
+  if (pathname === '/productos') {
+    return {
+      ...defaultSEO,
+      title: 'Productos de Software para Negocios | CODIA',
+      description: 'Catálogo de productos CODIA: punto de venta, e-commerce, delivery, CRM y más soluciones listas para tu negocio.',
+      canonical: `${siteConfig.domain}productos`,
+      breadcrumbs: [
+        { name: 'Inicio', url: `${siteConfig.domain}` },
+        { name: 'Productos', url: `${siteConfig.domain}productos` }
+      ],
+      jsonLdType: 'Service'
+    };
+  }
+
+  const productMatch = pathname.match(/^\/productos\/([^/]+)\/?$/);
+  const product = productMatch ? products.find((p) => p.slug === productMatch[1]) : undefined;
+  if (product) {
+    return {
+      ...defaultSEO,
+      title: `${product.name} | Productos CODIA`,
+      description: `${product.tagline} ${product.problem}`,
+      canonical: `${siteConfig.domain}productos/${product.slug}`,
+      breadcrumbs: [
+        { name: 'Inicio', url: `${siteConfig.domain}` },
+        { name: 'Productos', url: `${siteConfig.domain}productos` },
+        { name: product.name, url: `${siteConfig.domain}productos/${product.slug}` }
+      ],
+      jsonLdType: 'Service'
+    };
+  }
+
   return {
     ...defaultSEO,
     title: 'Página no encontrada | CODIA',

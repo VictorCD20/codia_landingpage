@@ -27,7 +27,7 @@
       "destination": "/api/$1"
     },
     {
-      "source": "/(.*)",
+      "source": "/:path(soluciones|productos|planes|demo|como-trabajamos|nosotros|contacto|gracias|coming-soon|crm|ia|herramientas|comunidad|dashboard|recursos|aviso-de-privacidad|terminos-y-condiciones|politica-de-cookies|productos/pos-cafeteria|productos/ecommerce|productos/delivery|productos/crm|productos/gimnasios|servicios/desarrollo-web|servicios/sistemas-a-medida|servicios/automatizacion)",
       "destination": "/index.html"
     }
   ]
