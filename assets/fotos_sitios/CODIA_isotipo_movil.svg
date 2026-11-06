@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-label="Isotipo CODIA">
+<defs><radialGradient id="bg" cx="50%" cy="48%" r="75%"><stop offset="0" stop-color="#081528"/><stop offset="1" stop-color="#030917"/></radialGradient><linearGradient id="cyan" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0DD5F4"/><stop offset="1" stop-color="#00B9F4"/></linearGradient></defs>
+<rect width="1024" height="1024" fill="url(#bg)"/>
+<g fill="none" stroke="url(#cyan)" stroke-width="67" stroke-linecap="round" stroke-linejoin="round">
+<path d="M 426 331 L 244 512 L 426 693"/>
+<path d="M 598 331 L 780 512 L 598 693"/>
+</g></svg>
